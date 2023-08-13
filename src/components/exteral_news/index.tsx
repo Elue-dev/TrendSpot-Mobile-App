@@ -59,7 +59,7 @@ export default function ExternalNews() {
             <View>
               <Image
                 source={{ uri: news.urlToImage }}
-                className="h-60 w-80 rounded-lg relative"
+                className="h-60 w-80 rounded-lg relative bg-primaryColorDisabled"
               />
               <View
                 className="absolute top-3 left-2 rounded-lg"

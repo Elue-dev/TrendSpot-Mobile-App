@@ -14,6 +14,9 @@ export type RootStackParamList = {
   NewsDetails: {
     news: string;
   };
+  ExternalNewsDetails: {
+    news: string;
+  };
   Search: undefined;
   Saved: undefined;
   AccountInfo: undefined;

@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
 import { COLORS } from "../common/colors";
 import AuthSequence from "../screens/auth_sequence";
-import NewsDetails from "../screens/news/NewsDetails";
 import SearchScreen from "../screens/search";
 import ManageInterests from "../screens/profile/pages/ManageInterests";
 import ContactSupport from "../screens/profile/pages/ContactSupport";
@@ -19,6 +18,7 @@ import AccountInfo from "../screens/profile/pages/AccountInfo";
 import EditProfile from "../screens/profile/EditProfile";
 import ForgotPassword from "../screens/auth/forgot_password";
 import NewsComments from "../screens/news/NewsComments";
+import ExternalNewsDetails from "../screens/news/ExternalNewsDetails";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -90,8 +90,8 @@ export default function RouteNavigator() {
         }}
       />
       <RootStack.Screen
-        name="NewsDetails"
-        component={NewsDetails}
+        name="ExternalNewsDetails"
+        component={ExternalNewsDetails}
         options={{
           headerShown: false,
           headerTitleAlign: "center",

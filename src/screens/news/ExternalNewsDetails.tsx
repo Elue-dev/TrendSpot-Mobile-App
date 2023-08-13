@@ -23,12 +23,10 @@ interface NewsParams {
   news: ExternalNewsI;
 }
 
-export default function NewsDetails() {
+export default function ExternalNewsDetails() {
   const { news } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
-
-  console.log({ news });
 
   return (
     <ScrollView className="bg-white dark:bg-darkNeutral flex-1">
