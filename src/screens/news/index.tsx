@@ -23,6 +23,8 @@ import Loader from "../../components/loader";
 import { useAuth } from "../../context/auth/AuthContext";
 import { interests } from "../../data/interests";
 import CuateSVG from "../../assets/cuate.svg";
+import Header from "../../components/header";
+import ExternalNews from "../../components/exteral_news";
 
 export default function NewsScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -45,12 +47,6 @@ export default function NewsScreen() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log(user);
-
-  const primaryColorToUse = isDarkMode
-    ? "border-b-primaryColorTheme"
-    : "border-b-primaryColor";
-
   useEffect(() => {
     const filteredNews: News[] = newsData.filter(
       (news) =>
@@ -71,104 +67,15 @@ export default function NewsScreen() {
     toggleOverlay();
   }
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => (
-        <Text
-          className={`${
-            isDarkMode ? "text-gray300" : "text-primaryColorSec"
-          }  font-semibold text-[18px]`}
-        >
-          News
-        </Text>
-      ),
-      // headerLeft: () => (
-      //   <TouchableOpacity className="ml-4" onPress={resetOnboarding}>
-      //     <Feather
-      //       name="refresh-cw"
-      //       size={22}
-      //       color={`${isDarkMode ? COLORS.gray300 : "#666"}`}
-      //     />
-      //   </TouchableOpacity>
-      // ),
-      headerRight: () => (
-        <TouchableOpacity className="mr-2" onPress={toggleBottomSheet}>
-          <MaterialCommunityIcons
-            name="menu-swap-outline"
-            size={28}
-            color={`${isDarkMode ? COLORS.gray300 : "#666"}`}
-          />
-        </TouchableOpacity>
-      ),
-    });
-  }, [isDarkMode]);
-
   if (loading) return <Loader />;
 
   return (
     <SafeAreaView
       className={`flex-1 ${isDarkMode ? "bg-darkNeutral" : "bg-white"} `}
     >
-      <View className="ml-3">
-        <FlatList
-          keyExtractor={(modifiedInterests) => modifiedInterests}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={modifiedInterests}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                setSelectedInterest(item);
-                setSelectedOption("VerfiedAndUnverified");
-              }}
-            >
-              <View
-                className={`mt-4 border-b-4 dark:border-b-2 py-1 px-2 ${
-                  selectedInterest === item
-                    ? primaryColorToUse
-                    : "border-b-grayNeutral"
-                }`}
-              >
-                <Text
-                  className={`text-base text-gray200 ${
-                    selectedInterest === item &&
-                    `${
-                      isDarkMode
-                        ? "text-primaryColorTheme"
-                        : "text-primaryColor"
-                    } font-semibold`
-                  }`}
-                >
-                  {item}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
-      {bottomSheetOpen && (
-        <>
-          <TouchableOpacity onPress={handleBottomSheetActions}>
-            <SharedElement id="overlay" onNode={toggleOverlay}>
-              <View />
-            </SharedElement>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-            onPress={handleBottomSheetActions}
-          />
-        </>
-      )}
-
-      {selectedInterest !== "All" && dataToUse.length === 0 ? (
+      <Header />
+      <ExternalNews />
+      {/* {selectedInterest !== "All" && dataToUse.length === 0 ? (
         <View className="mx-4 mt-4">
           <CuateSVG width={"90%"} height={300} />
           <Text className="pt-8 text-xl text-center text-extraLightGray dark:text-grayNeutral">
@@ -220,17 +127,7 @@ export default function NewsScreen() {
             location=""
           />
         </View>
-      )}
-
-      {bottomSheetOpen && (
-        <BottomSheetComponent
-          selectedInterest={selectedInterest}
-          dataToUse={newsData}
-          setDataToUse={setDataToUse}
-          selectedOption={selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-      )}
+      )} */}
     </SafeAreaView>
   );
 }

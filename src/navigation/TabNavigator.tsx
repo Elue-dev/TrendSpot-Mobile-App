@@ -138,7 +138,7 @@ export default function TabsNavigator() {
         name="News"
         component={NewsScreen}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitleAlign: "center",
           tabBarItemStyle:
             currrRoute === "News"
