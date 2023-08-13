@@ -54,7 +54,7 @@ export default function ExternalNews() {
         renderItem={({ item: news }) => (
           <TouchableOpacity
             className="mr-3"
-            onPress={() => navigation.navigate("NewsDetails", { news })}
+            onPress={() => navigation.navigate("ExternalNewsDetails", { news })}
           >
             <View>
               <Image
