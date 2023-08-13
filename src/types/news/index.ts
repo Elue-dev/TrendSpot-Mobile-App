@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { AlertArgs } from "../alert";
 
-export interface News {
+export interface NewsI {
   id: string;
   title: string;
   image?: string;
@@ -130,4 +130,31 @@ export interface ExternalNewsI {
   urlToImage: string;
   publishedAt: string;
   content: string;
+}
+
+export interface Author {
+  id: string;
+  avatar: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  joinedAt: string;
+}
+
+export interface News {
+  id: string;
+  image: string;
+  title: string;
+  content: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  readTime: number;
+  category: string;
+  authorId: string;
+  author: Author;
+  likes: any[];
+  bookmarks: any[];
+  comments: any[];
 }

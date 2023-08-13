@@ -24,7 +24,7 @@ export default function ExternalNews() {
     });
   };
 
-  const { data, isLoading, refetch } = useQuery<ExternalNewsI[]>(
+  const { data, isLoading, error, refetch } = useQuery<ExternalNewsI[]>(
     [`new`],
     queryFn,
     {
@@ -42,10 +42,17 @@ export default function ExternalNews() {
   //   console.log({ news });
 
   return (
-    <View className="pt-8 mx-3">
-      <Text className="mb-2 text-darkNeutral font-bold text-[17px]">
-        External News
-      </Text>
+    <View className="pt-8 mx-3 border-b border-gray100 dark:border-lightBorder ">
+      <View className="flex-row justify-between items-center mb-3">
+        <Text className="text-darkNeutral dark:text-lightText font-bold text-[17px]">
+          External News
+        </Text>
+        <TouchableOpacity>
+          <Text className="text-darkNeutral dark:text-lightText text-[16px]">
+            See More
+          </Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
         keyExtractor={(news) => news.title}
         horizontal
@@ -65,19 +72,19 @@ export default function ExternalNews() {
                 className="absolute top-3 left-2 rounded-lg"
                 style={{ backgroundColor: "rgba(0,0,0,.7)" }}
               >
-                <Text className="selection:marker:text-white p-2 font-semibold text-sm">
+                <Text className="text-white p-2 font-semibold text-sm">
                   {news.source.name}
                 </Text>
               </View>
               <View
-                className="absolute bottom-[60px] right-2 rounded-lg"
+                className="absolute bottom-[95px] right-2 rounded-lg"
                 style={{ backgroundColor: "rgba(0,0,0,.7)" }}
               >
-                <Text className="selection:marker:text-white p-2 font-semibold text-sm">
+                <Text className="text-white p-2 font-semibold text-sm">
                   {formatTimeAgo(news.publishedAt)}
                 </Text>
               </View>
-              <Text className="w-80 font-semibold text-base mt-2 leading-5 text-darkNeutral dark:text-lightText">
+              <Text className="w-80 mb-10 font-semibold text-base mt-2 leading-5 text-darkNeutral dark:text-lightText">
                 {news.title.slice(0, 70)}...
               </Text>
             </View>

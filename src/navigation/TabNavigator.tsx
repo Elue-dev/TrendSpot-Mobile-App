@@ -19,7 +19,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import NewsScreen from "../screens/news";
-import VerifyScreen from "../screens/verify";
 import SearchScreen from "../screens/search";
 import ProfileScreen from "../screens/profile";
 import { COLORS } from "../common/colors";
@@ -53,15 +52,7 @@ export default function TabsNavigator() {
                 style={styles.tabBarIcon}
               />
             );
-          case "Verify":
-            return (
-              <MaterialCommunityIcons
-                name="newspaper-check"
-                size={size}
-                color={focused ? colorToUse : "#AEAEB2"}
-                style={styles.tabBarIconSec}
-              />
-            );
+
           case "Search":
             return (
               <AntDesign
@@ -142,23 +133,6 @@ export default function TabsNavigator() {
           headerTitleAlign: "center",
           tabBarItemStyle:
             currrRoute === "News"
-              ? {
-                  borderTopWidth: 2,
-                  borderColor: isDarkMode
-                    ? COLORS.primaryColorTheme
-                    : COLORS.primaryColor,
-                }
-              : {},
-        }}
-      />
-      <TabStack.Screen
-        name="Verify"
-        component={VerifyScreen}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          tabBarItemStyle:
-            currrRoute === "Verify"
               ? {
                   borderTopWidth: 2,
                   borderColor: isDarkMode

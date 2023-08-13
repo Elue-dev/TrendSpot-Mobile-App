@@ -17,6 +17,9 @@ export type RootStackParamList = {
   ExternalNewsDetails: {
     news: string;
   };
+  CustomNewsDetails: {
+    news: string;
+  };
   Search: undefined;
   Saved: undefined;
   AccountInfo: undefined;
@@ -34,7 +37,6 @@ export type RootStackParamList = {
 
 export type TabStackParamList = {
   News: undefined;
-  Verify: undefined;
   Search: undefined;
   AddNews: undefined;
   Profile: undefined;

@@ -4,19 +4,29 @@ import { useAuth } from "../../context/auth/AuthContext";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
+import { DEFAULT_AVATAR } from "../../utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 export default function Header() {
+  const navigation = useNavigation<NavigationProp<any>>();
+
   const {
     state: { user },
   } = useAuth();
   const { isDarkMode } = useSheet();
+
+  async function resetOnboarding() {
+    await AsyncStorage.removeItem("userHasOnboarded");
+    navigation.navigate("Onboarding");
+  }
 
   return (
     <View className="flex-row justify-between items-center mx-3 pt-2">
       <View className="flex-row items-center gap-3">
         <View>
           <Image
-            source={{ uri: user?.avatar }}
+            source={{ uri: user?.avatar || DEFAULT_AVATAR }}
             className="h-12 w-12 rounded-full bg-primaryColorLighter"
           />
         </View>
@@ -37,7 +47,10 @@ export default function Header() {
             color={isDarkMode ? "#f9f9f9" : COLORS.dark}
           />
         </TouchableOpacity>
-        <TouchableOpacity className="bg-gray-100 dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center">
+        <TouchableOpacity
+          onPress={resetOnboarding}
+          className="bg-gray-100 dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
+        >
           <Ionicons
             name="ios-settings-outline"
             size={22}

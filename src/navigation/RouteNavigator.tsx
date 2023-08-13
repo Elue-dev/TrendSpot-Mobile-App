@@ -19,6 +19,7 @@ import EditProfile from "../screens/profile/EditProfile";
 import ForgotPassword from "../screens/auth/forgot_password";
 import NewsComments from "../screens/news/NewsComments";
 import ExternalNewsDetails from "../screens/news/ExternalNewsDetails";
+import CustomNewsDetails from "../screens/news/CustomNewsDetails";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -92,6 +93,21 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="ExternalNewsDetails"
         component={ExternalNewsDetails}
+        options={{
+          headerShown: false,
+          headerTitleAlign: "center",
+          headerBackTitleVisible: false,
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? COLORS.grayNeutralTheme
+              : COLORS.grayNeutral,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="CustomNewsDetails"
+        component={CustomNewsDetails}
         options={{
           headerShown: false,
           headerTitleAlign: "center",
