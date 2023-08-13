@@ -1,31 +1,17 @@
-import { useState } from "react";
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import { RoutePropArg, TabStackParamList } from "../types/navigation";
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  FontAwesome,
-  Ionicons,
-  Entypo,
-} from "@expo/vector-icons";
-import {
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import NewsScreen from "../screens/news";
+import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
+import { Platform, StyleSheet } from "react-native";
+import HomeScreen from "../screens/home";
 import SearchScreen from "../screens/search";
 import ProfileScreen from "../screens/profile";
 import { COLORS } from "../common/colors";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
 import { useAuth } from "../context/auth/AuthContext";
 import AddNews from "../screens/add_news";
-// import AddNews from "../screens/add_news";
 
 const TabStack = createBottomTabNavigator<TabStackParamList>();
 
@@ -43,11 +29,11 @@ export default function TabsNavigator() {
     return {
       tabBarIcon: ({ focused, size }) => {
         switch (route.name) {
-          case "News":
+          case "Home":
             return (
               <Ionicons
-                name="newspaper-outline"
-                size={size - 5}
+                name="home-outline"
+                size={size}
                 color={focused ? colorToUse : "#AEAEB2"}
                 style={styles.tabBarIcon}
               />
@@ -60,15 +46,6 @@ export default function TabsNavigator() {
                 size={size}
                 color={focused ? colorToUse : "#AEAEB2"}
                 style={styles.tabBarIcon}
-              />
-            );
-          case "AddNews":
-            return (
-              <Entypo
-                name="add-to-list"
-                size={size + 2}
-                color={focused ? colorToUse : "#AEAEB2"}
-                style={styles.tabBarIconSec}
               />
             );
 
@@ -126,8 +103,8 @@ export default function TabsNavigator() {
       })}
     >
       <TabStack.Screen
-        name="News"
-        component={NewsScreen}
+        name="Home"
+        component={HomeScreen}
         options={{
           headerShown: false,
           headerTitleAlign: "center",

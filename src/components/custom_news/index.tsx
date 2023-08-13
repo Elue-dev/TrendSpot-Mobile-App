@@ -36,7 +36,7 @@ export default function CustomNews() {
 
   if (error)
     return (
-      <View className="mt-44">
+      <View className="mt-28">
         <ServerError refetch={refetch} />
       </View>
     );

@@ -12,7 +12,7 @@ export default function ServerError({ refetch }: { refetch: () => void }) {
       }}
     >
       <Text className="font-bold text-xl text-darkNeutral dark:text-lightText">
-        SOMETHING WENT WRONG ☹️
+        Something Went Wrong ☹️
       </Text>
 
       <TouchableOpacity onPress={refetch}>

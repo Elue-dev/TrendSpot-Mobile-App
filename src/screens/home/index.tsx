@@ -27,7 +27,7 @@ import ExternalNews from "../../components/exteral_news";
 import CustomNews from "../../components/custom_news";
 import { News } from "../../types/news";
 
-export default function NewsScreen() {
+export default function HomeScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [newsData, setNewsData] = useState<any[]>([]);
   const [dataToUse, setDataToUse] = useState<News[]>([]);
