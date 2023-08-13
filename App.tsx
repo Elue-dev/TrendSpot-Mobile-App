@@ -15,6 +15,7 @@ import RouteNavigator from "./src/navigation/RouteNavigator";
 import CustomStatusBar from "./src/components/status_bar";
 import Modal from "./src/components/modal/Modal";
 import Alert from "./src/components/alert/Alert";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -44,23 +45,27 @@ export default function App() {
     []
   );
 
+  const queryClient = new QueryClient();
+
   return (
     <GestureHandlerRootView className="flex-1">
       {fontLoaded ? (
-        <AuthProvider>
-          <BottomSheetProvider>
-            <ModalProvider>
-              <AlertProvider>
-                <NavigationContainer theme={theme}>
-                  <RouteNavigator />
-                  <CustomStatusBar />
-                  <Modal />
-                  <Alert />
-                </NavigationContainer>
-              </AlertProvider>
-            </ModalProvider>
-          </BottomSheetProvider>
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <BottomSheetProvider>
+              <ModalProvider>
+                <AlertProvider>
+                  <NavigationContainer theme={theme}>
+                    <RouteNavigator />
+                    <CustomStatusBar />
+                    <Modal />
+                    <Alert />
+                  </NavigationContainer>
+                </AlertProvider>
+              </ModalProvider>
+            </BottomSheetProvider>
+          </AuthProvider>
+        </QueryClientProvider>
       ) : (
         <View className="pt-20">
           <ActivityIndicator color="#000" size="large" />

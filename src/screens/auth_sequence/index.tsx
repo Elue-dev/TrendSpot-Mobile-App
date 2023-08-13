@@ -115,6 +115,10 @@ export default function AuthSequence() {
         );
       }
     } catch (error: any) {
+      console.log(error);
+
+      console.log(error?.response?.data?.message);
+
       showAlertAndContent({
         type: "error",
         message: error?.response?.data?.message,

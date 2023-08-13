@@ -1,13 +1,11 @@
-import { formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 
-export function formatDate(timestamp: any) {
-  if (timestamp) {
-    const date = new Date(
-      timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
-    );
-    const relativeTime = formatDistanceToNow(date, { addSuffix: true });
-    return relativeTime;
-  } else {
-    return "Just now";
-  }
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return format(date, "MMMM dd, yyyy");
+}
+
+export function formatTimeAgo(dateString: string) {
+  const date = new Date(dateString);
+  return formatDistanceToNow(date, { addSuffix: true });
 }

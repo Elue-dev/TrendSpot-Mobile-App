@@ -40,7 +40,7 @@ export default function CreateAccountStart() {
 
         <View className="pt-14">
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => navigation.navigate("TabStack")}
             className="border border-1 border-lightGray mr-3 rounded-md"
           >
             <View className="flex-row items-center justify-center">

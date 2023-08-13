@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 import { AlertArgs } from "../alert";
-import { Timestamp } from "firebase/firestore";
 
 export interface News {
   id: string;
@@ -9,7 +8,7 @@ export interface News {
   content: string;
   category: string;
   readTime: number;
-  date: Timestamp;
+  date: Date;
   isVerified: boolean;
   upvotes: string[];
   sources: string[];
@@ -25,7 +24,7 @@ export interface SavedNews {
   content: string;
   category: string;
   readTime: number;
-  date: Timestamp;
+  date: Date;
   isVerified: boolean;
   upvotes: number;
   sources: string[];
@@ -99,7 +98,7 @@ export interface StepTwoProps {
 
 export interface Comment {
   id: string;
-  date: any;
+  date: Date;
   updatedAt: string;
   comment: string;
   newsId: string;
@@ -117,4 +116,18 @@ export interface CommentProps {
   inputRef: any;
   setCommentType: Dispatch<SetStateAction<string>>;
   setCommentId: Dispatch<SetStateAction<string>>;
+}
+
+export interface ExternalNewsI {
+  source: {
+    id: string | null;
+    name: string;
+  };
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
 }

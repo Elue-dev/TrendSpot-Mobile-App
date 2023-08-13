@@ -93,7 +93,7 @@ export default function RouteNavigator() {
         name="NewsDetails"
         component={NewsDetails}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerTitleAlign: "center",
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",

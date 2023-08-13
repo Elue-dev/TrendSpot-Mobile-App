@@ -21,11 +21,11 @@ export default function Header() {
           />
         </View>
         <View>
-          <Text className="text-[15px] text-grayNeutralTheme dark:text-lightText">
-            {user?.firstName}
+          <Text className="text-[15px] text-grayNeutralTheme dark:text-lightText mb-1">
+            {user ? user?.firstName : "Hello there 👋"}
           </Text>
           <Text className="font-bold text-darkNeutral dark:text-lightText text-[17px]">
-            Welcome Back!
+            {user ? "Welcome Back!" : "Welcome Guest!"}
           </Text>
         </View>
       </View>
