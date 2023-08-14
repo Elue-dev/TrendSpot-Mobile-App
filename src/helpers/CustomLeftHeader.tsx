@@ -11,7 +11,7 @@ export default function CustomLeftHeader() {
   const { isDarkMode } = useSheet();
 
   return isDarkMode ? (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
+    <TouchableOpacity onPress={() => navigation.goBack()} className="ml-2">
       <Ionicons name="arrow-back-circle" size={29} color={COLORS.gray200} />
     </TouchableOpacity>
   ) : null;

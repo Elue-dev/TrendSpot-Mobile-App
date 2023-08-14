@@ -33,11 +33,13 @@ export type RootStackParamList = {
   NewsComments: {
     newsId: string;
   };
+  ExploreExternalNews: undefined;
+  ExploreCustomNews: undefined;
 };
 
 export type TabStackParamList = {
   Home: undefined;
-  Search: undefined;
+  Explore: undefined;
   AddNews: undefined;
   Profile: undefined;
   More: undefined;

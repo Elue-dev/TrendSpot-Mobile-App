@@ -18,7 +18,7 @@ import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../common/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { styles } from "./styles";
+import { styles } from "../home/styles";
 import { useAuth } from "../../context/auth/AuthContext";
 import { DEFAULT_AVATAR } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";

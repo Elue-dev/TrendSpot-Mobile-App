@@ -17,9 +17,11 @@ import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
 import AccountInfo from "../screens/profile/pages/AccountInfo";
 import EditProfile from "../screens/profile/EditProfile";
 import ForgotPassword from "../screens/auth/forgot_password";
-import NewsComments from "../screens/home/NewsComments";
-import ExternalNewsDetails from "../screens/home/ExternalNewsDetails";
-import CustomNewsDetails from "../screens/home/CustomNewsDetails";
+import NewsComments from "../screens/news/NewsComments";
+import ExternalNewsDetails from "../screens/news/ExternalNewsDetails";
+import CustomNewsDetails from "../screens/news/CustomNewsDetails";
+import ExploreExternalNews from "../screens/news/ExploreExternalNews";
+import ExploreCustomNews from "../screens/news/ExploreCustomNews";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -243,6 +245,34 @@ export default function RouteNavigator() {
           headerShown: true,
           headerTitleAlign: "center",
           presentation: "modal",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? COLORS.grayNeutralTheme
+              : COLORS.grayNeutral,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="ExploreExternalNews"
+        component={ExploreExternalNews}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? COLORS.grayNeutralTheme
+              : COLORS.grayNeutral,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="ExploreCustomNews"
+        component={ExploreCustomNews}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode

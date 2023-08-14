@@ -3,7 +3,13 @@ import {
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import { RoutePropArg, TabStackParamList } from "../types/navigation";
-import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
+import {
+  AntDesign,
+  FontAwesome,
+  Ionicons,
+  Entypo,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { Platform, StyleSheet } from "react-native";
 import HomeScreen from "../screens/home";
 import SearchScreen from "../screens/search";
@@ -12,6 +18,7 @@ import { COLORS } from "../common/colors";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
 import { useAuth } from "../context/auth/AuthContext";
 import AddNews from "../screens/add_news";
+import ExploreScreen from "../screens/explore";
 
 const TabStack = createBottomTabNavigator<TabStackParamList>();
 
@@ -39,11 +46,11 @@ export default function TabsNavigator() {
               />
             );
 
-          case "Search":
+          case "Explore":
             return (
-              <AntDesign
-                name="search1"
-                size={size}
+              <FontAwesome5
+                name="wpexplorer"
+                size={size + 10}
                 color={focused ? colorToUse : "#AEAEB2"}
                 style={styles.tabBarIcon}
               />
@@ -109,7 +116,7 @@ export default function TabsNavigator() {
           headerShown: false,
           headerTitleAlign: "center",
           tabBarItemStyle:
-            currrRoute === "News"
+            currrRoute === "Home"
               ? {
                   borderTopWidth: 2,
                   borderColor: isDarkMode
@@ -140,13 +147,13 @@ export default function TabsNavigator() {
         />
       )}
       <TabStack.Screen
-        name="Search"
-        component={SearchScreen}
+        name="Explore"
+        component={ExploreScreen}
         options={{
           headerShown: true,
           headerTitleAlign: "center",
           tabBarItemStyle:
-            currrRoute === "Search"
+            currrRoute === "Explore"
               ? {
                   borderTopWidth: 2,
                   borderColor: isDarkMode

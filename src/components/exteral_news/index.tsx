@@ -25,7 +25,7 @@ export default function ExternalNews() {
   };
 
   const { data, isLoading, error, refetch } = useQuery<ExternalNewsI[]>(
-    [`new`],
+    [`externalNews`],
     queryFn,
     {
       staleTime: 60000,
@@ -47,8 +47,10 @@ export default function ExternalNews() {
         <Text className="text-darkNeutral dark:text-lightText font-bold text-[17px]">
           External News
         </Text>
-        <TouchableOpacity>
-          <Text className="text-darkNeutral dark:text-lightText text-[16px]">
+        <TouchableOpacity
+          onPress={() => navigation.navigate("ExploreExternalNews")}
+        >
+          <Text className="text-authDark dark:text-lightText text-[16px]">
             See More
           </Text>
         </TouchableOpacity>

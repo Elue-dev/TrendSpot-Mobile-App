@@ -47,8 +47,10 @@ export default function CustomNews() {
         <Text className="text-darkNeutral dark:text-lightText font-bold text-[17px]">
           News From Us
         </Text>
-        <TouchableOpacity>
-          <Text className="text-darkNeutral dark:text-lightText text-[16px]">
+        <TouchableOpacity
+          onPress={() => navigation.navigate("ExploreCustomNews")}
+        >
+          <Text className="text-authDark dark:text-lightText text-[16px]">
             See More
           </Text>
         </TouchableOpacity>
