@@ -102,8 +102,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -117,8 +117,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -131,8 +131,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -145,8 +145,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -160,8 +160,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -174,8 +174,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -188,8 +188,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -202,8 +202,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -217,8 +217,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -232,8 +232,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -248,8 +248,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -262,8 +262,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />
@@ -276,8 +276,8 @@ export default function RouteNavigator() {
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
-              ? COLORS.grayNeutralTheme
-              : COLORS.grayNeutral,
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
           },
         }}
       />

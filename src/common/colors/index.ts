@@ -11,6 +11,7 @@ export const COLORS = {
   darkNeutral: "#1C1C1E",
   grayNeutral: "#E5E5EA",
   grayNeutralTheme: "#48484A",
+  shadowWhite: "#f7f7f7",
   gray50: "#AEAEB2",
   gray100: "#F2F2F7",
   gray200: "#8E8E93",

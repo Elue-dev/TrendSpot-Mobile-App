@@ -1,7 +1,11 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  CommonActions,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../../../common/colors";
 
@@ -40,16 +44,23 @@ export default function CreateAccountStart() {
 
         <View className="pt-14">
           <TouchableOpacity
-            onPress={() => navigation.navigate("TabStack")}
+            onPress={() => {
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: "TabStack" }],
+                })
+              );
+            }}
             className="border border-1 border-lightGray mr-3 rounded-md"
           >
             <View className="flex-row items-center justify-center">
-              <Text className="text-extraLightGray dark:text-lightGray p-4 text-center  text-base">
+              <Text className="text-extraLightGray dark:text-lightGray p-4 text-center text-base">
                 Sign Up Later
               </Text>
-              <AntDesign
-                name="doubleright"
-                size={18}
+              <MaterialCommunityIcons
+                name="account-arrow-right"
+                size={24}
                 color={isDarkMode ? "#C7C7CC" : COLORS.authDark}
               />
             </View>

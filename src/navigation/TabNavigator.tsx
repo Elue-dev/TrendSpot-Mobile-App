@@ -4,7 +4,6 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { RoutePropArg, TabStackParamList } from "../types/navigation";
 import {
-  AntDesign,
   FontAwesome,
   Ionicons,
   Entypo,
@@ -12,7 +11,6 @@ import {
 } from "@expo/vector-icons";
 import { Platform, StyleSheet } from "react-native";
 import HomeScreen from "../screens/home";
-import SearchScreen from "../screens/search";
 import ProfileScreen from "../screens/profile";
 import { COLORS } from "../common/colors";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
@@ -84,13 +82,13 @@ export default function TabsNavigator() {
       tabBarLabelStyle: styles.label,
       headerStyle: {
         backgroundColor: isDarkMode
-          ? COLORS.grayNeutralTheme
-          : COLORS.grayNeutral,
+          ? "rgba(31, 31, 31, 0.99)"
+          : COLORS.shadowWhite,
       },
       tabBarStyle: {
         display: state.bottomSheetOpen ? "none" : "flex",
         borderTopWidth: isDarkMode ? 0 : 0.8,
-        borderColor: "#d8d8d8",
+        borderColor: "#000",
         backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#f7f7f7",
         position: "absolute",
         bottom: 0,

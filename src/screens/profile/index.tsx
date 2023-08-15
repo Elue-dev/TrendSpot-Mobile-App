@@ -38,11 +38,7 @@ export default function ProfileScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text
-          className={`${
-            isDarkMode ? "text-gray300" : "text-primaryColorSec"
-          }  font-semibold text-[18px]`}
-        >
+        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
           {user ? " Profile" : "More"}
         </Text>
       ),

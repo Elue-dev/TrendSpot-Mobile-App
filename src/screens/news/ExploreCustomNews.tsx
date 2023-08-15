@@ -174,7 +174,7 @@ export default function ExploreExternalNews() {
             data={externalNews}
             scrollEnabled={false}
             renderItem={({ item: news }) => (
-              <View className="border-x dark:border bg-white dark:bg-transparent border-x-gray-200 dark:border-lightBorder shadow-lg mt-[8px] rounded-lg">
+              <View className="overflow-hidden border-x dark:border bg-white dark:bg-transparent border-x-gray-200 dark:border-lightBorder shadow-lg mt-[8px] rounded-lg">
                 <View className="gap-2">
                   <View className="w-full">
                     <Image
@@ -183,7 +183,7 @@ export default function ExploreExternalNews() {
                       resizeMode="cover"
                     />
                   </View>
-                  <View className="flex-col justify-around gap-1 p-1">
+                  <View className="flex-col justify-around gap-1 p-1 mx-1">
                     <View className="flex-row justify-between items-center mb-2">
                       <View
                         className="rounded-lg"

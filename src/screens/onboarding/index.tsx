@@ -4,12 +4,10 @@ import {
   SafeAreaView,
   FlatList,
   Dimensions,
-  Image,
   TouchableOpacity,
   NativeSyntheticEvent,
   NativeScrollEvent,
   Platform,
-  TouchableWithoutFeedback,
 } from "react-native";
 import { useRef, useState } from "react";
 import { screensData } from "./screensData";
@@ -19,6 +17,7 @@ import {
   NavigationProp,
   useNavigation,
 } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 import { RootStackParamList } from "../../types/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "./styles";
@@ -71,15 +70,27 @@ export default function OnboardingScreen() {
     <SafeAreaView
       className={`flex-1 ${isDarkMode ? "bg-darkNeutral" : "bg-white"} `}
     >
-      <TouchableOpacity onPress={skipOnboarding}>
-        <Text
-          className={`text-right mr-5  ${
-            isDarkMode ? "text-primaryColorTheme" : "text-primaryColor"
-          } text-xl ${Platform.OS === "ios" ? "mt-5" : "mt-12"}`}
+      {currentSlideIndex !== screensData.length - 1 && (
+        <TouchableOpacity
+          onPress={skipOnboarding}
+          className={`flex-row justify-end items-center  gap-1 ${
+            Platform.OS === "ios" ? "mt-5" : "mt-12"
+          }`}
         >
-          Skip {">>"}
-        </Text>
-      </TouchableOpacity>
+          <Text
+            className={`text-right ${
+              isDarkMode ? "text-primaryColorTheme" : "text-primaryColor"
+            } text-xl `}
+          >
+            Skip
+          </Text>
+          <MaterialIcons
+            name="keyboard-arrow-right"
+            size={30}
+            color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+          />
+        </TouchableOpacity>
+      )}
       <FlatList
         ref={flatListRef}
         data={screensData}
