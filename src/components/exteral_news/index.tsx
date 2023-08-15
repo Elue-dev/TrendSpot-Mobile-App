@@ -42,7 +42,7 @@ export default function ExternalNews() {
   //   console.log({ news });
 
   return (
-    <View className="pt-8 mx-3 border-b border-gray100 dark:border-lightBorder ">
+    <View className="pt-8 mx-3">
       <View className="flex-row justify-between items-center mb-3">
         <Text className="text-darkNeutral dark:text-lightText font-bold text-[17px]">
           External News
@@ -62,13 +62,13 @@ export default function ExternalNews() {
         data={news?.slice(0, 4)}
         renderItem={({ item: news }) => (
           <TouchableOpacity
-            className="mr-3"
+            className="mr-1 bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm overflow-hidden rounded-lg mt-3"
             onPress={() => navigation.navigate("ExternalNewsDetails", { news })}
           >
             <View>
               <Image
                 source={{ uri: news.urlToImage }}
-                className="h-60 w-80 rounded-lg relative bg-primaryColorDisabled"
+                className="h-60 w-full relative bg-primaryColorDisabled"
               />
               <View
                 className="absolute top-3 left-2 rounded-lg"
@@ -86,7 +86,7 @@ export default function ExternalNews() {
                   {formatTimeAgo(news.publishedAt)}
                 </Text>
               </View>
-              <Text className="w-80 mb-10 font-semibold text-base mt-2 leading-5 text-darkNeutral dark:text-lightText">
+              <Text className="w-80 mb-5 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText">
                 {news.title.slice(0, 70)}...
               </Text>
             </View>

@@ -17,5 +17,5 @@ export default function ExploreScreen() {
     });
   }, [isDarkMode]);
 
-  return <View className="flex-1 bg-white dark:bg-darkNeutral"></View>;
+  return <View className="flex-1 bg-shadowWhite dark:bg-darkNeutral"></View>;
 }

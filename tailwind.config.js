@@ -17,6 +17,7 @@ module.exports = {
         extraLightGray: "#48484A",
         darkNeutral: "#1C1C1E",
         grayNeutral: "#E5E5EA",
+        shadowWhite: "#f7f7f7",
         grayNeutralTheme: "#48484A",
         gray50: "#AEAEB2",
         gray100: "#F2F2F7",

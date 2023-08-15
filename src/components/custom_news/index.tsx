@@ -5,12 +5,14 @@ import { News } from "../../types/news";
 import Loader from "../loader";
 import ServerError from "./server_error";
 import { formatTimeAgo } from "../../helpers";
-import { SimpleLineIcons } from "@expo/vector-icons";
+import { SimpleLineIcons, Fontisto, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 
 export default function CustomNews() {
   const navigation = useNavigation<NavigationProp<any>>();
+  const { isDarkMode } = useSheet();
 
   const queryFn = async (): Promise<News[]> => {
     return httpRequest.get("/news").then((res) => {
@@ -60,7 +62,7 @@ export default function CustomNews() {
         data={news?.slice(0, 5)}
         scrollEnabled={false}
         renderItem={({ item: news }) => (
-          <View className="border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-3 rounded-lg">
+          <View className="bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[5px] rounded-lg">
             <View className="flex-row gap-4">
               <View className="w-[70%] flex-col justify-around">
                 <View className="flex-row justify-between items-center mb-2">
@@ -89,12 +91,35 @@ export default function CustomNews() {
                   {news.title}
                 </Text>
                 <View className="flex-row items-center justify-between gap-1 pt-2">
-                  <Text className="text-darkNeutral dark:text-lightText">
-                    {formatTimeAgo(news.createdAt)}
-                  </Text>
-                  <Text className="text-darkNeutral dark:text-lightText">
-                    {news.readTime} mins read
-                  </Text>
+                  <View className="flex-row items-center">
+                    <Fontisto
+                      name="date"
+                      size={16}
+                      color={
+                        isDarkMode
+                          ? COLORS.primaryColorTheme
+                          : COLORS.primaryColor
+                      }
+                    />
+                    <Text className="text-darkNeutral dark:text-lightText ml-1">
+                      {formatTimeAgo(news.createdAt)}
+                    </Text>
+                  </View>
+
+                  <View className="flex-row items-center">
+                    <Ionicons
+                      name="ios-time-outline"
+                      size={16}
+                      color={
+                        isDarkMode
+                          ? COLORS.primaryColorTheme
+                          : COLORS.primaryColor
+                      }
+                    />
+                    <Text className="text-darkNeutral dark:text-lightText ml-1">
+                      {news.readTime} mins read
+                    </Text>
+                  </View>
                 </View>
               </View>
               <View className="w-[25%]">

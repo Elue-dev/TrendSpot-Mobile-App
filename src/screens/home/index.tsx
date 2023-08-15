@@ -71,7 +71,7 @@ export default function HomeScreen() {
   if (loading) return <Loader />;
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-darkNeutral">
+    <SafeAreaView className="flex-1 bg-[#f0f0f0] dark:bg-darkNeutral">
       <Header />
       <View className="h-4" />
       <ScrollView showsVerticalScrollIndicator={false}>

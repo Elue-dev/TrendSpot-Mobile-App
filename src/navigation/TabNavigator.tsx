@@ -91,7 +91,7 @@ export default function TabsNavigator() {
         display: state.bottomSheetOpen ? "none" : "flex",
         borderTopWidth: isDarkMode ? 0 : 0.8,
         borderColor: "#d8d8d8",
-        backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
+        backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#f7f7f7",
         position: "absolute",
         bottom: 0,
         left: 0,

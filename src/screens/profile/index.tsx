@@ -115,9 +115,7 @@ export default function ProfileScreen() {
   }
 
   return (
-    <ScrollView
-      className={`flex-1 ${isDarkMode ? "bg-darkNeutral" : "bg-white"}`}
-    >
+    <ScrollView className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
       <View className="pt-10 mx-3 pb-20">
         {profileDataToUse.map((data) => (
           <TouchableOpacity

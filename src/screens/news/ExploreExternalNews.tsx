@@ -94,12 +94,12 @@ export default function ExploreExternalNews() {
 
   return (
     <ScrollView
-      className="flex-1 bg-white dark:bg-darkNeutral"
+      className="flex-1 bg-[#f8f8f8] dark:bg-darkNeutral"
       showsVerticalScrollIndicator={false}
     >
-      <View className="flex-row items-center">
+      <View className="flex-row items-center mb-1">
         <View
-          className={`mt-8 px-3 pb-4 mx-4 shadow-sm rounded-lg flex-row justify-between items-center border-gray100 dark:border-gray200 ${
+          className={`mt-8 px-3 pb-4 mx-4 shadow-sm bg-white rounded-lg flex-row justify-between items-center border-gray100 dark:border-gray200 ${
             Platform.OS === "android" ? "border-4 dark:border" : "border"
           }`}
           style={{
@@ -111,7 +111,7 @@ export default function ExploreExternalNews() {
             value={searchQuery}
             onChangeText={(value) => setSearchQuery(value)}
             className="text-base h-8 mt-2 text-darkNeutral dark:text-grayNeutral w-[90%]"
-            placeholder="Search news by title, keywords, sources"
+            placeholder="Search by title, keywords, sources"
             placeholderTextColor={isDarkMode ? "white" : COLORS.grayText}
             selectionColor={
               isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
@@ -174,7 +174,7 @@ export default function ExploreExternalNews() {
             data={externalNews}
             scrollEnabled={false}
             renderItem={({ item: news }) => (
-              <View className="border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-3 rounded-lg">
+              <View className="border-x dark:border bg-white dark:bg-transparent border-x-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[5px] rounded-lg">
                 <View className="flex-row gap-2">
                   <View className="w-[25%]">
                     <Image
@@ -213,7 +213,7 @@ export default function ExploreExternalNews() {
                         : news.title}
                     </Text>
                     <View className="flex-row items-center justify-between gap-1 pt-2">
-                      <View className="flex-row items-center gap-2">
+                      <View className="flex-row items-center">
                         <Fontisto
                           name="date"
                           size={16}
@@ -223,16 +223,18 @@ export default function ExploreExternalNews() {
                               : COLORS.primaryColor
                           }
                         />
-                        <Text className="text-darkNeutral dark:text-lightText">
-                          {formatTimeAgo(news.publishedAt)}
+                        <Text className="text-darkNeutral dark:text-lightText ml-1">
+                          {formatTimeAgo(news.publishedAt).includes("about")
+                            ? formatTimeAgo(news.publishedAt).split("about")[1]
+                            : formatTimeAgo(news.publishedAt)}
                         </Text>
                       </View>
 
                       {news.author && (
-                        <View className="flex-row items-center gap-2">
+                        <View className="flex-row items-center gap-1">
                           <FontAwesome5
                             name="user-alt"
-                            size={16}
+                            size={14}
                             color={
                               isDarkMode
                                 ? COLORS.primaryColorTheme
@@ -240,7 +242,7 @@ export default function ExploreExternalNews() {
                             }
                           />
                           <Text className="text-darkNeutral dark:text-lightText">
-                            {news.author?.split(",")[0]}
+                            {news.author?.split(",")[0].split("and")[0]}
                           </Text>
                         </View>
                       )}
