@@ -6,3 +6,6 @@ export const parseText = (html: string) => {
   const extractedText = html.replace(htmlTagsRegex, "");
   return extractedText;
 };
+
+export const CLOUD_NAME = "dwdsjbetu";
+export const UPLOAD_PRESET = "oj28w9l5";

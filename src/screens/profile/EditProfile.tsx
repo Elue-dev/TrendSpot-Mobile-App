@@ -20,6 +20,8 @@ import { useAlert } from "../../context/alert/AlertContext";
 import { COLORS } from "../../common/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
+import { httpRequest } from "../../services";
+import { uploadImageToCloud } from "../../helpers/imageUpload";
 
 export default function EditProfile() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -33,10 +35,10 @@ export default function EditProfile() {
   const [image, setImage] = useState(user?.avatar);
   const [imageHasChanged, setImageHasChanged] = useState(false);
   const [firstName, setFirstName] = useState(user?.firstName);
-  const [lasttName, setLastName] = useState(user?.lastName);
+  const [lastName, setLastName] = useState(user?.lastName);
   const [loading, setLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<any>(0);
   const [inputError, setInputError] = useState(false);
+  const authHeaders = { headers: { authorization: `Bearer ${user?.token}` } };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -71,7 +73,61 @@ export default function EditProfile() {
     }
   }
 
-  async function updateUserProfile() {}
+  function validateThatProfileWasUpdated() {
+    let validationsPassed = true;
+
+    if (
+      firstName === user?.firstName &&
+      lastName === user?.lastName &&
+      !imageHasChanged
+    ) {
+      navigation.goBack();
+      return showAlertAndContent({
+        type: "info",
+        message: "You did not make changes to your profile",
+      });
+    }
+
+    return validationsPassed;
+  }
+
+  async function updateUserProfile() {
+    if (validateThatProfileWasUpdated()) {
+      setLoading(true);
+
+      const userData = {
+        firstName,
+        lastName,
+        avatar: imageHasChanged
+          ? await uploadImageToCloud(image!)
+          : user?.avatar,
+      };
+
+      try {
+        const response = await httpRequest.put(
+          "/users/update-me",
+          userData,
+          authHeaders
+        );
+        setActiveUser(response.data.updatedUser);
+        navigation.goBack();
+        showAlertAndContent({
+          type: "success",
+          message: "Profile updated",
+        });
+        setLoading(false);
+      } catch (error: any) {
+        console.log({ error });
+        navigation.goBack();
+        showAlertAndContent({
+          type: "error",
+          message:
+            error.response.data.message ||
+            "Something went wrong. Please try again",
+        });
+      }
+    }
+  }
 
   return (
     <KeyboardAvoidingView
@@ -135,7 +191,7 @@ export default function EditProfile() {
                   : "border-b border-b-darkNeutral dark:border-b-authDark"
               }`}
               onTextInput={() => setInputError(false)}
-              value={lasttName}
+              value={lastName}
               onChangeText={(newName) => setLastName(newName)}
             />
           </View>
