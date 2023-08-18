@@ -26,55 +26,41 @@ import Header from "../../components/header";
 import ExternalNews from "../../components/exteral_news";
 import CustomNews from "../../components/custom_news";
 import { News } from "../../types/news";
+import { RefreshControl } from "react-native-gesture-handler";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function HomeScreen() {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [newsData, setNewsData] = useState<any[]>([]);
-  const [dataToUse, setDataToUse] = useState<News[]>([]);
-  const [selectedOption, setSelectedOption] = useState("VerfiedAndUnverified");
-  const modifiedCategories = ["All", ...categories];
-  const {
-    state: { user },
-    selectedInterest,
-    setSelectedInterest,
-  } = useAuth();
+  const [refresh, setRefresh] = useState(false);
+  const { isDarkMode } = useSheet();
+  const queryClient = useQueryClient();
 
-  const {
-    state: { bottomSheetOpen },
-    isDarkMode,
-    toggleBottomSheet,
-    toggleOverlay,
-  } = useSheet();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  function handleRefresh() {
+    setRefresh(true);
+    queryClient.invalidateQueries(["customNews"]);
+    queryClient.invalidateQueries(["externalNews"]);
 
-  useEffect(() => {
-    const filteredNews: News[] = newsData.filter(
-      (news) =>
-        news.category === selectedInterest ||
-        news.category.toLowerCase().includes(selectedInterest.toLowerCase())
-    );
-    const newsToUse = selectedInterest === "All" ? newsData : filteredNews;
-    setDataToUse(newsToUse);
-  }, [selectedInterest]);
-
-  async function resetOnboarding() {
-    await AsyncStorage.removeItem("userHasOnboarded");
-    navigation.navigate("Onboarding");
+    setTimeout(() => setRefresh(false), 5000);
   }
-
-  function handleBottomSheetActions() {
-    toggleBottomSheet();
-    toggleOverlay();
-  }
-
-  if (loading) return <Loader />;
 
   return (
     <SafeAreaView className="flex-1 bg-[#f0f0f0] dark:bg-darkNeutral">
       <Header />
       <View className="h-4" />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refresh}
+            onRefresh={handleRefresh}
+            progressBackgroundColor={
+              isDarkMode ? COLORS.primaryColor : COLORS.primaryColorTheme
+            }
+            tintColor={
+              isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
+            }
+          />
+        }
+      >
         <ExternalNews />
         <CustomNews />
       </ScrollView>

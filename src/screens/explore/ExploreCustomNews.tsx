@@ -34,7 +34,7 @@ export default function ExploreCustomNews() {
   const [externalNews, setExternalNews] = useState<News[]>([]);
   const [filterHasOccured, setFilterHasOccured] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentCategory, setCurrentCategory] = useState("");
+  const [currentCategory, setCurrentCategory] = useState("All");
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
   const modifiedCategories = ["All", ...categories];

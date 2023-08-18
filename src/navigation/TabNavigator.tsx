@@ -64,24 +64,6 @@ export default function TabsNavigator() {
               />
             );
 
-          case "Profile":
-            return (
-              <FontAwesome
-                name="user-o"
-                size={size - 10}
-                color={focused ? colorToUse : "#AEAEB2"}
-                style={styles.tabBarIcon}
-              />
-            );
-          case "More":
-            return (
-              <Entypo
-                name="dots-three-vertical"
-                size={size}
-                color={focused ? colorToUse : "#AEAEB2"}
-                style={styles.tabBarIcon}
-              />
-            );
           default:
             return null;
         }
@@ -163,44 +145,6 @@ export default function TabsNavigator() {
             headerTitleAlign: "center",
             tabBarItemStyle:
               currrRoute === "AddNews"
-                ? {
-                    borderTopWidth: 2,
-                    borderColor: isDarkMode
-                      ? COLORS.primaryColorTheme
-                      : COLORS.primaryColor,
-                  }
-                : {},
-          }}
-        />
-      )}
-
-      {user ? (
-        <TabStack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            headerShown: true,
-            headerTitleAlign: "center",
-            tabBarItemStyle:
-              currrRoute === "Profile"
-                ? {
-                    borderTopWidth: 2,
-                    borderColor: isDarkMode
-                      ? COLORS.primaryColorTheme
-                      : COLORS.primaryColor,
-                  }
-                : {},
-          }}
-        />
-      ) : (
-        <TabStack.Screen
-          name="More"
-          component={ProfileScreen}
-          options={{
-            headerShown: true,
-            headerTitleAlign: "center",
-            tabBarItemStyle:
-              currrRoute === "More"
                 ? {
                     borderTopWidth: 2,
                     borderColor: isDarkMode
