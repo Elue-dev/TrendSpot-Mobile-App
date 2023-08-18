@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../common/colors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -11,7 +11,8 @@ export default function CustomLeftHeader() {
   const { isDarkMode } = useSheet();
 
   return isDarkMode ? (
-    <TouchableOpacity onPress={() => navigation.goBack()} className="ml-2">
+    <TouchableOpacity onPress={() => navigation.goBack()} className="">
+      {/* <AntDesign name="left" size={23} color={COLORS.gray50} /> */}
       <Ionicons name="arrow-back-circle" size={29} color={COLORS.gray200} />
     </TouchableOpacity>
   ) : null;

@@ -15,7 +15,7 @@ import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../../../common/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
-import { interests } from "../../../data/interests";
+import { interests } from "../../../data/categories";
 import {
   actions,
   RichEditor,

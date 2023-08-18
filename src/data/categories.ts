@@ -1,4 +1,4 @@
-export const interests = [
+export const categories = [
   "Technology",
   "Politics",
   "Climate",

@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { interests } from "../../data/interests";
+import { interests } from "../../data/categories";
 import { UserInterestsProps } from "../../types/auth";
 import {
   CommonActions,

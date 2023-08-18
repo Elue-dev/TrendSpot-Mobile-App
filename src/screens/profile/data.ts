@@ -4,11 +4,7 @@ export const profileData = [
     description: "View and edit your account information",
     isProtected: true,
   },
-  {
-    title: "Manage Interests",
-    description: "Customize your experience on the app",
-    isProtected: true,
-  },
+
   // {
   //   title: "Contact Support",
   //   description: "Reach out to our team for complaints and questions",
@@ -20,8 +16,8 @@ export const profileData = [
     isProtected: false,
   },
   {
-    title: "Saved News",
-    description: "View news you saved for future reference",
+    title: "Bookmarked News",
+    description: "View news you bookmarked for future reference",
     isProtected: true,
   },
 ];

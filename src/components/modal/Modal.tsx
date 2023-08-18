@@ -11,6 +11,7 @@ import { useModal } from "../../context/modal/ModalCotext";
 import { useAlert } from "../../context/alert/AlertContext";
 import { useAuth } from "../../context/auth/AuthContext";
 import { styles } from "./styles";
+import { httpRequest } from "../../services";
 
 export default function Modal() {
   const { width } = Dimensions.get("window");
@@ -23,6 +24,7 @@ export default function Modal() {
     useModal();
   const { showAlertAndContent } = useAlert();
   const [loading, setLoading] = useState(false);
+  const authHeaders = { headers: { authorization: `Bearer ${user?.token}` } };
 
   function handleModalAction() {
     switch (action) {
@@ -32,28 +34,33 @@ export default function Modal() {
       case "Reactivate":
         reactivateAccount();
         break;
-      case "Flag":
-        flagNews();
-        break;
       default:
         return null;
     }
   }
 
-  function flagNews() {
-    closeModal();
-    showAlertAndContent({
-      type: "success",
-      message: "Your response has been noted and will be looked into",
-    });
-    toggleBottomSheet();
-    toggleOverlay();
-  }
-
   async function deactivateAccount() {
     setLoading(true);
     try {
+      const response = await httpRequest.put(
+        "/users/account/deactivate",
+        {
+          userId: user?.id,
+        },
+        authHeaders
+      );
+
+      const modifiedUser = { token: user?.token, ...response.data.updatedUser };
+      setActiveUser(modifiedUser);
+      setLoading(false);
+      closeModal();
+      showAlertAndContent({
+        type: "success",
+        message: response.data.message,
+      });
     } catch (error) {
+      console.log(error);
+
       setLoading(false);
       closeModal();
       showAlertAndContent({
@@ -66,13 +73,23 @@ export default function Modal() {
   async function reactivateAccount() {
     setLoading(true);
     try {
+      const response = await httpRequest.put(
+        "/users/account/reactivate",
+        {
+          userId: user?.id,
+        },
+        authHeaders
+      );
+      const modifiedUser = { token: user?.token, ...response.data.updatedUser };
+      setActiveUser(modifiedUser);
       setLoading(false);
       closeModal();
       showAlertAndContent({
         type: "success",
-        message: "Your account has been reactivated",
+        message: response.data.message,
       });
     } catch (error) {
+      console.log({ error });
       setLoading(false);
       closeModal();
       showAlertAndContent({

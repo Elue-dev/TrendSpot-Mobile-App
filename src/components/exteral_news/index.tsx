@@ -39,8 +39,6 @@ export default function ExternalNews() {
     (n) => n.content !== null && n.description !== null
   );
 
-  //   console.log({ news });
-
   return (
     <View className="pt-8 mx-3">
       <View className="flex-row justify-between items-center mb-3">
@@ -50,9 +48,9 @@ export default function ExternalNews() {
         <TouchableOpacity
           onPress={() => navigation.navigate("ExploreExternalNews")}
         >
-          <Text className="text-authDark dark:text-lightText text-[16px]">
+          {/* <Text className="text-authDark dark:text-lightText text-[16px]">
             See More
-          </Text>
+          </Text> */}
         </TouchableOpacity>
       </View>
       <FlatList
@@ -68,7 +66,7 @@ export default function ExternalNews() {
             <View>
               <Image
                 source={{ uri: news.urlToImage }}
-                className="h-60 w-full relative bg-primaryColorDisabled"
+                className="h-60 w-full relative bg-primaryColorDisabled object-cover"
               />
               <View
                 className="absolute top-3 left-2 rounded-lg"
@@ -79,7 +77,7 @@ export default function ExternalNews() {
                 </Text>
               </View>
               <View
-                className="absolute bottom-[95px] right-2 rounded-lg"
+                className="absolute bottom-[112px] right-2 rounded-lg"
                 style={{ backgroundColor: "rgba(0,0,0,.7)" }}
               >
                 <Text className="text-white p-2 font-semibold text-sm">
@@ -87,7 +85,7 @@ export default function ExternalNews() {
                 </Text>
               </View>
               <Text className="w-80 mb-5 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText">
-                {news.title.slice(0, 70)}...
+                {news.title}
               </Text>
             </View>
           </TouchableOpacity>

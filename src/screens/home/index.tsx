@@ -20,7 +20,7 @@ import { SharedElement } from "react-native-shared-element";
 import { COLORS } from "../../common/colors";
 import Loader from "../../components/loader";
 import { useAuth } from "../../context/auth/AuthContext";
-import { interests } from "../../data/interests";
+import { categories } from "../../data/categories";
 import CuateSVG from "../../assets/cuate.svg";
 import Header from "../../components/header";
 import ExternalNews from "../../components/exteral_news";
@@ -32,7 +32,7 @@ export default function HomeScreen() {
   const [newsData, setNewsData] = useState<any[]>([]);
   const [dataToUse, setDataToUse] = useState<News[]>([]);
   const [selectedOption, setSelectedOption] = useState("VerfiedAndUnverified");
-  const modifiedInterests = ["All", ...interests];
+  const modifiedCategories = ["All", ...categories];
   const {
     state: { user },
     selectedInterest,

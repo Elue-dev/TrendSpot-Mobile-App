@@ -85,7 +85,9 @@ export default function AuthSequence() {
     } catch (error: any) {
       showAlertAndContent({
         type: "error",
-        message: error?.response?.data?.message,
+        message:
+          error?.response?.data?.message ||
+          "Something went wrong. Please try again.",
       });
       setLoading(false);
     }
@@ -121,7 +123,9 @@ export default function AuthSequence() {
 
       showAlertAndContent({
         type: "error",
-        message: error?.response?.data?.message,
+        message:
+          error?.response?.data?.message ||
+          "Something went wrong. Please try again.",
       });
       setLoading(false);
     }

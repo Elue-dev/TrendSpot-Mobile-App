@@ -54,6 +54,16 @@ export default function TabsNavigator() {
               />
             );
 
+          case "AddNews":
+            return (
+              <Entypo
+                name="add-to-list"
+                size={size + 2}
+                color={focused ? colorToUse : "#AEAEB2"}
+                style={styles.tabBarIconSec}
+              />
+            );
+
           case "Profile":
             return (
               <FontAwesome
@@ -124,6 +134,25 @@ export default function TabsNavigator() {
               : {},
         }}
       />
+
+      <TabStack.Screen
+        name="Explore"
+        component={ExploreScreen}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          tabBarItemStyle:
+            currrRoute === "Explore"
+              ? {
+                  borderTopWidth: 2,
+                  borderColor: isDarkMode
+                    ? COLORS.primaryColorTheme
+                    : COLORS.primaryColor,
+                }
+              : {},
+        }}
+      />
+
       {user && (
         <TabStack.Screen
           name="AddNews"
@@ -144,23 +173,6 @@ export default function TabsNavigator() {
           }}
         />
       )}
-      <TabStack.Screen
-        name="Explore"
-        component={ExploreScreen}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          tabBarItemStyle:
-            currrRoute === "Explore"
-              ? {
-                  borderTopWidth: 2,
-                  borderColor: isDarkMode
-                    ? COLORS.primaryColorTheme
-                    : COLORS.primaryColor,
-                }
-              : {},
-        }}
-      />
 
       {user ? (
         <TabStack.Screen

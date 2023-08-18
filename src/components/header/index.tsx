@@ -32,7 +32,7 @@ export default function Header() {
         </View>
         <View>
           <Text className="text-[15px] text-grayNeutralTheme dark:text-lightText mb-1">
-            {user ? user?.firstName : "Hello there 👋"}
+            {user ? `${user?.firstName} ${user?.lastName}` : "Hello there 👋"}
           </Text>
           <Text className="font-bold text-darkNeutral dark:text-lightText text-[17px]">
             {user ? "Welcome Back!" : "Welcome Guest!"}
@@ -40,16 +40,16 @@ export default function Header() {
         </View>
       </View>
       <View className="flex-row gap-3">
-        <TouchableOpacity className="bg-gray-100 dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center">
+        <TouchableOpacity className="bg-shadowWhite dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center">
           <AntDesign
             name="search1"
             size={22}
-            color={isDarkMode ? "#f9f9f9" : COLORS.dark}
+            color={isDarkMode ? "#f7f7f7" : COLORS.dark}
           />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={resetOnboarding}
-          className="bg-gray-100 dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
+          className="bg-shadowWhite dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <Ionicons
             name="ios-settings-outline"

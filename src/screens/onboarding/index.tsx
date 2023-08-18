@@ -67,9 +67,7 @@ export default function OnboardingScreen() {
   }
 
   return (
-    <SafeAreaView
-      className={`flex-1 ${isDarkMode ? "bg-darkNeutral" : "bg-white"} `}
-    >
+    <SafeAreaView className="flex-1 bg-white dark:bg-darkNeutral">
       {currentSlideIndex !== screensData.length - 1 && (
         <TouchableOpacity
           onPress={skipOnboarding}
@@ -77,11 +75,7 @@ export default function OnboardingScreen() {
             Platform.OS === "ios" ? "mt-5" : "mt-12"
           }`}
         >
-          <Text
-            className={`text-right ${
-              isDarkMode ? "text-primaryColorTheme" : "text-primaryColor"
-            } text-xl `}
-          >
+          <Text className="text-right text-primaryColorTheme dark:text-primaryColorTheme text-xl">
             Skip
           </Text>
           <MaterialIcons

@@ -61,9 +61,6 @@ export default function ProfileScreen() {
       case "Account Information":
         navigation.navigate("AccountInfo");
         break;
-      case "Manage Interests":
-        navigation.navigate("ManageInterests");
-        break;
       case "Contact Support":
         navigation.navigate("ContactSupport");
         break;
@@ -82,7 +79,7 @@ export default function ProfileScreen() {
     showModalAndContent({
       title: "Account Deativation",
       message:
-        "You are about to deactivate your account. You would no longer be able to react to news, share or flag news. Are you sure you want to proceed?  You can change this settings later in your profile",
+        "You are about to deactivate your account. You would no longer be able to comment on any news, like or save any news. Are you sure you want to proceed? You can change this settings later in your profile",
       actionBtnText: "Deactivate",
       action: "Deactivate",
     });
@@ -92,7 +89,7 @@ export default function ProfileScreen() {
     showModalAndContent({
       title: "Account Reactivation",
       message:
-        "You are about to reactivate your account. You would now be able to react to news, share or flag news. You can change this settings later in your profile",
+        "You are about to reactivate your account. You would now be able to comment to news, share or save news. You can change this settings later in your profile",
       actionBtnText: "Reactivate",
       action: "Reactivate",
     });

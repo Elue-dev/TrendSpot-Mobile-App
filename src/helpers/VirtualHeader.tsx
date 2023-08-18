@@ -12,7 +12,7 @@ export default function VirtualHeader({ navigation }: HeaderProps) {
     <View className="h-24 w-full border-b border-b-lightText dark:border-b-grayNeutralTheme">
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        className="absolute left-0 top-14 ml-3 bg-gray-100 rounded-full h-7 w-7 flex-col justify-center items-center"
+        className="absolute left-0 top-14 ml-3 bg-gray-200 rounded-full h-7 w-7 flex-col justify-center items-center"
       >
         <MaterialIcons
           name="keyboard-arrow-left"
@@ -20,7 +20,7 @@ export default function VirtualHeader({ navigation }: HeaderProps) {
           color={COLORS.primaryColorTheme}
         />
       </TouchableOpacity>
-      <TouchableOpacity className="absolute top-14 right-0 mr-3 bg-gray-100 rounded-full h-7 w-7 flex-col justify-center items-center">
+      <TouchableOpacity className="absolute top-14 right-0 mr-3 bg-gray-200 rounded-full h-7 w-7 flex-col justify-center items-center">
         <MaterialCommunityIcons
           name="bookmark-outline"
           size={20}

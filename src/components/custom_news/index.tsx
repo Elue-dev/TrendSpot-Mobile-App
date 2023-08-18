@@ -52,9 +52,9 @@ export default function CustomNews() {
         <TouchableOpacity
           onPress={() => navigation.navigate("ExploreCustomNews")}
         >
-          <Text className="text-authDark dark:text-lightText text-[16px]">
+          {/* <Text className="text-authDark dark:text-lightText text-[16px]">
             See More
-          </Text>
+          </Text> */}
         </TouchableOpacity>
       </View>
       <FlatList

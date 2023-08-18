@@ -1,5 +1,13 @@
-import { useLayoutEffect } from "react";
-import { View, Text, Image, ScrollView, Platform } from "react-native";
+import { useLayoutEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Platform,
+  KeyboardAvoidingView,
+  ActivityIndicator,
+} from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../../types/navigation";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
@@ -10,12 +18,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   AntDesign,
   MaterialCommunityIcons,
-  Entypo,
   Ionicons,
 } from "@expo/vector-icons";
 import { COLORS } from "../../../common/colors";
+import { TextInput } from "react-native";
 
 export default function AccountInfo() {
+  const [currentInput, setCurrentInput] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { isDarkMode } = useSheet();
   const {
@@ -35,19 +48,29 @@ export default function AccountInfo() {
     });
   }, [isDarkMode]);
 
+  // -mt-40, -mt-64, -mt-52
+
   return (
     <ScrollView
-      className="flex-1 bg-white dark:bg-darkNeutral"
+      className={`flex-1 bg-white dark:bg-darkNeutral ${
+        currentInput === "CurrentPassword"
+          ? "-mt-40"
+          : currentInput === "NewPassword"
+          ? "-mt-52"
+          : currentInput === "PasswordConfirm"
+          ? "-mt-64"
+          : ""
+      }`}
       showsVerticalScrollIndicator={false}
     >
-      <View className="mx-2">
+      <View className="mx-3">
         <View className="pt-6 mx-3 justify-center items-center">
           <Image
             source={{ uri: user?.avatar || DEFAULT_AVATAR }}
             className="h-28 w-28 rounded-full bg-primaryColorLighter"
           />
           <Text className="pt-2 text-darkNeutral dark:text-lightText text-xl font-bold">
-            {user?.username}
+            {user?.firstName}
           </Text>
         </View>
 
@@ -81,10 +104,19 @@ export default function AccountInfo() {
 
           <View className="flex-row justify-between items-center pb-2 border-b-[.2px] border-b-lightBorder dark:border-b-slate-200">
             <Text className="text-darkNeutral dark:text-lightGray text-base">
-              Username
+              First Name
             </Text>
             <Text className="text-darkNeutral dark:text-white text-base">
-              {user?.username}
+              {user?.firstName}
+            </Text>
+          </View>
+
+          <View className="flex-row justify-between items-center pb-2 pt-5 border-b-[.2px] border-b-lightBorder dark:border-b-slate-200">
+            <Text className="text-darkNeutral dark:text-lightGray text-base">
+              Last Name
+            </Text>
+            <Text className="text-darkNeutral dark:text-white text-base">
+              {user?.lastName}
             </Text>
           </View>
 
@@ -128,62 +160,86 @@ export default function AccountInfo() {
           </View>
         </View>
 
-        <View className="pt-14">
-          <View className="flex-row items-center justify-between">
+        <View className="pt-14 pb-16">
+          <View className="">
             <Text className="text-darkNeutral dark:text-gray-500 text-base font-bold">
-              INTERESTS
+              PASSWORD UPDATE
             </Text>
 
-            <View>
-              <TouchableOpacity
-                className="flex-row items-center gap-2"
-                onPress={() => {
-                  navigation.navigate("ManageInterests");
-                }}
+            <View className="mt-7">
+              <Text
+                className={`absolute ${
+                  currentInput === "CurrentPassword" || currentPassword
+                    ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
+                    : "bottom-2 text-[16px] text-grayText dark:text-lightText"
+                }`}
               >
-                <Text className="text-primaryColor dark:text-primaryColorTheme text-[15px]">
-                  Manage
-                </Text>
-
-                <AntDesign
-                  name="edit"
-                  size={15}
-                  color={
-                    isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
-                  }
-                />
-              </TouchableOpacity>
+                Current Password
+              </Text>
+              <TextInput
+                value={currentPassword}
+                onChangeText={(val) => setCurrentPassword(val)}
+                className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
+                onFocus={() => setCurrentInput("CurrentPassword")}
+                onBlur={() => setCurrentInput("")}
+                style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
+              />
+            </View>
+            <View className="mt-9">
+              <Text
+                className={`absolute ${
+                  currentInput === "NewPassword" || newPassword
+                    ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
+                    : "bottom-2 text-[16px] text-grayText dark:text-lightText"
+                }`}
+              >
+                New Password
+              </Text>
+              <TextInput
+                value={newPassword}
+                onChangeText={(val) => setNewPassword(val)}
+                className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
+                onFocus={() => setCurrentInput("NewPassword")}
+                onBlur={() => setCurrentInput("")}
+                style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
+              />
+            </View>
+            <View className="mt-9">
+              <Text
+                className={`absolute ${
+                  currentInput === "PasswordConfirm" || newPassword
+                    ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
+                    : "bottom-2 text-[16px] text-grayText dark:text-lightText"
+                }`}
+              >
+                Confirm Password
+              </Text>
+              <TextInput
+                value={passwordConfirm}
+                onChangeText={(val) => setPasswordConfirm(val)}
+                className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
+                onFocus={() => setCurrentInput("PasswordConfirm")}
+                onBlur={() => setCurrentInput("")}
+                style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
+              />
             </View>
           </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: 8,
-              paddingTop: 20,
-              marginLeft: 1,
-            }}
-          >
-            {user?.interests.map((interest) => (
-              <View key={interest}>
-                <Text
-                  style={{
-                    color: isDarkMode ? COLORS.gray300 : COLORS.grayText,
-                    borderColor: isDarkMode
-                      ? COLORS.lightBorder
-                      : COLORS.grayNeutral,
-                    borderWidth: 2,
-                    borderRadius: 8,
-                    padding: 10,
-                    fontSize: 15,
-                    fontWeight: "bold",
-                  }}
-                >
-                  {interest}
+          <View className="mt-7">
+            {loading ? (
+              <TouchableOpacity className="bg-primaryColorLighter py-3 rounded-md">
+                <ActivityIndicator color={"#fff"} size="small" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {}}
+                className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md"
+              >
+                <Text className="text-white font-semibold text-center text-xl">
+                  Change Password
                 </Text>
-              </View>
-            ))}
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>

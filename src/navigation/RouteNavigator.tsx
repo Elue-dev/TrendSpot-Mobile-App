@@ -9,7 +9,6 @@ import { ActivityIndicator } from "react-native";
 import { COLORS } from "../common/colors";
 import AuthSequence from "../screens/auth_sequence";
 import SearchScreen from "../screens/search";
-import ManageInterests from "../screens/profile/pages/ManageInterests";
 import ContactSupport from "../screens/profile/pages/ContactSupport";
 import TermsAndPrivacy from "../screens/profile/pages/TermsAndPrivacy";
 import SavedScreen from "../screens/saved";
@@ -20,8 +19,10 @@ import ForgotPassword from "../screens/auth/forgot_password";
 import NewsComments from "../screens/news/NewsComments";
 import ExternalNewsDetails from "../screens/news/ExternalNewsDetails";
 import CustomNewsDetails from "../screens/news/CustomNewsDetails";
-import ExploreExternalNews from "../screens/news/ExploreExternalNews";
-import ExploreCustomNews from "../screens/news/ExploreCustomNews";
+import MoreExternalNews from "../screens/news/MoreExternalNews";
+import MoreCustomNews from "../screens/news/MoreCustomNews";
+import ExploreCustomNews from "../screens/explore/ExploreCustomNews";
+import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -150,21 +151,7 @@ export default function RouteNavigator() {
           },
         }}
       />
-      <RootStack.Screen
-        name="ManageInterests"
-        component={ManageInterests}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerBackTitleVisible: false,
-          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
-          headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
-          },
-        }}
-      />
+
       <RootStack.Screen
         name="ContactSupport"
         component={ContactSupport}
@@ -254,8 +241,8 @@ export default function RouteNavigator() {
         }}
       />
       <RootStack.Screen
-        name="ExploreExternalNews"
-        component={ExploreExternalNews}
+        name="MoreExternalNews"
+        component={MoreExternalNews}
         options={{
           headerShown: true,
           headerTitleAlign: "center",
@@ -268,8 +255,38 @@ export default function RouteNavigator() {
         }}
       />
       <RootStack.Screen
+        name="MoreCustomNews"
+        component={MoreCustomNews}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+
+      <RootStack.Screen
         name="ExploreCustomNews"
         component={ExploreCustomNews}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+
+      <RootStack.Screen
+        name="ExploreExternalNews"
+        component={ExploreExternalNews}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

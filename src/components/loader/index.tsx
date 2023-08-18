@@ -7,7 +7,7 @@ export default function Loader() {
   const { isDarkMode } = useSheet();
 
   return (
-    <View className="flex-1 bg-white dark:bg-darkNeutral">
+    <View className="flex-1 bg-transparent dark:bg-darkNeutral">
       <ActivityIndicator
         size="small"
         color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}

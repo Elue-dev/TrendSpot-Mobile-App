@@ -32,7 +32,8 @@ export default function EditProfile() {
   const { showAlertAndContent } = useAlert();
   const [image, setImage] = useState(user?.avatar);
   const [imageHasChanged, setImageHasChanged] = useState(false);
-  const [username, setUsername] = useState(user?.username);
+  const [firstName, setFirstName] = useState(user?.firstName);
+  const [lasttName, setLastName] = useState(user?.lastName);
   const [loading, setLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<any>(0);
   const [inputError, setInputError] = useState(false);
@@ -106,7 +107,7 @@ export default function EditProfile() {
 
         <View className="pt-11">
           <Text className="text-[17px] text-darkNeutral font-bold dark:text-gray-400">
-            Username
+            First Name
           </Text>
           <View style={styles.flexInput}>
             <TextInput
@@ -117,8 +118,25 @@ export default function EditProfile() {
                   : "border-b border-b-darkNeutral dark:border-b-authDark"
               }`}
               onTextInput={() => setInputError(false)}
-              value={username}
-              onChangeText={(newName) => setUsername(newName)}
+              value={firstName}
+              onChangeText={(newName) => setFirstName(newName)}
+            />
+          </View>
+
+          <Text className="text-[17px] text-darkNeutral font-bold dark:text-gray-400 mt-4">
+            Last Name
+          </Text>
+          <View style={styles.flexInput}>
+            <TextInput
+              style={styles.input}
+              className={`text-darkNeutral dark:text-grayNeutral  ${
+                inputError
+                  ? "border-red-700 border-b"
+                  : "border-b border-b-darkNeutral dark:border-b-authDark"
+              }`}
+              onTextInput={() => setInputError(false)}
+              value={lasttName}
+              onChangeText={(newName) => setLastName(newName)}
             />
           </View>
           <Text className="text-authDark">

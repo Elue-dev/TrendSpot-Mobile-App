@@ -33,7 +33,7 @@ import {
 import CuateSVG from "../../assets/cuate.svg";
 import { httpRequest } from "../../services";
 
-export default function ExploreExternalNews() {
+export default function MoreCustomNews() {
   let originalNews: News[];
   const [externalNews, setExternalNews] = useState<News[]>([]);
   const [searchHasOccured, setSearchHasOccured] = useState(false);
@@ -174,7 +174,7 @@ export default function ExploreExternalNews() {
             data={externalNews}
             scrollEnabled={false}
             renderItem={({ item: news }) => (
-              <View className="overflow-hidden border-x dark:border bg-white dark:bg-transparent border-x-gray-200 dark:border-lightBorder shadow-lg mt-[8px] rounded-lg">
+              <View className="overflow-hidden border dark:border bg-white dark:bg-transparent border-gray-200 dark:border-lightBorder shadow-lg mt-[11px] rounded-lg">
                 <View className="gap-2">
                   <View className="w-full">
                     <Image
@@ -243,7 +243,7 @@ export default function ExploreExternalNews() {
                             }
                           />
                           <Text className="text-darkNeutral dark:text-lightText">
-                            {news.author.firstName}
+                            {news.author.firstName} {news.author.lastName}
                           </Text>
                         </View>
                       )}

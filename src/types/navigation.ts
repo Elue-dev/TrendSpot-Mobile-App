@@ -33,6 +33,8 @@ export type RootStackParamList = {
   NewsComments: {
     newsId: string;
   };
+  MoreExternalNews: undefined;
+  MoreCustomNews: undefined;
   ExploreExternalNews: undefined;
   ExploreCustomNews: undefined;
 };
