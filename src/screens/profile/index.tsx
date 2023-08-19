@@ -9,12 +9,9 @@ import {
 import { useLayoutEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import {
-  FontAwesome,
   MaterialIcons,
   MaterialCommunityIcons,
-  FontAwesome5,
   Feather,
-  AntDesign,
 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { profileData } from "./data";
@@ -68,8 +65,7 @@ export default function ProfileScreen() {
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
           />
         );
-        break;
-      case "Bookmarked News":
+      case "Bookmarks":
         return (
           <Feather
             name="bookmark"
@@ -77,7 +73,14 @@ export default function ProfileScreen() {
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
           />
         );
-        break;
+      case "Contact Support":
+        return (
+          <MaterialIcons
+            name="support-agent"
+            size={28}
+            color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+          />
+        );
       default:
         return null;
     }
@@ -85,17 +88,14 @@ export default function ProfileScreen() {
 
   function handleProfileNavigation(title: string) {
     switch (title) {
-      case "Account Information":
-        navigation.navigate("AccountInfo");
-        break;
       case "Contact Support":
         navigation.navigate("ContactSupport");
         break;
       case "Terms and Privacy Policy":
         navigation.navigate("Terms", { defaultTitle: "Terms Of Use" });
         break;
-      case "Saved News":
-        navigation.navigate("Saved");
+      case "Bookmarks":
+        navigation.navigate("Bookmarks");
         break;
       default:
         return null;

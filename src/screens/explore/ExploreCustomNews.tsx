@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Platform,
-  ScrollView,
-  Image,
-  TextInput,
-} from "react-native";
+import { View, Text, Platform, ScrollView, Image } from "react-native";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
@@ -16,18 +9,16 @@ import {
   SimpleLineIcons,
   FontAwesome5,
   Fontisto,
-  FontAwesome,
-  AntDesign,
 } from "@expo/vector-icons";
 import { News } from "../../types/news";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/loader";
 import { formatTimeAgo } from "../../helpers";
 import ServerError from "../../components/custom_news/server_error";
-import { filterCustomNewsBySearchQuery } from "../../helpers/search.algorithm";
 import CuateSVG from "../../assets/cuate.svg";
 import { httpRequest } from "../../services";
 import { categories } from "../../data/categories";
+import { parseText } from "../../utils";
 
 export default function ExploreCustomNews() {
   let originalNews: News[];
@@ -205,12 +196,15 @@ export default function ExploreCustomNews() {
                         />
                       </TouchableOpacity>
                     </View>
-                    <Text className="text-[17px] font-semibold leading-5 text-darkNeutral dark:text-lightText">
+                    <Text className="text-[17px] font-semibold leading-6 text-darkNeutral dark:text-lightText">
                       {news.title}
                     </Text>
 
                     <Text className="text-[15px] font-light mt-2 leading-6 text-darkNeutral dark:text-lightText">
-                      {news.content.slice(0, 200)}...
+                      {news.content.includes("<div>")
+                        ? `${parseText(news.content.slice(0, 300))}...`
+                        : news.content.slice(0, 150)}
+                      ...
                     </Text>
                     <View className="flex-row items-center justify-between gap-1 pt-2 pb-4">
                       <View className="flex-row items-center">

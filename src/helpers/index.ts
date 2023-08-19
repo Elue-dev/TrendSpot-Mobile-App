@@ -5,7 +5,7 @@ export function formatDate(dateString: string) {
   return format(date, "MMMM dd, yyyy");
 }
 
-export function formatTimeAgo(dateString: string) {
+export function formatTimeAgo(dateString: string | Date) {
   const date = new Date(dateString);
   return formatDistanceToNow(date, { addSuffix: true });
 }

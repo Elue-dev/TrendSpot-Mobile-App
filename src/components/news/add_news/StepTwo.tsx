@@ -26,6 +26,7 @@ import { useAlert } from "../../../context/alert/AlertContext";
 import { useAuth } from "../../../context/auth/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "../../../services";
+import { uploadImageToCloud } from "../../../helpers/imageUpload";
 
 export default function StepTwo({
   values,
@@ -133,7 +134,7 @@ export default function StepTwo({
         const newsData = {
           title,
           content,
-          image,
+          image: await uploadImageToCloud(image || ""),
           readTime: parseInt(readTime),
           category,
         };

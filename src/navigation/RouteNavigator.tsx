@@ -24,6 +24,7 @@ import MoreCustomNews from "../screens/news/MoreCustomNews";
 import ExploreCustomNews from "../screens/explore/ExploreCustomNews";
 import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
 import ProfileScreen from "../screens/profile";
+import Bookmarks from "../screens/bookmarks";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -306,6 +307,20 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="ExploreExternalNews"
         component={ExploreExternalNews}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="Bookmarks"
+        component={Bookmarks}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

@@ -1,11 +1,11 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import { httpRequest } from "../../services";
 import Loader from "../loader";
 import { ExternalNewsI } from "../../types/news";
 import { formatTimeAgo } from "../../helpers";
 import axios from "axios";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import ServerError from "../custom_news/server_error";
 
 const apiKey = "48f6f47da09747cda4b6e8cbb903d4d1";
 const apiUrl = `https://newsapi.org/v2/top-headlines`;
@@ -34,9 +34,10 @@ export default function ExternalNews() {
   );
 
   if (isLoading) return <Loader />;
+  if (error) return <ServerError refetch={refetch} />;
 
   const news = data?.filter(
-    (n) => n.content !== null && n.description !== null
+    (currNews) => currNews.content !== null && currNews.description !== null
   );
 
   return (
@@ -85,8 +86,8 @@ export default function ExternalNews() {
                 </Text>
               </View>
               <Text className="w-80 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText">
-                {news.title.length > 80
-                  ? `${news.title.slice(0, 80)}...`
+                {news.title.length > 50
+                  ? `${news.title.slice(0, 50)}...`
                   : news.title}
               </Text>
             </View>

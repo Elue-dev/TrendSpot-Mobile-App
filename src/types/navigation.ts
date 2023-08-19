@@ -38,6 +38,7 @@ export type RootStackParamList = {
   MoreCustomNews: undefined;
   ExploreExternalNews: undefined;
   ExploreCustomNews: undefined;
+  Bookmarks: undefined;
 };
 
 export type TabStackParamList = {
