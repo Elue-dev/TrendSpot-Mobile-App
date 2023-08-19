@@ -78,7 +78,7 @@ export default function StepOne({
 
   return (
     <ScrollView
-      className="flex-1 bg-white dark:bg-darkNeutral"
+      className="flex-1 bg-shadowWhite dark:bg-darkNeutral"
       showsVerticalScrollIndicator={false}
     >
       <KeyboardAvoidingView
@@ -91,7 +91,7 @@ export default function StepOne({
               className="border border-gray100 dark:border-extraLightGray shadow-sm px-2 py-4 mt-3 rounded-lg"
               style={{
                 elevation: 1,
-                backgroundColor: isDarkMode ? COLORS.darkNeutral : "#FFF",
+                backgroundColor: isDarkMode ? COLORS.darkNeutral : "#fefefe",
               }}
             >
               <View className="mx-1">
@@ -107,7 +107,7 @@ export default function StepOne({
                   }`}
                   style={{
                     elevation: 1,
-                    backgroundColor: isDarkMode ? "transparent" : "#FFF",
+                    backgroundColor: isDarkMode ? "transparent" : "#fefefe",
                   }}
                 >
                   <TextInput

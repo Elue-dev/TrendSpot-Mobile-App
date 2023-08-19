@@ -77,15 +77,17 @@ export default function ExternalNews() {
                 </Text>
               </View>
               <View
-                className="absolute bottom-[112px] right-2 rounded-lg"
+                className="absolute bottom-[70px] right-2 rounded-lg"
                 style={{ backgroundColor: "rgba(0,0,0,.7)" }}
               >
                 <Text className="text-white p-2 font-semibold text-sm">
                   {formatTimeAgo(news.publishedAt)}
                 </Text>
               </View>
-              <Text className="w-80 mb-5 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText">
-                {news.title}
+              <Text className="w-80 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText">
+                {news.title.length > 80
+                  ? `${news.title.slice(0, 80)}...`
+                  : news.title}
               </Text>
             </View>
           </TouchableOpacity>

@@ -82,11 +82,7 @@ export interface StepOneProps {
 
 export interface StepTwoProps {
   values: Values;
-  setValues: Dispatch<SetStateAction<Values>>;
-  verificationStatus: string;
-  setVerificationStatus: Dispatch<SetStateAction<string>>;
   image: string | null;
-  setImage: Dispatch<SetStateAction<string | null>>;
   category: string;
   content: string;
   setContent: Dispatch<SetStateAction<string>>;
@@ -157,4 +153,12 @@ export interface News {
   likes: any[];
   bookmarks: any[];
   comments: any[];
+}
+
+export interface AddNews {
+  title: string;
+  content: string;
+  image: string | null;
+  readTime: number;
+  category: string;
 }

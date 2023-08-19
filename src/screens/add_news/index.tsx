@@ -71,11 +71,7 @@ export default function AddNews() {
       return (
         <StepTwo
           values={values}
-          setValues={setValues}
-          verificationStatus={verificationStatus}
-          setVerificationStatus={setVerificationStatus}
           image={image}
-          setImage={setImage}
           category={category}
           setCategory={setCategory}
           previousStep={previousStep}

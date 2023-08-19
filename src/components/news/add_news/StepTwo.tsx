@@ -9,13 +9,13 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { useLayoutEffect, useState } from "react";
-import { StepTwoProps } from "../../../types/news";
+import { AddNews, News, StepTwoProps } from "../../../types/news";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../../../common/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
-import { interests } from "../../../data/categories";
+import { categories } from "../../../data/categories";
 import {
   actions,
   RichEditor,
@@ -24,27 +24,24 @@ import {
 import { styles } from "./styles";
 import { useAlert } from "../../../context/alert/AlertContext";
 import { useAuth } from "../../../context/auth/AuthContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { httpRequest } from "../../../services";
 
 export default function StepTwo({
   values,
-  verificationStatus,
-  setVerificationStatus,
-  image,
-  setImage,
   category,
+  image,
   setCategory,
   previousStep,
   content,
   setContent,
   richText,
-  setValues,
   resetFields,
 }: StepTwoProps) {
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
 
   const [loading, setLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState<any>(0);
   const { showAlertAndContent } = useAlert();
   const { title, readTime } = values;
   const {
@@ -82,11 +79,94 @@ export default function StepTwo({
     });
   }, [isDarkMode]);
 
-  async function addNews() {}
+  function inputsValidated() {
+    let validationsPassed = true;
+
+    if (!category)
+      return showAlertAndContent({
+        type: "error",
+        message: "Please specify news category",
+      });
+
+    if (!title)
+      return showAlertAndContent({
+        type: "error",
+        message: "Please specify news title",
+      });
+
+    if (!content)
+      return showAlertAndContent({
+        type: "error",
+        message: "Please specify news content",
+      });
+
+    return validationsPassed;
+  }
+
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${user?.token}` },
+  };
+
+  const mutation = useMutation(
+    (news: AddNews) => {
+      return httpRequest.post("/news", news, authHeaders);
+    },
+    {
+      onSuccess: () => {
+        setLoading(false);
+        queryClient.invalidateQueries(["customNews"]);
+      },
+      onError: () => {
+        setLoading(false);
+      },
+    }
+  );
+
+  async function addNews() {
+    Keyboard.dismiss();
+
+    if (inputsValidated()) {
+      setLoading(true);
+
+      try {
+        const newsData = {
+          title,
+          content,
+          image,
+          readTime: parseInt(readTime),
+          category,
+        };
+
+        const response = await mutation.mutateAsync(newsData);
+        console.log(response.data);
+
+        if (response) {
+          showAlertAndContent({
+            type: "success",
+            message: "News added successfully",
+          });
+          setLoading(false);
+          navigation.navigate("TabStack", { screen: "Home" });
+          setCurrRoute("Home");
+          resetFields();
+        }
+      } catch (error: any) {
+        console.log(error.response.data.message);
+        setLoading(false);
+        showAlertAndContent({
+          type: "error",
+          message:
+            error.response.data.message ||
+            "Something went wrong. Please try again later",
+        });
+      }
+    }
+  }
 
   return (
     <ScrollView
-      className="flex-1 bg-white dark:bg-darkNeutral"
+      className="flex-1 bg-shadowWhite dark:bg-darkNeutral"
       showsVerticalScrollIndicator={false}
     >
       <KeyboardAvoidingView
@@ -104,79 +184,15 @@ export default function StepTwo({
             color={isDarkMode ? COLORS.lightGray : COLORS.darkNeutral}
             enabled={false}
           />
-          {interests.map((interest) => (
+          {categories.map((category) => (
             <Picker.Item
-              label={interest}
-              value={interest}
-              key={interest}
+              label={category}
+              value={category}
+              key={category}
               color={isDarkMode ? COLORS.lightGray : COLORS.darkNeutral}
             />
           ))}
         </Picker>
-
-        {/* VERIFICATION */}
-        <View className="mt-4">
-          <Text className="text-[20px] text-darkNeutral dark:text-lightText text-center mb-3">
-            Choose verification status
-          </Text>
-
-          <View className="flex-row justify-around items-center gap-4 mb-5">
-            <View className="flex-row items-center gap-1">
-              <TouchableOpacity
-                onPress={() => setVerificationStatus("Unverified")}
-              >
-                {verificationStatus === "Unverified" ? (
-                  <Ionicons
-                    name="ios-radio-button-on-sharp"
-                    size={24}
-                    color={
-                      isDarkMode
-                        ? COLORS.primaryColorTheme
-                        : COLORS.primaryColor
-                    }
-                  />
-                ) : (
-                  <Ionicons
-                    name="radio-button-off"
-                    size={24}
-                    color={COLORS.extraLightGray}
-                  />
-                )}
-              </TouchableOpacity>
-
-              <Text className="text-[18px] text-darkNeutral dark:text-lightText">
-                Unverified
-              </Text>
-            </View>
-
-            <View className="flex-row items-center gap-1">
-              <TouchableOpacity
-                onPress={() => setVerificationStatus("Verified")}
-              >
-                {verificationStatus === "Verified" ? (
-                  <Ionicons
-                    name="ios-radio-button-on-sharp"
-                    size={24}
-                    color={
-                      isDarkMode
-                        ? COLORS.primaryColorTheme
-                        : COLORS.primaryColor
-                    }
-                  />
-                ) : (
-                  <Ionicons
-                    name="radio-button-off"
-                    size={24}
-                    color={COLORS.extraLightGray}
-                  />
-                )}
-              </TouchableOpacity>
-              <Text className="text-[18px] text-darkNeutral dark:text-lightText">
-                Verified
-              </Text>
-            </View>
-          </View>
-        </View>
 
         {/* EDITOR */}
         <View className="mx-2">
@@ -219,7 +235,7 @@ export default function StepTwo({
         </View>
 
         {/* BUTTON */}
-        <View className="justify-end items-end mt-2 mx-2">
+        <View className="justify-end items-end mt-2 mx-2 pb-80  ">
           {loading ? (
             <TouchableOpacity className="bg-primaryColorLighter py-3 rounded-md w-full">
               <ActivityIndicator color={"#fff"} size="small" />
