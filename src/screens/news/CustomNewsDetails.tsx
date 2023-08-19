@@ -258,11 +258,11 @@ export default function CustomNewsDetails() {
                 </View>
               </View>
             </View>
-            <View className="pb-14">
+            <View className="pb-8">
               <PostContent content={news?.content || ""} />
             </View>
 
-            <View className="pb-10">
+            <View className="pb-14">
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("NewsComments", {
@@ -270,7 +270,7 @@ export default function CustomNewsDetails() {
                     newsId: news?.id,
                   });
                 }}
-                className="flex-row items-center gap-1 justify-center"
+                className="flex-row items-center gap-1 justify-center border border-primaryColorTheme px-2 py-3 rounded-full"
               >
                 <MaterialCommunityIcons
                   name="comment-text-multiple-outline"
