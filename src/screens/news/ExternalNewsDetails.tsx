@@ -121,7 +121,7 @@ export default function ExternalNewsDetails() {
                     }
                   />
                   <Text className="text-darkNeutral dark:text-lightText font-semibold text-base">
-                    {news.author.split(",")[0]}
+                    {news.author.split(",")[0] || news.source.name}
                   </Text>
                 </View>
               )}
@@ -140,7 +140,9 @@ export default function ExternalNewsDetails() {
               </View>
             </View>
             <Text className="leading-5 text-darkNeutral dark:text-lightText text-base">
-              {news.content.split("[")[0]}
+              {news.content
+                ? news.content?.split("[")[0]
+                : "View more via the link below"}
             </Text>
 
             <TouchableOpacity
