@@ -101,6 +101,7 @@ export default function RouteNavigator() {
         options={{
           headerShown: false,
           headerTitleAlign: "center",
+          presentation: "containedModal",
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
@@ -116,6 +117,7 @@ export default function RouteNavigator() {
         options={{
           headerShown: false,
           headerTitleAlign: "center",
+          presentation: "containedModal",
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
