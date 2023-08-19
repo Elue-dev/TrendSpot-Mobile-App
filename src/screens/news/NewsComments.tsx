@@ -29,6 +29,8 @@ import { useAlert } from "../../context/alert/AlertContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "../../services";
 import ServerError from "../../components/custom_news/server_error";
+import { FlatList } from "react-native";
+import CommentLayout from "../../components/news/comments/CommentLayout";
 
 interface NewsParams {
   newsId: string;
@@ -41,6 +43,8 @@ export default function NewsComments() {
   const [heightAdjust, setHeightAdjust] = useState(false);
   const [commentType, setCommentType] = useState("new");
   const [commentId, setCommentId] = useState("");
+  const [isReplying, setIsReplying] = useState(false);
+  const [commentAuthor, setCommentAuthor] = useState("");
   const inputRef = useRef<any>();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { isDarkMode } = useSheet();
@@ -87,7 +91,7 @@ export default function NewsComments() {
     refetch,
   } = useQuery<Comment[]>([`comments-${newsId}`], queryFn, {
     staleTime: 60000,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   const editCommentMutation = useMutation(
@@ -128,17 +132,19 @@ export default function NewsComments() {
 
   async function addCommentToNews() {
     setLoading(true);
-
     try {
       const response = await addCommentMutation.mutateAsync({
-        message: comment,
+        message: isReplying ? `@${commentAuthor}  ${comment}` : comment,
         newsId,
         authorEmail: user?.email || "",
         path: "none",
+        parentId: isReplying ? commentId : null,
       });
       if (response) {
         setComment("");
         setLoading(false);
+        setCommentAuthor("");
+        setIsReplying(false);
       }
     } catch (error: any) {
       console.log(error.response.data.message);
@@ -193,6 +199,27 @@ export default function NewsComments() {
     (comment: Comment) => comment.parentId === null
   );
 
+  function getReplies(commentId: string) {
+    return comments?.filter((comment) => comment.parentId === commentId);
+  }
+
+  function initiateEditAction(comment: Comment) {
+    setComment(comment.message);
+    setHeightAdjust(true);
+    inputRef.current.focus();
+    setCommentType("edit");
+    setCommentId(comment.id);
+  }
+
+  function initiateReplyAction(comment: Comment) {
+    setHeightAdjust(true);
+    inputRef.current.focus();
+    setCommentType("new");
+    setIsReplying(true);
+    setCommentAuthor(`${comment.author.firstName} ${comment.author.lastName}`);
+    setCommentId(comment.id);
+  }
+
   return (
     <View
       style={styles.container}
@@ -212,65 +239,87 @@ export default function NewsComments() {
             </Text>
           </View>
         ) : (
-          <Comments
-            comments={rootComments || []}
-            setComment={setComment}
-            setHeightAdjust={setHeightAdjust}
-            inputRef={inputRef}
-            setCommentType={setCommentType}
-            setCommentId={setCommentId}
-          />
+          <View className="border-b border-b-lightText dark:border-b-lightBorder mb-3">
+            <View className="mt-5 mx-2">
+              <FlatList
+                keyExtractor={(rootComments) => rootComments.id}
+                showsHorizontalScrollIndicator={false}
+                data={rootComments}
+                scrollEnabled={false}
+                renderItem={({ item: comment }) => (
+                  <CommentLayout
+                    allComments={comments}
+                    comment={comment}
+                    initiateEditAction={initiateEditAction}
+                    initiateReplyAction={initiateReplyAction}
+                    replies={getReplies(comment.id)}
+                  />
+                )}
+              />
+            </View>
+          </View>
         )}
       </ScrollView>
 
       {user ? (
-        <View
-          style={[
-            styles.addCommentwrap,
-            heightAdjust && Platform.OS === "ios"
-              ? styles.adjustedHeight
-              : null,
-          ]}
-          className="border-t border-t-lightGray dark:border-t-lightBorder"
-        >
-          <Image
-            source={{ uri: user?.avatar || DEFAULT_AVATAR }}
-            style={styles.avatarStyle}
-          />
-          <TextInput
-            ref={inputRef}
-            style={styles.input}
-            className="text-darkNeutral dark:text-lightText"
-            placeholder="Add a comment..."
-            placeholderTextColor="#888"
-            value={comment}
-            onChangeText={(newComment) => setComment(newComment)}
-            onFocus={() => setHeightAdjust(true)}
-            onBlur={() => setHeightAdjust(false)}
-          />
-
-          {comment.length === 0 ? (
-            <Text style={styles.disabledtext}>Send</Text>
-          ) : loading ? (
-            <Text style={styles.disabledtext}>Sending...</Text>
-          ) : (
-            <>
-              {!loading && (
-                <TouchableOpacity
-                  onPress={
-                    commentType === "new" ? addCommentToNews : editComment
-                  }
-                >
-                  <Text
-                    style={styles.activeText}
-                    className="text-primaryColor dark:text-primaryColorTheme"
-                  >
-                    Send
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </>
+        <View>
+          {isReplying && (
+            <Text className="text-center text-darkNeutral dark:text-authDark">
+              Replying to {commentAuthor}
+            </Text>
           )}
+          <View
+            style={[
+              styles.addCommentwrap,
+              heightAdjust && Platform.OS === "ios"
+                ? styles.adjustedHeight
+                : null,
+            ]}
+            className="border-t border-t-lightGray dark:border-t-lightBorder"
+          >
+            <Image
+              source={{ uri: user?.avatar || DEFAULT_AVATAR }}
+              style={styles.avatarStyle}
+            />
+            <TextInput
+              ref={inputRef}
+              style={styles.input}
+              className="text-darkNeutral dark:text-lightText"
+              placeholder="Add a comment..."
+              placeholderTextColor="#888"
+              value={comment}
+              onChangeText={(newComment) => setComment(newComment)}
+              onFocus={() => setHeightAdjust(true)}
+              onBlur={() => {
+                setHeightAdjust(false);
+                setCommentAuthor("");
+                setIsReplying(false);
+              }}
+            />
+
+            {comment.length === 0 ? (
+              <Text style={styles.disabledtext}>Send</Text>
+            ) : loading ? (
+              <Text style={styles.disabledtext}>Sending...</Text>
+            ) : (
+              <>
+                {!loading && (
+                  <TouchableOpacity
+                    onPress={
+                      commentType === "new" ? addCommentToNews : editComment
+                    }
+                  >
+                    <Text
+                      style={styles.activeText}
+                      className="text-primaryColor dark:text-primaryColorTheme"
+                    >
+                      Send
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
+          </View>
         </View>
       ) : (
         <View

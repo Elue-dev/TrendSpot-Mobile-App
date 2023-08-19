@@ -120,6 +120,7 @@ export interface AddComment {
   newsId: string;
   path: string;
   authorEmail: string;
+  parentId: string | null;
 }
 
 export interface CommentProps {
@@ -129,6 +130,8 @@ export interface CommentProps {
   inputRef: any;
   setCommentType: Dispatch<SetStateAction<string>>;
   setCommentId: Dispatch<SetStateAction<string>>;
+  setIsReplying: Dispatch<SetStateAction<boolean>>;
+  setCommentAuthor: Dispatch<SetStateAction<string>>;
 }
 
 export interface ExternalNewsI {
