@@ -105,7 +105,7 @@ export default function CustomNewsDetails() {
               {news.title}
             </Text>
             <Text className="absolute bottom-[62px] text-white font-bold text-base">
-              Author: {news.author.firstName} {news.author.lastName}
+              Category: {news.category}
             </Text>
           </View>
         </View>
@@ -115,19 +115,28 @@ export default function CustomNewsDetails() {
             <View className="flex-row justify-between items-center mb-6">
               {news.author && (
                 <View className="flex-row items-center gap-2">
-                  <MaterialIcons
-                    name="category"
-                    size={24}
-                    color={
-                      isDarkMode
-                        ? COLORS.primaryColorTheme
-                        : COLORS.primaryColor
-                    }
+                  <Image
+                    source={{ uri: news.author.avatar }}
+                    className="h-8 w-8 bg-primaryColorDisabled rounded-full"
                   />
 
-                  <Text className="text-darkNeutral dark:text-lightText font-semibold text-base">
-                    {news.category}
-                  </Text>
+                  <View className="flex-row items-center">
+                    <Text className="text-darkNeutral dark:text-lightText font-semibold text-base mr-1">
+                      {news.author.firstName} {news.author.lastName}
+                    </Text>
+
+                    {news.author.isAdmin && (
+                      <MaterialIcons
+                        name="verified"
+                        size={16}
+                        color={
+                          isDarkMode
+                            ? COLORS.primaryColorTheme
+                            : COLORS.primaryColor
+                        }
+                      />
+                    )}
+                  </View>
                 </View>
               )}
 

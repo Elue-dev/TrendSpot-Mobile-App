@@ -136,6 +136,7 @@ export interface Author {
   lastName: string;
   bio: string;
   joinedAt: string;
+  isAdmin: boolean;
 }
 
 export interface News {
