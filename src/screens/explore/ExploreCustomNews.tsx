@@ -157,7 +157,7 @@ export default function ExploreCustomNews() {
           <CuateSVG width={"90%"} height={300} />
           <Text className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3">
             No news found for '
-            <Text className="text-primaryColor dark:text-primaryColorTheme">
+            <Text className="text-primaryColor dark:text-primaryColorTheme font-bold">
               {currentCategory}
             </Text>
             '

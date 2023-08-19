@@ -28,6 +28,7 @@ export type RootStackParamList = {
   Terms: {
     defaultTitle: "string";
   };
+  ProfileScreen: undefined;
   EditProfile: undefined;
   ForgotPassword: undefined;
   NewsComments: {

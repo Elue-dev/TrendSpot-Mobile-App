@@ -1,10 +1,4 @@
 export const profileData = [
-  {
-    title: "Account Information",
-    description: "View and edit your account information",
-    isProtected: true,
-  },
-
   // {
   //   title: "Contact Support",
   //   description: "Reach out to our team for complaints and questions",

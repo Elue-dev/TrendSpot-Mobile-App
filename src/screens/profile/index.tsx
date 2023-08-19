@@ -39,7 +39,7 @@ export default function ProfileScreen() {
     navigation.setOptions({
       headerTitle: () => (
         <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
-          {user ? " Profile" : "More"}
+          More
         </Text>
       ),
     });

@@ -56,7 +56,7 @@ export default function Header() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={resetOnboarding}
+          onPress={() => navigation.navigate("AccountInfo")}
           className="bg-shadowWhite dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <FontAwesome5

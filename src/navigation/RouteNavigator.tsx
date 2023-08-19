@@ -23,6 +23,7 @@ import MoreExternalNews from "../screens/news/MoreExternalNews";
 import MoreCustomNews from "../screens/news/MoreCustomNews";
 import ExploreCustomNews from "../screens/explore/ExploreCustomNews";
 import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
+import ProfileScreen from "../screens/profile";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -143,6 +144,7 @@ export default function RouteNavigator() {
         options={{
           headerShown: true,
           headerTitleAlign: "center",
+          headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
@@ -172,6 +174,7 @@ export default function RouteNavigator() {
         options={{
           headerShown: true,
           headerTitleAlign: "center",
+          headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
@@ -183,6 +186,22 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="Saved"
         component={SavedScreen}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerBackTitleVisible: false,
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+
+      <RootStack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

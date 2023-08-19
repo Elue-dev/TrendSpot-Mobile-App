@@ -48,8 +48,6 @@ export default function AccountInfo() {
     });
   }, [isDarkMode]);
 
-  // -mt-40, -mt-64, -mt-52
-
   return (
     <ScrollView
       className={`flex-1 bg-white dark:bg-darkNeutral ${
@@ -75,7 +73,7 @@ export default function AccountInfo() {
         </View>
 
         <View className="pt-6">
-          <View className="flex-row items-center justify-between pb-3">
+          <View className="flex-row items-center justify-between pb-4">
             <Text className="text-darkNeutral dark:text-gray-500 text-base font-bold ">
               INFORMATION
             </Text>

@@ -5,6 +5,7 @@ import {
 import { RoutePropArg, TabStackParamList } from "../types/navigation";
 import {
   FontAwesome,
+  Fontisto,
   Ionicons,
   Entypo,
   FontAwesome5,
@@ -64,6 +65,15 @@ export default function TabsNavigator() {
               />
             );
 
+          case "More":
+            return (
+              <Fontisto
+                name="more-v-a"
+                size={size}
+                color={focused ? colorToUse : "#AEAEB2"}
+                style={styles.tabBarIcon}
+              />
+            );
           default:
             return null;
         }
@@ -155,6 +165,24 @@ export default function TabsNavigator() {
           }}
         />
       )}
+
+      <TabStack.Screen
+        name="More"
+        component={ProfileScreen}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          tabBarItemStyle:
+            currrRoute === "More"
+              ? {
+                  borderTopWidth: 2,
+                  borderColor: isDarkMode
+                    ? COLORS.primaryColorTheme
+                    : COLORS.primaryColor,
+                }
+              : {},
+        }}
+      />
     </TabStack.Navigator>
   );
 }
