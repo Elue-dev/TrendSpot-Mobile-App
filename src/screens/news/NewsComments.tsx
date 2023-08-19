@@ -24,10 +24,18 @@ import { DEFAULT_AVATAR } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";
 import Loader from "../../components/loader";
 import Comments from "../../components/news/comments";
-import { Comment } from "../../types/news";
+import { AddComment, Comment, News, UpdateComment } from "../../types/news";
 import { useAlert } from "../../context/alert/AlertContext";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { httpRequest } from "../../services";
+import ServerError from "../../components/custom_news/server_error";
+
+interface NewsParams {
+  newsId: string;
+}
 
 export default function NewsComments() {
+  const { newsId } = useRoute().params as NewsParams;
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [heightAdjust, setHeightAdjust] = useState(false);
@@ -40,12 +48,10 @@ export default function NewsComments() {
   const {
     state: { user },
   } = useAuth();
-  const { newsId } = useRoute().params as NewsParams;
-  const [data, setData] = useState([]);
-
-  interface NewsParams {
-    newsId: string;
-  }
+  const queryClient = useQueryClient();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${user?.token}` },
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -68,20 +74,136 @@ export default function NewsComments() {
     });
   }, [isDarkMode]);
 
-  async function addCommentToNews() {}
+  const queryFn = async (): Promise<Comment[]> => {
+    return httpRequest.get(`/comments/${newsId}`, authHeaders).then((res) => {
+      return res.data.comments;
+    });
+  };
 
-  async function editComment() {}
+  const {
+    data: comments,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery<Comment[]>([`comments-${newsId}`], queryFn, {
+    staleTime: 60000,
+    refetchOnWindowFocus: false,
+  });
 
-  const comments = data.filter((comment: Comment) => comment.newsId === newsId);
+  const editCommentMutation = useMutation(
+    (updatedComment: UpdateComment) => {
+      return httpRequest.patch(
+        `/comments/${commentId}`,
+        updatedComment,
+        authHeaders
+      );
+    },
+    {
+      onSuccess: () => {
+        setLoading(false);
+        queryClient.invalidateQueries(["customNews"]);
+        queryClient.invalidateQueries([`comments-${newsId}`]);
+      },
+      onError: () => {
+        setLoading(false);
+      },
+    }
+  );
+
+  const addCommentMutation = useMutation(
+    (newComment: AddComment) => {
+      return httpRequest.post(`/comments`, newComment, authHeaders);
+    },
+    {
+      onSuccess: () => {
+        setLoading(false);
+        queryClient.invalidateQueries(["customNews"]);
+        queryClient.invalidateQueries([`comments-${newsId}`]);
+      },
+      onError: () => {
+        setLoading(false);
+      },
+    }
+  );
+
+  async function addCommentToNews() {
+    setLoading(true);
+
+    try {
+      const response = await addCommentMutation.mutateAsync({
+        message: comment,
+        newsId,
+        authorEmail: user?.email || "",
+        path: "none",
+      });
+      if (response) {
+        setComment("");
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      setLoading(false);
+      navigation.goBack();
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again later",
+      });
+    }
+  }
+
+  async function editComment() {
+    setLoading(true);
+    const response = await editCommentMutation.mutateAsync({
+      message: comment,
+      isEdited: true,
+    });
+    if (response) {
+      setComment("");
+      setLoading(false);
+    }
+    try {
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      setLoading(false);
+      navigation.goBack();
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again later",
+      });
+    }
+  }
+
+  if (isLoading)
+    return (
+      <View className="flex-1 bg-transparent dark:bg-darkNeutral">
+        <View className="mt-24">
+          <Loader />
+        </View>
+      </View>
+    );
+
+  if (error) return <ServerError refetch={refetch} />;
+
+  const rootComments = comments?.filter(
+    (comment: Comment) => comment.parentId === null
+  );
 
   return (
-    <View style={styles.container} className="bg-white dark:bg-darkNeutral">
+    <View
+      style={styles.container}
+      className="bg-white dark:bg-darkNeutral flex-1"
+    >
       <ScrollView
         style={[styles.scrollView]}
         showsVerticalScrollIndicator={false}
       >
-        {comments.length === 0 ? (
-          <View style={styles.centerContainer}>
+        {rootComments?.length === 0 ? (
+          <View className="flex-col justify-center items-center pt-56">
             <Text className="text-2xl font-bold text-darkNeutral dark:text-lightText">
               No comments yet
             </Text>
@@ -91,7 +213,7 @@ export default function NewsComments() {
           </View>
         ) : (
           <Comments
-            comments={comments}
+            comments={rootComments || []}
             setComment={setComment}
             setHeightAdjust={setHeightAdjust}
             inputRef={inputRef}
@@ -123,8 +245,8 @@ export default function NewsComments() {
             placeholderTextColor="#888"
             value={comment}
             onChangeText={(newComment) => setComment(newComment)}
-            // onFocus={() => setHeightAdjust(true)}
-            // onBlur={() => setHeightAdjust(false)}
+            onFocus={() => setHeightAdjust(true)}
+            onBlur={() => setHeightAdjust(false)}
           />
 
           {comment.length === 0 ? (

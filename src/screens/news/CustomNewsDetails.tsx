@@ -101,7 +101,7 @@ export default function CustomNewsDetails() {
     isLoading,
     error,
     refetch,
-  } = useQuery<News>([`news-${newsFromParams.id}`], queryFn, {
+  } = useQuery<News>([`news-${newsFromParams?.id}`], queryFn, {
     staleTime: 60000,
     refetchOnWindowFocus: false,
   });
@@ -227,49 +227,60 @@ export default function CustomNewsDetails() {
 
         <View className="rounded-tl-[10px] dark:rounded-tl-[20px] rounded-tr-[10px] dark:rounded-tr-[20px] w-ull h-full bg-white dark:bg-darkNeutral -mt-4">
           <View className="mx-3 mt-5">
-            <View className="flex-row justify-between items-center mb-6">
-              {news?.author && (
+            <View className="flex-row justify-between items-center mb-4 border-b border-b-lightText dark:border-b-dark">
+              <View className="mb-2">
                 <View className="flex-row items-center gap-2">
                   <Image
                     source={{ uri: news?.author.avatar }}
-                    className="h-8 w-8 bg-primaryColorDisabled rounded-full"
+                    className="h-11 w-11 bg-primaryColorDisabled rounded-full"
                   />
-
-                  <View className="flex-row items-center">
-                    <Text className="text-darkNeutral dark:text-lightText font-semibold text-base mr-1">
-                      {news?.author.firstName} {news?.author.lastName}
+                  <View>
+                    <View className="flex-row items-center">
+                      <Text className="text-darkNeutral dark:text-lightText font-semibold text-base mr-1">
+                        {news?.author.firstName} {news?.author.lastName}
+                      </Text>
+                      {news?.author.isAdmin && (
+                        <MaterialIcons
+                          name="verified"
+                          size={16}
+                          color={
+                            isDarkMode
+                              ? COLORS.primaryColorTheme
+                              : COLORS.primaryColor
+                          }
+                        />
+                      )}
+                    </View>
+                    <Text className="text-darkNeutral dark:text-lightText font-light text-base">
+                      {formatTimeAgo(news?.createdAt || "")}
                     </Text>
-
-                    {news?.author.isAdmin && (
-                      <MaterialIcons
-                        name="verified"
-                        size={16}
-                        color={
-                          isDarkMode
-                            ? COLORS.primaryColorTheme
-                            : COLORS.primaryColor
-                        }
-                      />
-                    )}
                   </View>
                 </View>
-              )}
-
-              <View className="flex-row items-center gap-2">
-                <MaterialCommunityIcons
-                  name="clock-time-two-outline"
-                  size={20}
-                  color={
-                    isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
-                  }
-                />
-                <Text className="text-darkNeutral dark:text-lightText font-semibold text-base">
-                  {formatTimeAgo(news?.createdAt || "")}
-                </Text>
               </View>
             </View>
             <View className="pb-14">
               <PostContent content={news?.content || ""} />
+            </View>
+
+            <View className="pb-10">
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("NewsComments", {
+                    commentID: news?.comments,
+                    newsId: news?.id,
+                  });
+                }}
+                className="flex-row items-center gap-1 justify-center"
+              >
+                <MaterialCommunityIcons
+                  name="comment-text-multiple-outline"
+                  size={20}
+                  color={COLORS.primaryColorTheme}
+                />
+                <Text className="text-primaryColorTheme text-[18px]">
+                  View Comments
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

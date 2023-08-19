@@ -94,15 +94,32 @@ export interface StepTwoProps {
 
 export interface Comment {
   id: string;
-  date: Date;
+  message: string;
+  createdAt: string;
   updatedAt: string;
-  comment: string;
+  authorId: string;
   newsId: string;
-  username: string;
-  userAvatar: string;
-  userId: string;
-  userIsAdmin: boolean;
+  parentId: string | null;
   isEdited: boolean;
+  author: {
+    id: string;
+    email: string;
+    avatar: string;
+    firstName: string;
+    lastName: string;
+    isAdmin: boolean;
+  };
+}
+
+export interface UpdateComment {
+  message: string;
+  isEdited: boolean;
+}
+export interface AddComment {
+  message: string;
+  newsId: string;
+  path: string;
+  authorEmail: string;
 }
 
 export interface CommentProps {

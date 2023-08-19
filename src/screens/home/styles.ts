@@ -26,7 +26,6 @@ export const styles = StyleSheet.create({
   noUserwrap: {
     paddingHorizontal: 10,
     marginBottom: 30,
-
     marginTop: 5,
   },
   adjustedHeight: {
@@ -84,6 +83,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 280,
+    flex: 1,
   },
   headingText: { fontSize: 24, fontWeight: "bold", paddingTop: 3 },
   subheadingText: { paddingTop: 3, fontSize: 16 },

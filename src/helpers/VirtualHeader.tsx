@@ -50,7 +50,7 @@ export default function VirtualHeader({
     <View className="h-24 w-full border-b border-b-lightText dark:border-b-grayNeutralTheme">
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        className="absolute left-0 top-14 ml-3 bg-gray-100 rounded-full h-7 w-7 flex-col justify-center items-center"
+        className="absolute left-0 top-14 ml-3 bg-lightText dark:bg-shadowWhite rounded-full h-8 w-8 flex-col justify-center items-center"
       >
         <MaterialIcons
           name="keyboard-arrow-left"
@@ -59,7 +59,7 @@ export default function VirtualHeader({
         />
       </TouchableOpacity>
       {loading ? (
-        <View className="absolute top-14 right-0 mr-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center">
+        <View className="absolute top-14 right-0 mr-3 bg-authDark dark:bg-shadowWhite rounded-full h-7 w-7   flex-col justify-center items-center">
           <ActivityIndicator
             size="small"
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
@@ -77,7 +77,7 @@ export default function VirtualHeader({
               queryClient,
             })
           }
-          className="absolute top-14 right-0 mr-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center"
+          className="absolute top-14 right-0 mr-3 bg-lightText dark:bg-shadowWhite rounded-full h-8 w-8  flex-col justify-center items-center"
         >
           {userHasBookmarkedPost({
             bookmarks: news?.bookmarks || [],

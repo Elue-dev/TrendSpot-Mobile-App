@@ -1,11 +1,10 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { Comment, CommentProps } from "../../../types/news";
-import { formatDate } from "../../../helpers";
+import { formatTimeAgo } from "../../../helpers";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../../../common/colors";
 import { useAuth } from "../../../context/auth/AuthContext";
-import { formatDistanceToNow } from "date-fns";
 
 export default function Comments({
   comments,
@@ -21,10 +20,12 @@ export default function Comments({
   } = useAuth();
 
   function initiateEditAction(comment: Comment) {
-    setComment(comment.comment);
-    // setHeightAdjust(true);
+    setComment(comment.message);
+    setHeightAdjust(true);
     inputRef.current.focus();
     setCommentType("edit");
+    console.log("ID", comment.id);
+
     setCommentId(comment.id);
   }
 
@@ -40,15 +41,15 @@ export default function Comments({
             <View className="flex-row justify-between mb-3">
               <View className="flex-row items-start gap-2">
                 <Image
-                  source={{ uri: comment.userAvatar }}
+                  source={{ uri: comment.author.avatar }}
                   className="h-9 w-9 rounded-full bg-primaryColorLighter"
                 />
                 <View>
                   <View className="flex-row items-center gap-1">
                     <Text className="text-darkNeutral dark:text-lightGray font-normal text-[15px]">
-                      {comment.username}
+                      {comment.author.firstName} {comment.author.lastName}
                     </Text>
-                    {comment?.userIsAdmin ? (
+                    {comment?.author.isAdmin ? (
                       <MaterialIcons
                         name="verified"
                         size={14}
@@ -61,16 +62,16 @@ export default function Comments({
                     ) : null}
                   </View>
                   <Text className="text-gray-500 dark:text-authDark text-[13px] font-normal">
-                    {formatDate(comment?.date)}{" "}
+                    {formatTimeAgo(comment.createdAt)}{" "}
                     {comment.isEdited && <Text>. Edited</Text>}
                   </Text>
                   <Text className="text-darkNeutral dark:text-lightText text-base w-72">
-                    {comment.comment}
+                    {comment.message}
                   </Text>
                 </View>
               </View>
 
-              {comment.userId === user?.id ? (
+              {comment.authorId === user?.id ? (
                 <TouchableOpacity
                   onPress={() => initiateEditAction(comment)}
                   className="mr-16"

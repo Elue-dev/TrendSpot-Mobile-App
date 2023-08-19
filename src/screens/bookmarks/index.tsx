@@ -35,31 +35,9 @@ export default function Bookmarks() {
   } = useAuth();
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
-
   const authHeaders = {
     headers: { authorization: `Bearer ${user?.token}` },
   };
-
-  const queryFn = async (): Promise<Bookmark[]> => {
-    return httpRequest
-      .get(`/bookmarks?userId=${user?.id}`, authHeaders)
-      .then((res) => {
-        return res.data.bookmarks;
-      });
-  };
-
-  const {
-    data: bookmarks,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery<Bookmark[]>(["bookmarks"], queryFn, {
-    staleTime: 60000,
-    refetchOnWindowFocus: true,
-    onError(error) {
-      console.log(error);
-    },
-  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -81,6 +59,27 @@ export default function Bookmarks() {
         ) : null,
     });
   }, [isDarkMode]);
+
+  const queryFn = async (): Promise<Bookmark[]> => {
+    return httpRequest
+      .get(`/bookmarks?userId=${user?.id}`, authHeaders)
+      .then((res) => {
+        return res.data.bookmarks;
+      });
+  };
+
+  const {
+    data: bookmarks,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery<Bookmark[]>(["bookmarks"], queryFn, {
+    staleTime: 60000,
+    refetchOnWindowFocus: true,
+    onError(error) {
+      console.log(error);
+    },
+  });
 
   const bookmarksMutation = useMutation(
     (newsId: string) => {
