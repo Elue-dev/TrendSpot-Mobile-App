@@ -107,7 +107,7 @@ export default function CommentLayout({
         </View>
 
         <View className="flex-row items-center">
-          {comment.authorId !== user?.id ? (
+          {comment.authorId !== user?.id && user ? (
             <TouchableOpacity
               onPress={() => initiateReplyAction(comment)}
               className="mr-1"

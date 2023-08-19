@@ -79,7 +79,7 @@ export default function NewsComments() {
   }, [isDarkMode]);
 
   const queryFn = async (): Promise<Comment[]> => {
-    return httpRequest.get(`/comments/${newsId}`, authHeaders).then((res) => {
+    return httpRequest.get(`/comments/${newsId}`).then((res) => {
       return res.data.comments;
     });
   };

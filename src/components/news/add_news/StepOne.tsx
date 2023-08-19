@@ -68,10 +68,12 @@ export default function StepOne({
 
   function handleStepChange() {
     Keyboard.dismiss();
-    if (!title || !readTime)
+    if (!title || !readTime || !image)
       return showAlertAndContent({
         type: "error",
-        message: "News title and estimated read time are required fields",
+        message:
+          "News title, image and estimated read time are all required fields",
+        timeout: 7000,
       });
     nextStep();
   }
