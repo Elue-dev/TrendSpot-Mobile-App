@@ -102,6 +102,7 @@ export default function TabsNavigator() {
 
   return (
     <TabStack.Navigator
+      initialRouteName={"Home"}
       screenOptions={screenOptions}
       screenListeners={({ route }) => ({
         tabPress: () => {

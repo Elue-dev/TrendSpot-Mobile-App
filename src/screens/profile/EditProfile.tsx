@@ -124,6 +124,7 @@ export default function EditProfile() {
           message:
             error.response.data.message ||
             "Something went wrong. Please try again",
+          timeout: 7000,
         });
       }
     }

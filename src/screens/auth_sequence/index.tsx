@@ -47,7 +47,7 @@ export default function AuthSequence() {
   const isAndroid = Platform.OS === "android";
   const navigation = useNavigation<NavigationProp<any>>();
   const { email, password, firstName, lastName } = credentials;
-  const { setActiveUser } = useAuth();
+  const { setActiveUser, setCurrRoute } = useAuth();
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
 
@@ -70,7 +70,6 @@ export default function AuthSequence() {
         email,
         password,
       });
-      console.log({ response: response.data });
 
       if (response.data.status === "success") {
         setLoading(false);
@@ -81,6 +80,7 @@ export default function AuthSequence() {
             routes: [{ name: "TabStack" }],
           })
         );
+        setCurrRoute("Home");
       }
     } catch (error: any) {
       showAlertAndContent({
@@ -105,7 +105,6 @@ export default function AuthSequence() {
         email,
         password,
       });
-      console.log({ response: response.data });
       if (response.data.status === "success") {
         setLoading(false);
         setActiveUser(response.data.user);
@@ -115,10 +114,10 @@ export default function AuthSequence() {
             routes: [{ name: "TabStack" }],
           })
         );
+        setCurrRoute("Home");
       }
     } catch (error: any) {
       console.log(error);
-
       console.log(error?.response?.data?.message);
 
       showAlertAndContent({

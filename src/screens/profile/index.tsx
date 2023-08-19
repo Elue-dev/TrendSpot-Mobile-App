@@ -13,6 +13,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome5,
+  Feather,
   AntDesign,
 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
@@ -29,6 +30,7 @@ export default function ProfileScreen() {
   const {
     state: { user },
     removeActiveUser,
+    setCurrRoute,
   } = useAuth();
   const { isDarkMode, toggleTheme } = useSheet();
   const { showAlertAndContent } = useAlert();
@@ -54,6 +56,31 @@ export default function ProfileScreen() {
   function toggleSwitch() {
     setIsEnabled(!isEnabled);
     toggleTheme();
+  }
+
+  function renderIcon(currentRoute: string) {
+    switch (currentRoute) {
+      case "Terms and Privacy Policy":
+        return (
+          <Feather
+            name="shield"
+            size={28}
+            color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+          />
+        );
+        break;
+      case "Bookmarked News":
+        return (
+          <Feather
+            name="bookmark"
+            size={28}
+            color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+          />
+        );
+        break;
+      default:
+        return null;
+    }
   }
 
   function handleProfileNavigation(title: string) {
@@ -110,21 +137,26 @@ export default function ProfileScreen() {
   return (
     <ScrollView className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
       <View className="pt-10 mx-3 pb-20">
-        {profileDataToUse.map((data) => (
-          <TouchableOpacity
-            key={data.title}
-            onPress={() => handleProfileNavigation(data.title)}
-            className={`${
-              isDarkMode ? "border-b-lightBorder" : "border-grayNeutral"
-            } flex-row justify-between items-center pb-5  border-b-2`}
-          >
+        <Pressable
+          className={`flex-row justify-between items-center pb-5 border-grayNeutral dark:border-b-lightBorder border-b-2`}
+        >
+          <View className="flex-row items-center gap-3">
+            <View>
+              <MaterialCommunityIcons
+                name="theme-light-dark"
+                size={30}
+                color={
+                  isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
+                }
+              />
+            </View>
             <View>
               <Text
                 className={`${
                   isDarkMode ? "text-gray100" : "text-primaryColorSec"
                 }  text-[17px] mt-4 font-semibold`}
               >
-                {data.title}
+                Theme
               </Text>
               <Text
                 className={`${
@@ -133,39 +165,9 @@ export default function ProfileScreen() {
                     : "text-gray200 font-normal"
                 } pt-1 `}
               >
-                {data.description}
+                Switch between Light and Dark Theme
               </Text>
             </View>
-            <View>
-              <MaterialIcons
-                name="keyboard-arrow-right"
-                size={32}
-                color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
-              />
-            </View>
-          </TouchableOpacity>
-        ))}
-
-        <Pressable
-          className={`flex-row justify-between items-center pb-5 border-grayNeutral dark:border-b-lightBorder border-b-2`}
-        >
-          <View>
-            <Text
-              className={`${
-                isDarkMode ? "text-gray100" : "text-primaryColorSec"
-              }  text-[17px] mt-4 font-semibold`}
-            >
-              Theme
-            </Text>
-            <Text
-              className={`${
-                isDarkMode
-                  ? "text-lightText font-light"
-                  : "text-gray200 font-normal"
-              } pt-1 `}
-            >
-              Switch between Light and Dark Theme
-            </Text>
           </View>
 
           <Switch
@@ -181,6 +183,45 @@ export default function ProfileScreen() {
           />
         </Pressable>
 
+        {profileDataToUse.map((data) => (
+          <TouchableOpacity
+            key={data.title}
+            onPress={() => handleProfileNavigation(data.title)}
+            className={`${
+              isDarkMode ? "border-b-lightBorder" : "border-grayNeutral"
+            } flex-row justify-between items-center pb-5  border-b-2`}
+          >
+            <View className="flex-row items-center gap-3">
+              <View>{renderIcon(data.title)}</View>
+              <View>
+                <Text
+                  className={`${
+                    isDarkMode ? "text-gray100" : "text-primaryColorSec"
+                  }  text-[17px] mt-4 font-semibold`}
+                >
+                  {data.title}
+                </Text>
+                <Text
+                  className={`${
+                    isDarkMode
+                      ? "text-lightText font-light"
+                      : "text-gray200 font-normal"
+                  } pt-1 `}
+                >
+                  {data.description}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <MaterialIcons
+                name="keyboard-arrow-right"
+                size={32}
+                color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
+              />
+            </View>
+          </TouchableOpacity>
+        ))}
+
         {user && (
           <TouchableOpacity
             onPress={
@@ -188,55 +229,76 @@ export default function ProfileScreen() {
             }
             className={`flex-row justify-between items-center pb-5 border-grayNeutral dark:border-b-lightBorder border-b-2`}
           >
-            <View>
-              <Text className="text-[17px] mt-4 font-semibold text-primaryColorSec dark:text-gray100">
-                {user?.isDeactivated
-                  ? "Account Reactivation"
-                  : "Account Deactivation"}
-              </Text>
-              <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
-                {user?.isDeactivated
-                  ? "Reactivate your account here"
-                  : "Deactivate your account here"}
-              </Text>
+            <View className="flex-row items-center gap-3">
+              <View>
+                {user.isDeactivated ? (
+                  <MaterialCommunityIcons
+                    name="account-lock-open-outline"
+                    size={32}
+                    color={COLORS.primaryColorTheme}
+                  />
+                ) : (
+                  <MaterialCommunityIcons
+                    name="account-lock-outline"
+                    size={32}
+                    color={COLORS.primaryColorTheme}
+                  />
+                )}
+              </View>
+              <View>
+                <Text className="text-[17px] mt-4 font-semibold text-primaryColorSec dark:text-gray100">
+                  {user?.isDeactivated
+                    ? "Account Reactivation"
+                    : "Account Deactivation"}
+                </Text>
+                <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
+                  {user?.isDeactivated
+                    ? "Reactivate your account here"
+                    : "Deactivate your account here"}
+                </Text>
+              </View>
             </View>
 
-            {user.isDeactivated ? (
-              <MaterialCommunityIcons
-                name="account-lock-open"
-                size={38}
-                color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
-              />
-            ) : (
-              <FontAwesome5
-                name="user-lock"
-                size={26}
-                color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
-              />
-            )}
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={32}
+              color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
+            />
           </TouchableOpacity>
         )}
 
         {user ? (
-          <View>
+          <TouchableOpacity onPress={logOutUser}>
             <View className="flex-row justify-between items-center pb-5">
-              <View>
-                <Text className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold">
-                  Log Out
-                </Text>
-                <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
-                  Log out of your account
-                </Text>
+              <View className="flex-row items-center gap-3">
+                <View>
+                  <MaterialCommunityIcons
+                    name="account-convert-outline"
+                    size={30}
+                    color={
+                      isDarkMode
+                        ? COLORS.primaryColorTheme
+                        : COLORS.primaryColor
+                    }
+                  />
+                </View>
+                <View>
+                  <Text className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold">
+                    Log Out
+                  </Text>
+                  <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
+                    Log out of your account
+                  </Text>
+                </View>
               </View>
-              <TouchableOpacity onPress={logOutUser} className="mr-2">
-                <AntDesign
-                  name="logout"
-                  size={26}
-                  color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
-                />
-              </TouchableOpacity>
+
+              <MaterialIcons
+                name="keyboard-arrow-right"
+                size={32}
+                color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
+              />
             </View>
-          </View>
+          </TouchableOpacity>
         ) : (
           <View>
             <TouchableOpacity
@@ -245,18 +307,31 @@ export default function ProfileScreen() {
               }
               className="flex-row justify-between items-center pb-5"
             >
-              <View>
-                <Text className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold">
-                  Sign Up / Sign In
-                </Text>
-                <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
-                  Sign up or Sign in to your account
-                </Text>
+              <View className="flex-row items-center gap-2">
+                <View>
+                  <MaterialCommunityIcons
+                    name="account-convert-outline"
+                    size={30}
+                    color={
+                      isDarkMode
+                        ? COLORS.primaryColorTheme
+                        : COLORS.primaryColor
+                    }
+                  />
+                </View>
+                <View>
+                  <Text className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold">
+                    Sign Up / Sign In
+                  </Text>
+                  <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
+                    Sign up or Sign in to your account
+                  </Text>
+                </View>
               </View>
               <View>
-                <FontAwesome
-                  name="sign-in"
-                  size={30}
+                <MaterialIcons
+                  name="keyboard-arrow-right"
+                  size={32}
                   color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
                 />
               </View>
