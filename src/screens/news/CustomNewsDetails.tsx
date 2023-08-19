@@ -7,6 +7,7 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
   Animated,
+  ActivityIndicator,
 } from "react-native";
 import { useRef, useState } from "react";
 import { News } from "../../types/news";
@@ -17,11 +18,20 @@ import {
 } from "@react-navigation/native";
 import { formatTimeAgo } from "../../helpers";
 import { StatusBar } from "expo-status-bar";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Octicons,
+} from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import PostContent from "../../helpers/PostContent";
 import VirtualHeader from "../../helpers/VirtualHeader";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { httpRequest } from "../../services";
+import { useAuth } from "../../context/auth/AuthContext";
+import { useAlert } from "../../context/alert/AlertContext";
+import { Bookmark } from "../../types/bookmarks";
 
 interface NewsParams {
   news: News;
@@ -30,10 +40,20 @@ interface NewsParams {
 export default function CustomNewsDetails() {
   const { news } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { isDarkMode } = useSheet();
+  const { showAlertAndContent } = useAlert();
+  const {
+    state: { user },
+  } = useAuth();
   const [scrollPage, setScrollPage] = useState(false);
   const scrollViewRef = useRef(null);
   const scrollY = new Animated.Value(0);
+  const authHeaders = {
+    headers: { authorization: `Bearer ${user?.token}` },
+  };
+  const queryClient = useQueryClient();
 
   function handleScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
     const offsetY = event.nativeEvent.contentOffset.y;
@@ -61,6 +81,57 @@ export default function CustomNewsDetails() {
       setScrollPage(false);
     }
   }
+
+  const bookmarksMutation = useMutation(
+    (newsId: string) => {
+      return httpRequest.post(
+        `/bookmarks/toggleBookmark/${newsId}`,
+        "",
+        authHeaders
+      );
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["customNews"]);
+        queryClient.invalidateQueries(["bookmarks"]);
+      },
+    }
+  );
+
+  const addRemoveBookmark = async (newsId: string) => {
+    setIsLoading(true);
+    try {
+      const response = await bookmarksMutation.mutateAsync(newsId);
+      if (response && response.data.message === "News added to bookmarks") {
+        setIsLoading(false);
+        showAlertAndContent({
+          type: "success",
+          message: "News added to bookmarks",
+        });
+        setIsBookmarked(true);
+      } else {
+        setIsLoading(false);
+        showAlertAndContent({
+          type: "info",
+          message: "News removed from bookmarks",
+        });
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again later",
+      });
+    }
+  };
+
+  const userHasBookmarkedPost = (bookmarks: Bookmark[]): boolean => {
+    console.log({ bookmarks });
+
+    return bookmarks?.some((bookmark) => bookmark?.userId === user?.id);
+  };
 
   return (
     <View className="bg-shadowWhite dark:bg-darkNeutral flex-1">
@@ -93,13 +164,35 @@ export default function CustomNewsDetails() {
               color={COLORS.primaryColorTheme}
             />
           </TouchableOpacity>
-          <TouchableOpacity className="absolute top-14 right-0 mr-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center">
-            <MaterialCommunityIcons
-              name="bookmark-outline"
-              size={20}
-              color={COLORS.primaryColorTheme}
-            />
-          </TouchableOpacity>
+          {isLoading ? (
+            <View className="absolute top-14 right-0 mr-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center">
+              <ActivityIndicator
+                size="small"
+                color={
+                  isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
+                }
+              />
+            </View>
+          ) : (
+            <TouchableOpacity
+              onPress={() => addRemoveBookmark(news.id)}
+              className="absolute top-14 right-0 mr-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center"
+            >
+              {userHasBookmarkedPost(news.bookmarks) || isBookmarked ? (
+                <Octicons
+                  name="bookmark-slash"
+                  size={20}
+                  color={COLORS.primaryColorTheme}
+                />
+              ) : (
+                <MaterialCommunityIcons
+                  name="bookmark-outline"
+                  size={20}
+                  color={COLORS.primaryColorTheme}
+                />
+              )}
+            </TouchableOpacity>
+          )}
           <View className="mx-2">
             <Text className="absolute bottom-24 text-white font-bold text-[18px]">
               {news.title}

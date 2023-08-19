@@ -39,7 +39,7 @@ export default function HomeScreen() {
     queryClient.invalidateQueries(["customNews"]);
     queryClient.invalidateQueries(["externalNews"]);
 
-    setTimeout(() => setRefresh(false), 5000);
+    setTimeout(() => setRefresh(false), 3000);
   }
 
   return (
