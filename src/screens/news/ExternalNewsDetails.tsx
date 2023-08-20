@@ -132,7 +132,7 @@ export default function ExternalNewsDetails() {
               className=" py-2 px-6 mt-8 rounded-md border-2 border-primaryColor dark:border-primaryColorTheme"
             >
               <Text
-                style={{ fontFamily: "rubikREG" }}
+                style={{ fontFamily: "rubikSB" }}
                 className="font-semibold text-center text-xl text-primaryColor dark:text-primaryColorTheme"
               >
                 Read Full News

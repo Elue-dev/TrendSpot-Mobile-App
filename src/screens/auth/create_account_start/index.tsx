@@ -1,11 +1,10 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   CommonActions,
   NavigationProp,
   useNavigation,
 } from "@react-navigation/native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../../../common/colors";
 
@@ -13,32 +12,19 @@ export default function CreateAccountStart() {
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
 
-  async function resetOnboarding() {
-    await AsyncStorage.removeItem("userHasOnboarded");
-    navigation.navigate("TabStack");
-  }
-
-  async function handleGoogleSignIn() {}
-
   return (
-    <SafeAreaView
-      className={`flex-1 ${isDarkMode ? "bg-darkNeutral" : "bg-white"} `}
-    >
+    <SafeAreaView className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
       <View className="ml-4">
         <View>
           <Text
             style={{ fontFamily: "rubikSB" }}
-            className={`${
-              isDarkMode ? "text-lightText" : "text-darkNeutral"
-            } text-2xl font-bold  mt-20`}
+            className="text-2xl font-bold  mt-20 text-darkNeutral dark:text-lightText"
           >
             Welcome to TrendSpot
           </Text>
           <Text
             style={{ fontFamily: "rubikREG" }}
-            className={`${
-              isDarkMode ? "text-lightText" : "text-grayText"
-            } text-[18px] mt-1`}
+            className="text-[18px] mt-1 text-grayText dark:text-lightText"
           >
             For credibility and reliability.
           </Text>
@@ -94,9 +80,7 @@ export default function CreateAccountStart() {
             className="border border-1 border-lightGray mr-3 rounded-md mt-4 bg-grayNeutral"
           >
             <Text
-              className={`p-4 text-center text-base  ${
-                isDarkMode ? "bg-gray300 font-bold" : "font-semibold"
-              }`}
+              className="p-4 text-center text-base font-semibold dark:bg-gray300 dark:font-bold"
               style={{
                 color: isDarkMode ? "#4E0F12" : "#74171C",
                 fontFamily: "rubikSB",

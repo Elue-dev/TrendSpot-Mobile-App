@@ -131,7 +131,7 @@ export default function AuthSequence() {
   }
 
   return (
-    <SafeAreaView className="bg-white dark:bg-darkNeutral flex-1">
+    <SafeAreaView className="bg-shadowWhite dark:bg-darkNeutral flex-1">
       <ScrollView
         showsVerticalScrollIndicator={false}
         className="px-4 mt-8"

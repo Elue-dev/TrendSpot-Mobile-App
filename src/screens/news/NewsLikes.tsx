@@ -6,11 +6,10 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import { useLayoutEffect, useState } from "react";
-import { useAuth } from "../../context/auth/AuthContext";
+import { useLayoutEffect } from "react";
+
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
-import { useAlert } from "../../context/alert/AlertContext";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   NavigationProp,
   useNavigation,
@@ -18,7 +17,7 @@ import {
 } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../common/colors";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { httpRequest } from "../../services";
 import Loader from "../../components/loader";
 import ServerError from "../../components/custom_news/server_error";
@@ -33,11 +32,7 @@ interface LikeParams {
 
 export default function NewsLikes() {
   const { newsId, newsLikes } = useRoute().params as LikeParams;
-  const [likeCount, setLikeCount] = useState<number | null>(null);
   const navigation = useNavigation<NavigationProp<any>>();
-  const {
-    state: { user },
-  } = useAuth();
   const { isDarkMode } = useSheet();
 
   const queryFn = async (): Promise<Likes[]> => {
@@ -54,9 +49,6 @@ export default function NewsLikes() {
   } = useQuery<Likes[]>([`likes-${newsId}`], queryFn, {
     staleTime: 60000,
     refetchOnWindowFocus: true,
-    onSuccess(data) {
-      setLikeCount(data.length);
-    },
     onError(error: any) {
       console.log(error.response.data);
     },

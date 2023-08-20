@@ -44,6 +44,8 @@ export default function NewsComments() {
   const [commentType, setCommentType] = useState("new");
   const [commentId, setCommentId] = useState("");
   const [isReplying, setIsReplying] = useState(false);
+  const [commentIsAReply, setCommentIsAReply] = useState(false);
+  const [replyAuthorName, setReplyAuthorName] = useState("");
   const [commentAuthor, setCommentAuthor] = useState("");
   const inputRef = useRef<any>();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -165,12 +167,14 @@ export default function NewsComments() {
   async function editComment() {
     setLoading(true);
     const response = await editCommentMutation.mutateAsync({
-      message: comment,
+      message: commentIsAReply ? `${replyAuthorName}  ${comment}` : comment,
       isEdited: true,
     });
     if (response) {
       setComment("");
       setLoading(false);
+      setCommentIsAReply(false);
+      setReplyAuthorName("");
     }
     try {
       setLoading(false);
@@ -207,7 +211,17 @@ export default function NewsComments() {
   }
 
   function initiateEditAction(comment: Comment) {
-    setComment(comment.message);
+    let authorNames;
+    let messageText: string | undefined;
+    const parts = comment.message.split(" ");
+    if (parts.length > 2 && parts[0].startsWith("@")) {
+      authorNames = parts.slice(0, 2).join(" ");
+      messageText = parts.slice(2).join(" ");
+      setCommentIsAReply(true);
+      setReplyAuthorName(authorNames);
+    } else messageText = comment.message;
+
+    setComment(messageText);
     setHeightAdjust(true);
     inputRef.current.focus();
     setCommentType("edit");

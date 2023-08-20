@@ -9,10 +9,6 @@ import React, { useLayoutEffect, useState } from "react";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { TextInput } from "react-native-gesture-handler";
 import { useAlert } from "../../../context/alert/AlertContext";
-import {
-  handleAuthErrors,
-  validateEmail,
-} from "../../../helpers/HandleAuthErrors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../../common/colors";
@@ -53,7 +49,7 @@ export default function ForgotPassword() {
   async function sendResetEmail() {}
 
   return (
-    <View className="flex-1 bg-white dark:bg-darkNeutral px-3">
+    <View className="flex-1 bg-shadowWhite dark:bg-darkNeutral px-3">
       <View className="pt-10">
         <Text
           style={{ fontFamily: "rubikSB" }}
