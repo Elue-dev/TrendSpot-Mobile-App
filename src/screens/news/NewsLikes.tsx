@@ -35,7 +35,7 @@ export default function NewsLikes() {
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
 
-  const queryFn = async (): Promise<Likes[]> => {
+  const queryFn = async function (): Promise<Likes[]> {
     return httpRequest.get(`/likes/${newsId}`).then((res) => {
       return res.data.likes;
     });
@@ -113,10 +113,13 @@ export default function NewsLikes() {
                     >
                       {like.user?.firstName}
                     </Text>
-                    <Text style={{ fontFamily: "rubikL" }}>
+                    <Text
+                      style={{ fontFamily: "rubikL" }}
+                      className="text-darkNeutral dark:text-lightText"
+                    >
                       Liked{" "}
                       {formatTimeAgo(like.createdAt).includes("about")
-                        ? formatTimeAgo(like.createdAt).split("about")[1]
+                        ? formatTimeAgo(like.createdAt).split("about ")[1]
                         : formatTimeAgo(like.createdAt)}
                     </Text>
                   </View>

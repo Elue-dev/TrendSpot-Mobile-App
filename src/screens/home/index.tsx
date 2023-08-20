@@ -45,7 +45,6 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f0f0f0] dark:bg-darkNeutral">
-      <Header />
       <View className="h-4" />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -62,6 +61,7 @@ export default function HomeScreen() {
           />
         }
       >
+        <Header />
         <ExternalNews />
         <CustomNews />
       </ScrollView>

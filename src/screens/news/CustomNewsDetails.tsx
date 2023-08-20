@@ -8,6 +8,7 @@ import {
   NativeScrollEvent,
   Animated,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { useRef, useState } from "react";
 import { News } from "../../types/news";
@@ -316,7 +317,7 @@ export default function CustomNewsDetails() {
                       )}
                     </View>
                     <View className="flex-row items-center">
-                      <Text className="text-darkNeutral dark:text-lightText font-light text-base">
+                      <Text className="text-darkNeutral dark:text-lightText font-light text-base mr-1">
                         {formatTimeAgo(news?.createdAt || "")} .
                       </Text>
 
@@ -330,9 +331,10 @@ export default function CustomNewsDetails() {
                       >
                         <Text
                           style={{ fontFamily: "rubikREG" }}
-                          className="text-primaryColorLighter font-light text-base underline"
+                          className={`text-primaryColorLighter font-light text-base underline ${
+                            Platform.OS === "android" && "mt-1"
+                          }`}
                         >
-                          {" "}
                           {news?.likes.length}{" "}
                           {news?.likes.length === 1 ? "like" : "likes"}
                         </Text>

@@ -14,6 +14,7 @@ import { useAuth } from "../context/auth/AuthContext";
 import { QueryClient, UseMutationResult } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { AlertArgs } from "../types/alert";
+import { StatusBar } from "expo-status-bar";
 
 interface HeaderProps {
   navigation: NavigationProp<any>;
@@ -48,6 +49,7 @@ export default function VirtualHeader({
 
   return (
     <View className="h-24 w-full border-b border-b-lightText dark:border-b-grayNeutralTheme">
+      <StatusBar style={isDarkMode ? "light" : "dark"} />
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         className="absolute left-0 top-14 ml-3 bg-lightText dark:bg-shadowWhite rounded-full h-8 w-8 flex-col justify-center items-center"

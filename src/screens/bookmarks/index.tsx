@@ -63,7 +63,7 @@ export default function Bookmarks() {
     });
   }, [isDarkMode]);
 
-  const queryFn = async (): Promise<Bookmark[]> => {
+  const queryFn = async function (): Promise<Bookmark[]> {
     return httpRequest
       .get(`/bookmarks?userId=${user?.id}`, authHeaders)
       .then((res) => {
@@ -85,7 +85,7 @@ export default function Bookmarks() {
   });
 
   const bookmarksMutation = useMutation(
-    (newsId: string) => {
+    function (newsId: string) {
       return httpRequest.post(
         `/bookmarks/toggleBookmark/${newsId}`,
         "",
@@ -93,7 +93,7 @@ export default function Bookmarks() {
       );
     },
     {
-      onSuccess: () => {
+      onSuccess: function () {
         queryClient.invalidateQueries(["bookmarks"]);
       },
     }

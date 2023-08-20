@@ -56,13 +56,6 @@ export default function ExternalNewsDetails() {
               color={COLORS.primaryColorTheme}
             />
           </TouchableOpacity>
-          <TouchableOpacity className="absolute top-14 right-0 mr-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center">
-            <MaterialCommunityIcons
-              name="bookmark-outline"
-              size={20}
-              color={COLORS.primaryColorTheme}
-            />
-          </TouchableOpacity>
           <View className="mx-2">
             <Text
               style={{ fontFamily: "rubikB" }}

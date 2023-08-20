@@ -27,7 +27,7 @@ export default function ExploreScreen() {
   function handleNavigation() {
     switch (newsType) {
       case "Custom":
-        navigation.navigate("ExploreCustomNews");
+        navigation.navigate("Categories");
         break;
       case "External":
         navigation.navigate("ExploreExternalNews");

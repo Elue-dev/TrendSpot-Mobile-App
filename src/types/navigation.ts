@@ -3,6 +3,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { News } from "./news";
 
 export type RootStackParamList = {
   TabStack: NavigatorScreenParams<TabStackParamList>;
@@ -20,7 +21,7 @@ export type RootStackParamList = {
   CustomNewsDetails: {
     news: string;
   };
-  Search: undefined;
+
   Saved: undefined;
   AccountInfo: undefined;
   ManageInterests: undefined;
@@ -43,6 +44,8 @@ export type RootStackParamList = {
     newsId: string;
     newsLikes: string;
   };
+  Categories: undefined;
+  Search: undefined;
 };
 
 export type TabStackParamList = {

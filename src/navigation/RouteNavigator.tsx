@@ -26,6 +26,8 @@ import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
 import ProfileScreen from "../screens/settings_screens";
 import Bookmarks from "../screens/bookmarks";
 import NewsLikes from "../screens/news/NewsLikes";
+import Search from "../screens/search";
+import Categories from "../screens/categories";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -127,20 +129,7 @@ export default function RouteNavigator() {
           },
         }}
       />
-      <RootStack.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
-          headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
-          },
-        }}
-      />
+
       <RootStack.Screen
         name="AccountInfo"
         component={AccountInfo}
@@ -297,6 +286,7 @@ export default function RouteNavigator() {
         options={{
           headerShown: true,
           headerTitleAlign: "center",
+          presentation: "fullScreenModal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
@@ -341,6 +331,35 @@ export default function RouteNavigator() {
           headerShown: true,
           headerTitleAlign: "center",
           presentation: "formSheet",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          presentation: "fullScreenModal",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="Categories"
+        component={Categories}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode
