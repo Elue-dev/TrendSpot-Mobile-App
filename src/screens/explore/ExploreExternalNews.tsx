@@ -48,7 +48,10 @@ export default function ExploreExternalNews() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           External News
         </Text>
       ),
@@ -156,14 +159,20 @@ export default function ExploreExternalNews() {
       {externalNews.length === 0 && searchHasOccured ? (
         <View className="mt-2">
           <CuateSVG width={"90%"} height={300} />
-          <Text className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3"
+          >
             No news found for '
             <Text className="text-primaryColor dark:text-primaryColorTheme">
               {searchQuery}
             </Text>
             '
           </Text>
-          <Text className="text-authDark dark:text-lightGray text-[19px] text-center mt-1 mx-3">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-authDark dark:text-lightGray text-[19px] text-center mt-1 mx-3"
+          >
             Try searching something else
           </Text>
         </View>
@@ -190,7 +199,10 @@ export default function ExploreExternalNews() {
                         className="rounded-lg"
                         style={{ backgroundColor: "rgba(0,0,0,.7)" }}
                       >
-                        <Text className="text-white py-[3px] px-[5px] font-semibold text-sm">
+                        <Text
+                          style={{ fontFamily: "rubikSB" }}
+                          className="text-white py-[3px] px-[5px] font-semibold text-sm"
+                        >
                           {news.source.name}
                         </Text>
                       </View>
@@ -207,7 +219,10 @@ export default function ExploreExternalNews() {
                         />
                       </TouchableOpacity>
                     </View>
-                    <Text className="text-[17px] font-semibold leading-5 text-darkNeutral dark:text-lightText">
+                    <Text
+                      style={{ fontFamily: "rubikSB" }}
+                      className="text-[17px] font-semibold leading-5 text-darkNeutral dark:text-lightText"
+                    >
                       {news.title.length > 50
                         ? `${news.title.slice(0, 95)}...`
                         : news.title}
@@ -223,7 +238,10 @@ export default function ExploreExternalNews() {
                               : COLORS.primaryColor
                           }
                         />
-                        <Text className="text-darkNeutral dark:text-lightText ml-1">
+                        <Text
+                          style={{ fontFamily: "rubikREG" }}
+                          className="text-darkNeutral dark:text-lightText ml-1"
+                        >
                           {formatTimeAgo(news.publishedAt).includes("about")
                             ? formatTimeAgo(news.publishedAt).split("about")[1]
                             : formatTimeAgo(news.publishedAt)}
@@ -241,8 +259,17 @@ export default function ExploreExternalNews() {
                                 : COLORS.primaryColor
                             }
                           />
-                          <Text className="text-darkNeutral dark:text-lightText">
-                            {news.author?.split(",")[0].split("and")[0]}
+                          <Text
+                            style={{ fontFamily: "rubikREG" }}
+                            className="text-darkNeutral dark:text-lightText"
+                          >
+                            {news.author?.split(",")[0].split("and")[0].length >
+                            20
+                              ? news.author
+                                  ?.split(",")[0]
+                                  .split("and")[0]
+                                  .slice(0, 20)
+                              : news.author?.split(",")[0].split("and")[0]}
                           </Text>
                         </View>
                       )}

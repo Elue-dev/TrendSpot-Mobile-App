@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: "600",
+    fontFamily: "rubikSB",
   },
   tabBarIconFocused: {
     borderTopWidth: 1,

@@ -35,7 +35,10 @@ export default function StepOne({
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Add News
         </Text>
       ),
@@ -49,7 +52,10 @@ export default function StepOne({
             Keyboard.dismiss();
           }}
         >
-          <Text className="text-darkNeutral dark:text-lightText text-base">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-darkNeutral dark:text-lightText text-base"
+          >
             Reset
           </Text>
         </TouchableOpacity>
@@ -97,7 +103,10 @@ export default function StepOne({
               }}
             >
               <View className="mx-1">
-                <Text className="text-darkNeutral dark:text-lightText text-base font-bold mt-1">
+                <Text
+                  style={{ fontFamily: "rubikREG" }}
+                  className="text-darkNeutral dark:text-lightText text-base font-bold mt-1"
+                >
                   News Title
                 </Text>
 
@@ -140,7 +149,10 @@ export default function StepOne({
               }}
             >
               <View className="mx-1">
-                <Text className="text-darkNeutral dark:text-lightText text-base font-bold mt-1">
+                <Text
+                  style={{ fontFamily: "rubikREG" }}
+                  className="text-darkNeutral dark:text-lightText text-base font-bold mt-1"
+                >
                   News Read Time
                 </Text>
 
@@ -202,7 +214,10 @@ export default function StepOne({
                           : COLORS.primaryColor
                       }
                     />
-                    <Text className="text-primaryColor dark:text-primaryColorTheme text-[20px]">
+                    <Text
+                      style={{ fontFamily: "rubikREG" }}
+                      className="text-primaryColor dark:text-primaryColorTheme text-[20px]"
+                    >
                       {" "}
                       Click to add image
                     </Text>
@@ -217,7 +232,10 @@ export default function StepOne({
               onPress={handleStepChange}
               className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md w-full mt-3"
             >
-              <Text className="text-white font-semibold text-center text-xl">
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="text-white font-semibold text-center text-xl"
+              >
                 Next
               </Text>
             </TouchableOpacity>

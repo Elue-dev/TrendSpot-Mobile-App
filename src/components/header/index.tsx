@@ -36,10 +36,16 @@ export default function Header() {
           />
         </View>
         <View>
-          <Text className="text-[15px] text-grayNeutralTheme dark:text-lightText mb-1">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-[15px] text-grayNeutralTheme dark:text-lightText mb-1"
+          >
             {user ? `${user?.firstName} ${user?.lastName}` : "Hello there 👋"}
           </Text>
-          <Text className="font-bold text-darkNeutral dark:text-lightText text-[17px]">
+          <Text
+            style={{ fontFamily: "rubikMD" }}
+            className="font-bold text-darkNeutral dark:text-lightText text-[17px]"
+          >
             {user ? "Welcome Back!" : "Welcome Guest!"}
           </Text>
         </View>

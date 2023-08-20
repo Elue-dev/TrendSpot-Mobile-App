@@ -39,6 +39,12 @@ module.exports = {
         warningText: "#f0f078",
         infoText: "#5151ff",
       },
+      fontFamily: {
+        rubikMD: ["Rubik-Medium"],
+        rubikL: ["Rubik-Light"],
+        rubikSB: ["Rubik-SemiBold"],
+        rubikB: ["Rubik-Bold"],
+      },
     },
   },
   plugins: [],

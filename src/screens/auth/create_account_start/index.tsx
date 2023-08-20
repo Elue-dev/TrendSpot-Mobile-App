@@ -27,6 +27,7 @@ export default function CreateAccountStart() {
       <View className="ml-4">
         <View>
           <Text
+            style={{ fontFamily: "rubikSB" }}
             className={`${
               isDarkMode ? "text-lightText" : "text-darkNeutral"
             } text-2xl font-bold  mt-20`}
@@ -34,6 +35,7 @@ export default function CreateAccountStart() {
             Welcome to TrendSpot
           </Text>
           <Text
+            style={{ fontFamily: "rubikREG" }}
             className={`${
               isDarkMode ? "text-lightText" : "text-grayText"
             } text-[18px] mt-1`}
@@ -55,7 +57,10 @@ export default function CreateAccountStart() {
             className="border border-1 border-lightGray mr-3 rounded-md"
           >
             <View className="flex-row items-center justify-center">
-              <Text className="text-extraLightGray dark:text-lightGray p-4 text-center text-base">
+              <Text
+                style={{ fontFamily: "rubikREG" }}
+                className="text-extraLightGray dark:text-lightGray p-4 text-center text-base"
+              >
                 Sign Up Later
               </Text>
               <MaterialCommunityIcons
@@ -70,6 +75,7 @@ export default function CreateAccountStart() {
         <View className="pt-16">
           <View className="h-[0.5px] w-[96%] bg-lightGray relative" />
           <Text
+            style={{ fontFamily: "rubikREG" }}
             className={`text-center absolute top-[52px] left-[30%]  px-2  text-base ${
               isDarkMode
                 ? "bg-darkNeutral text-lightGray"
@@ -91,13 +97,19 @@ export default function CreateAccountStart() {
               className={`p-4 text-center text-base  ${
                 isDarkMode ? "bg-gray300 font-bold" : "font-semibold"
               }`}
-              style={{ color: isDarkMode ? "#4E0F12" : "#74171C" }}
+              style={{
+                color: isDarkMode ? "#4E0F12" : "#74171C",
+                fontFamily: "rubikSB",
+              }}
             >
               Email Address
             </Text>
           </TouchableOpacity>
 
-          <Text className="text-right mr-3 mt-4 text-base  flex-col justify-center items-center text-grayText dark:text-lightGray">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-right mr-3 mt-4 text-base  flex-col justify-center items-center text-grayText dark:text-lightGray"
+          >
             Already have an account?{" "}
             <Text
               onPress={() =>
@@ -106,7 +118,10 @@ export default function CreateAccountStart() {
                 })
               }
             >
-              <Text className=" text-primaryColor dark:text-primaryColorTheme font-semibold underline text-base">
+              <Text
+                style={{ fontFamily: "rubikREG" }}
+                className=" text-primaryColor dark:text-primaryColorTheme font-semibold underline text-base"
+              >
                 Sign In
               </Text>
             </Text>
@@ -114,14 +129,20 @@ export default function CreateAccountStart() {
         </View>
 
         <View className="mt-32">
-          <Text className="leading-6 text-grayText dark:text-lightGray">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="leading-6 text-grayText dark:text-lightGray"
+          >
             By signing up, you agree with our{" "}
             <Text
               onPress={() =>
                 navigation.navigate("Terms", { defaultTitle: "Terms Of Use" })
               }
             >
-              <Text className="font-bold uppercase text-grayText dark:text-lightGray">
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="uppercase text-grayText dark:text-lightGray"
+              >
                 Terms of Service
               </Text>
             </Text>{" "}
@@ -131,7 +152,10 @@ export default function CreateAccountStart() {
                 navigation.navigate("Terms", { defaultTitle: "Privacy Policy" })
               }
             >
-              <Text className="font-bold uppercase text-grayText dark:text-lightGray">
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="uppercase text-grayText dark:text-lightGray"
+              >
                 Privacy Policy
               </Text>
             </Text>

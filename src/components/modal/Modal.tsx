@@ -114,12 +114,15 @@ export default function Modal() {
             className="bg-white dark:bg-darkNeutral"
           >
             <Text
-              style={styles.title}
+              style={[styles.title, { fontFamily: "rubikSB" }]}
               className="text-darkNeutral dark:text-lightText"
             >
               {title}
             </Text>
-            <Text className="text-grayText dark:text-lightGray text-base font-normal mb-4 text-center leading-6">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-grayText dark:text-lightGray text-base font-normal mb-4 text-center leading-6"
+            >
               {message}
             </Text>
 
@@ -130,7 +133,10 @@ export default function Modal() {
               >
                 <Text
                   className="py-2 px-10 text-center text-base font-semibold dark:font-bold"
-                  style={{ color: isDarkMode ? "#4E0F12" : "#74171C" }}
+                  style={{
+                    color: isDarkMode ? "#4E0F12" : "#74171C",
+                    fontFamily: "rubikSB",
+                  }}
                 >
                   Close
                 </Text>
@@ -148,8 +154,8 @@ export default function Modal() {
                   className="border border-1 border-primaryColor bg-primaryColor dark:bg-primaryColorTheme dark:border-primaryColorTheme mr-3 rounded-md"
                 >
                   <Text
+                    style={{ fontFamily: "rubikSB", color: "#FFF" }}
                     className="py-2 px-10 text-center text-base font-semibold dark:font-bold"
-                    style={{ color: "#FFF" }}
                   >
                     {actionBtnText}
                   </Text>

@@ -43,7 +43,10 @@ export default function ExternalNews() {
   return (
     <View className="pt-8 mx-3">
       <View className="flex-row justify-between items-center mb-3">
-        <Text className="text-darkNeutral dark:text-lightText font-bold text-[17px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-darkNeutral dark:text-lightText font-bold text-center text-[19px]"
+        >
           External News
         </Text>
         <TouchableOpacity
@@ -73,7 +76,10 @@ export default function ExternalNews() {
                 className="absolute top-3 left-2 rounded-lg"
                 style={{ backgroundColor: "rgba(0,0,0,.7)" }}
               >
-                <Text className="text-white p-2 font-semibold text-sm">
+                <Text
+                  style={{ fontFamily: "rubikSB" }}
+                  className="text-white p-2 font-semibold text-sm"
+                >
                   {news.source.name}
                 </Text>
               </View>
@@ -81,11 +87,17 @@ export default function ExternalNews() {
                 className="absolute bottom-[70px] right-2 rounded-lg"
                 style={{ backgroundColor: "rgba(0,0,0,.7)" }}
               >
-                <Text className="text-white p-2 font-semibold text-sm">
+                <Text
+                  style={{ fontFamily: "rubikSB" }}
+                  className="text-white p-2 font-semibold text-sm"
+                >
                   {formatTimeAgo(news.publishedAt)}
                 </Text>
               </View>
-              <Text className="w-80 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText">
+              <Text
+                style={{ fontFamily: "rubikMD" }}
+                className="w-80 font-semibold text-base mt-2 p-2 leading-5 text-darkNeutral dark:text-lightText"
+              >
                 {news.title.length > 50
                   ? `${news.title.slice(0, 50)}...`
                   : news.title}

@@ -38,7 +38,10 @@ export default function AccountInfo() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Account Information
         </Text>
       ),
@@ -67,14 +70,20 @@ export default function AccountInfo() {
             source={{ uri: user?.avatar || DEFAULT_AVATAR }}
             className="h-28 w-28 rounded-full bg-primaryColorLighter"
           />
-          <Text className="pt-2 text-darkNeutral dark:text-lightText text-xl font-bold">
-            {user?.firstName}
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="pt-2 text-darkNeutral dark:text-lightText text-xl font-bold"
+          >
+            {user?.firstName} {user?.lastName}
           </Text>
         </View>
 
         <View className="pt-6">
           <View className="flex-row items-center justify-between pb-4">
-            <Text className="text-darkNeutral dark:text-gray-500 text-base font-bold ">
+            <Text
+              style={{ fontFamily: "rubikSB" }}
+              className="text-darkNeutral dark:text-gray-500 text-base font-bold "
+            >
               INFORMATION
             </Text>
 
@@ -85,7 +94,10 @@ export default function AccountInfo() {
                   navigation.navigate("EditProfile");
                 }}
               >
-                <Text className="text-primaryColor dark:text-primaryColorTheme text-[15px]">
+                <Text
+                  style={{ fontFamily: "rubikL" }}
+                  className="text-primaryColor dark:text-primaryColorTheme text-[15px]"
+                >
                   Edit Profile
                 </Text>
 
@@ -101,7 +113,10 @@ export default function AccountInfo() {
           </View>
 
           <View className="flex-row justify-between items-center pb-2 border-b-[.2px] border-b-lightBorder dark:border-b-slate-200">
-            <Text className="text-darkNeutral dark:text-lightGray text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightGray text-base"
+            >
               First Name
             </Text>
             <Text className="text-darkNeutral dark:text-white text-base">
@@ -110,25 +125,40 @@ export default function AccountInfo() {
           </View>
 
           <View className="flex-row justify-between items-center pb-2 pt-5 border-b-[.2px] border-b-lightBorder dark:border-b-slate-200">
-            <Text className="text-darkNeutral dark:text-lightGray text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightGray text-base"
+            >
               Last Name
             </Text>
-            <Text className="text-darkNeutral dark:text-white text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-white text-base"
+            >
               {user?.lastName}
             </Text>
           </View>
 
           <View className="flex-row justify-between items-center pb-2 pt-5 border-b-[.2px] border-b-lightBorder dark:border-b-slate-200">
-            <Text className="text-darkNeutral dark:text-lightGray text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightGray text-base"
+            >
               Email
             </Text>
-            <Text className="text-darkNeutral dark:text-white text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-white text-base"
+            >
               {user?.email}
             </Text>
           </View>
 
           <View className="flex-row justify-between items-center pb-2 pt-5 border-b-[.2px] border-b-lightBorder dark:border-b-slate-200">
-            <Text className="text-darkNeutral dark:text-lightGray text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightGray text-base"
+            >
               Status
             </Text>
 
@@ -148,6 +178,7 @@ export default function AccountInfo() {
               )}
 
               <Text
+                style={{ fontFamily: "rubikREG" }}
                 className={`${
                   user?.isDeactivated ? "text-red-500" : "text-customGreen"
                 } text-base`}
@@ -160,12 +191,16 @@ export default function AccountInfo() {
 
         <View className="pt-14 pb-16">
           <View className="">
-            <Text className="text-darkNeutral dark:text-gray-500 text-base font-bold">
+            <Text
+              style={{ fontFamily: "rubikSB" }}
+              className="text-darkNeutral dark:text-gray-500 text-base font-bold"
+            >
               PASSWORD UPDATE
             </Text>
 
             <View className="mt-7">
               <Text
+                style={{ fontFamily: "rubikREG" }}
                 className={`absolute ${
                   currentInput === "CurrentPassword" || currentPassword
                     ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -185,6 +220,7 @@ export default function AccountInfo() {
             </View>
             <View className="mt-9">
               <Text
+                style={{ fontFamily: "rubikREG" }}
                 className={`absolute ${
                   currentInput === "NewPassword" || newPassword
                     ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -204,6 +240,7 @@ export default function AccountInfo() {
             </View>
             <View className="mt-9">
               <Text
+                style={{ fontFamily: "rubikREG" }}
                 className={`absolute ${
                   currentInput === "PasswordConfirm" || newPassword
                     ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -233,7 +270,10 @@ export default function AccountInfo() {
                 onPress={() => {}}
                 className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md"
               >
-                <Text className="text-white font-semibold text-center text-xl">
+                <Text
+                  style={{ fontFamily: "rubikSB" }}
+                  className="text-white font-semibold text-center text-xl"
+                >
                   Change Password
                 </Text>
               </TouchableOpacity>

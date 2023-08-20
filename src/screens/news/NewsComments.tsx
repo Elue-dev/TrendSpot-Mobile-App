@@ -60,7 +60,10 @@ export default function NewsComments() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="font-semibold text-[18px] text-primaryColorSec dark:text-gray300">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="font-semibold text-[18px] text-primaryColorSec dark:text-gray300"
+        >
           Comments
         </Text>
       ),
@@ -298,9 +301,13 @@ export default function NewsComments() {
             />
 
             {comment.length === 0 ? (
-              <Text style={styles.disabledtext}>Send</Text>
+              <Text style={[styles.disabledtext, { fontFamily: "rubikREG" }]}>
+                Send
+              </Text>
             ) : loading ? (
-              <Text style={styles.disabledtext}>Sending...</Text>
+              <Text style={[styles.disabledtext, { fontFamily: "rubikREG" }]}>
+                Sending...
+              </Text>
             ) : (
               <>
                 {!loading && (
@@ -310,7 +317,7 @@ export default function NewsComments() {
                     }
                   >
                     <Text
-                      style={styles.activeText}
+                      style={[styles.activeText, { fontFamily: "rubikSB" }]}
                       className="text-primaryColor dark:text-primaryColorTheme"
                     >
                       Send

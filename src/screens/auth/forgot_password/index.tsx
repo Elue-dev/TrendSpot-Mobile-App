@@ -29,7 +29,10 @@ export default function ForgotPassword() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Forgot Password
         </Text>
       ),
@@ -52,10 +55,14 @@ export default function ForgotPassword() {
   return (
     <View className="flex-1 bg-white dark:bg-darkNeutral px-3">
       <View className="pt-10">
-        <Text className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
+        >
           Let's get you back!
         </Text>
         <Text
+          style={{ fontFamily: "rubikREG" }}
           className="
               text-[18px] mt-3 tracking-wide leading-6 text-darkNeutral dark:text-lightText font-normal dark:font-light"
         >
@@ -64,6 +71,7 @@ export default function ForgotPassword() {
         </Text>
         <View className="mt-10">
           <Text
+            style={{ fontFamily: "rubikREG" }}
             className={`absolute ${
               inputFocused || email
                 ? `bottom-5 text-[12px]  mb-2 ${
@@ -115,13 +123,14 @@ export default function ForgotPassword() {
               onPress={sendResetEmail}
               className="py-3 rounded-md bg-primaryColor dark:bg-primaryColorTheme"
             >
-              <Text className="text-white font-semibold text-center text-xl">
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="text-white font-semibold text-center text-xl"
+              >
                 Proceed
               </Text>
             </TouchableOpacity>
           )}
-
-          {/* Forgot Passwoord */}
         </View>
       </View>
     </View>

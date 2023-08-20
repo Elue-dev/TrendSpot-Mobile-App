@@ -37,7 +37,10 @@ export default function ProfileScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikMD" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           More
         </Text>
       ),
@@ -163,7 +166,7 @@ export default function ProfileScreen() {
                   isDarkMode
                     ? "text-lightText font-light"
                     : "text-gray200 font-normal"
-                } pt-1 `}
+                } pt-1 text-[15px] `}
               >
                 Switch between Light and Dark Theme
               </Text>
@@ -195,6 +198,7 @@ export default function ProfileScreen() {
               <View>{renderIcon(data.title)}</View>
               <View>
                 <Text
+                  style={{ fontFamily: "rubikMD" }}
                   className={`${
                     isDarkMode ? "text-gray100" : "text-primaryColorSec"
                   }  text-[17px] mt-4 font-semibold`}
@@ -206,7 +210,7 @@ export default function ProfileScreen() {
                     isDarkMode
                       ? "text-lightText font-light"
                       : "text-gray200 font-normal"
-                  } pt-1 `}
+                  } pt-1 text-[15px]`}
                 >
                   {data.description}
                 </Text>
@@ -246,12 +250,15 @@ export default function ProfileScreen() {
                 )}
               </View>
               <View>
-                <Text className="text-[17px] mt-4 font-semibold text-primaryColorSec dark:text-gray100">
+                <Text
+                  style={{ fontFamily: "rubikMD" }}
+                  className="text-[17px] mt-4 font-semibold text-primaryColorSec dark:text-gray100"
+                >
                   {user?.isDeactivated
                     ? "Account Reactivation"
                     : "Account Deactivation"}
                 </Text>
-                <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
+                <Text className="text-gray200 text-[15px] font-normal dark:text-lightText dark:font-light pt-1">
                   {user?.isDeactivated
                     ? "Reactivate your account here"
                     : "Deactivate your account here"}
@@ -283,10 +290,13 @@ export default function ProfileScreen() {
                   />
                 </View>
                 <View>
-                  <Text className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold">
+                  <Text
+                    style={{ fontFamily: "rubikMD" }}
+                    className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold"
+                  >
                     Log Out
                   </Text>
-                  <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
+                  <Text className="text-gray200 text-[15px] font-normal dark:text-lightText dark:font-light pt-1">
                     Log out of your account
                   </Text>
                 </View>
@@ -320,10 +330,13 @@ export default function ProfileScreen() {
                   />
                 </View>
                 <View>
-                  <Text className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold">
+                  <Text
+                    style={{ fontFamily: "rubikMD" }}
+                    className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold"
+                  >
                     Sign Up / Sign In
                   </Text>
-                  <Text className="text-gray200 font-normal dark:text-lightText dark:font-light pt-1">
+                  <Text className="text-gray200 text-[15.5px] font-normal dark:text-lightText dark:font-light pt-1">
                     Sign up or Sign in to your account
                   </Text>
                 </View>

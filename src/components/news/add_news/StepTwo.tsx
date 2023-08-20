@@ -53,7 +53,10 @@ export default function StepTwo({
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="font-semibold text-[18px] text-primaryColorSec dark:text-gray300">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="font-semibold text-[18px] text-primaryColorSec dark:text-gray300"
+        >
           Add News
         </Text>
       ),
@@ -72,7 +75,10 @@ export default function StepTwo({
             Keyboard.dismiss();
           }}
         >
-          <Text className="text-darkNeutral dark:text-lightText text-base">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-darkNeutral dark:text-lightText text-base"
+          >
             Reset
           </Text>
         </TouchableOpacity>
@@ -182,6 +188,7 @@ export default function StepTwo({
           <Picker.Item
             label="Select news category"
             value=""
+            style={{ fontFamily: "rubikREG" }}
             color={isDarkMode ? COLORS.lightGray : COLORS.darkNeutral}
             enabled={false}
           />
@@ -246,7 +253,10 @@ export default function StepTwo({
               onPress={addNews}
               className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md w-full mb-4"
             >
-              <Text className="text-white font-semibold text-center text-xl">
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="text-white font-semibold text-center text-xl"
+              >
                 Add News
               </Text>
             </TouchableOpacity>

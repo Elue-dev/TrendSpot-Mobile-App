@@ -31,7 +31,10 @@ export default function TermsAndPrivacy() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikMD" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Terms and Privacy Policy
         </Text>
       ),
@@ -58,6 +61,7 @@ export default function TermsAndPrivacy() {
               }`}
             >
               <Text
+                style={{ fontFamily: "rubikMD" }}
                 className={`text-center text-sm dark:text-white ${
                   currentTitle === title ? "font-bold" : "font-semibold"
                 } `}

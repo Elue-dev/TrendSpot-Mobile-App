@@ -14,7 +14,10 @@ export default function ExploreScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Explore
         </Text>
       ),
@@ -42,10 +45,16 @@ export default function ExploreScreen() {
           className="flex-row justify-between items-center border border-lightGray mt-4 py-8 px-4 rounded-lg"
         >
           <View>
-            <Text className="mb-3 text-[18px] font-semibold text-darkNeutral dark:text-lightText">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="mb-3 text-[18px] font-semibold text-darkNeutral dark:text-lightText"
+            >
               Custom News
             </Text>
-            <Text className="text-[15px] text-authDark dark:text-lightGray">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-[15px] text-authDark dark:text-lightGray"
+            >
               View news added by TrendSpot
             </Text>
           </View>
@@ -69,10 +78,16 @@ export default function ExploreScreen() {
           className="flex-row justify-between items-center border border-lightGray rounded-lg py-8 px-4 mt-6"
         >
           <View>
-            <Text className="mb-3 text-[18px] font-semibold text-darkNeutral dark:text-lightText">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="mb-3 text-[18px] font-semibold text-darkNeutral dark:text-lightText"
+            >
               External News
             </Text>
-            <Text className="text-[15px] text-authDark dark:text-lightGray">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-[15px] text-authDark dark:text-lightGray"
+            >
               View news from External Sources
             </Text>
           </View>
@@ -96,7 +111,10 @@ export default function ExploreScreen() {
             onPress={handleNavigation}
             className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md"
           >
-            <Text className="text-white font-semibold text-center text-xl">
+            <Text
+              style={{ fontFamily: "rubikSB" }}
+              className="text-white font-semibold text-center text-xl"
+            >
               Proceed
             </Text>
           </TouchableOpacity>

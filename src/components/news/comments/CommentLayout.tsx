@@ -62,7 +62,10 @@ export default function CommentLayout({
           />
           <View>
             <View className="flex-row items-center gap-1">
-              <Text className="text-darkNeutral dark:text-lightGray font-normal text-[15px]">
+              <Text
+                style={{ fontFamily: "rubikREG" }}
+                className="text-darkNeutral dark:text-lightGray font-normal text-[15px]"
+              >
                 {comment.author.firstName} {comment.author.lastName}
               </Text>
               {comment?.author.isAdmin ? (
@@ -75,12 +78,18 @@ export default function CommentLayout({
                 />
               ) : null}
             </View>
-            <Text className="text-gray-500 dark:text-authDark text-[13px] font-normal">
+            <Text
+              style={{ fontFamily: "rubikL" }}
+              className="text-gray-500 dark:text-authDark text-[13px] font-normal"
+            >
               {formatTimeAgo(comment.createdAt)}{" "}
               {comment.isEdited && <Text>. Edited</Text>}
             </Text>
 
-            <Text className="text-darkNeutral dark:text-lightText text-base w-72">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightText text-base w-72"
+            >
               {formatCommentMessage(comment.message)}
             </Text>
 
@@ -94,7 +103,10 @@ export default function CommentLayout({
                   ) : (
                     <>
                       {replies?.length > 0 && (
-                        <Text className="font-light text-darkNeutral dark:text-lightText text-[12px]">
+                        <Text
+                          style={{ fontFamily: "rubikL" }}
+                          className="font-light text-darkNeutral dark:text-lightText text-[12px]"
+                        >
                           Show Replies ({replies?.length})
                         </Text>
                       )}

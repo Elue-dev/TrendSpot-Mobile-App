@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { BottomSheetProvider } from "./src/context/bottom_sheet/BottomSheetContext";
 import * as Font from "expo-font";
 import {
@@ -16,34 +16,36 @@ import CustomStatusBar from "./src/components/status_bar";
 import Modal from "./src/components/modal/Modal";
 import Alert from "./src/components/alert/Alert";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
-  useEffect(() => {
-    loadFonts();
-  }, []);
-
-  const loadFonts = async () => {
+  async function loadFonts() {
     await Font.loadAsync({
-      "source-sans-regular": require("./src/assets/fonts/SourceSans3-Regular.ttf"),
+      SSReg: require("./src/assets/fonts/SourceSans3-Regular.ttf"),
+      SSBold: require("./src/assets/fonts/SourceSans3-Bold.ttf"),
+      SSRSemiB: require("./src/assets/fonts/SourceSans3-SemiBold.ttf"),
+      SSLight: require("./src/assets/fonts/SourceSans3-Light.ttf"),
+      rubikB: require("./src/assets/fonts/Rubik-Bold.ttf"),
+      rubikL: require("./src/assets/fonts/Rubik-Light.ttf"),
+      rubikMD: require("./src/assets/fonts/Rubik-Medium.ttf"),
+      rubikSB: require("./src/assets/fonts/Rubik-SemiBold.ttf"),
+      rubikREG: require("./src/assets/fonts/Rubik-Regular.ttf"),
     });
     setFontLoaded(true);
-  };
+  }
 
-  const theme: Theme = useMemo(
-    () => ({
-      ...DefaultTheme,
-      colors: {
-        ...DefaultTheme.colors,
-        background: "#f5f5f5",
-        text: "#191919",
-        border: "#D9D9D9",
-        primary: "#191919",
-      },
-    }),
-    []
-  );
+  useEffect(() => {
+    loadFontsAndHideSplashScreen();
+  }, []);
+
+  const loadFontsAndHideSplashScreen = async () => {
+    await loadFonts();
+    await SplashScreen.preventAutoHideAsync();
+    setFontLoaded(true);
+    await SplashScreen.hideAsync();
+  };
 
   const queryClient = new QueryClient();
 
@@ -55,7 +57,7 @@ export default function App() {
             <BottomSheetProvider>
               <ModalProvider>
                 <AlertProvider>
-                  <NavigationContainer theme={theme}>
+                  <NavigationContainer>
                     <RouteNavigator />
                     <CustomStatusBar />
                     <Modal />

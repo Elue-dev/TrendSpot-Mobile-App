@@ -42,7 +42,10 @@ export default function Bookmarks() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Bookmarks
         </Text>
       ),
@@ -152,7 +155,10 @@ export default function Bookmarks() {
                         className="rounded-lg"
                         style={{ backgroundColor: "rrgba(185, 48, 55, 0.524)" }}
                       >
-                        <Text className="text-white py-[3px] px-[5px] font-semibold text-sm">
+                        <Text
+                          style={{ fontFamily: "rubikREG" }}
+                          className="text-white py-[3px] px-[5px] font-semibold text-sm"
+                        >
                           {bookmark.news.category}
                         </Text>
                       </View>
@@ -165,7 +171,10 @@ export default function Bookmarks() {
                         }
                       >
                         <View className="flex-row items-center">
-                          <Text className="text-primaryColor dark:text-primaryColorLighter mr-1">
+                          <Text
+                            style={{ fontFamily: "rubikSB" }}
+                            className="text-primaryColor dark:text-primaryColorLighter mr-1"
+                          >
                             Read More
                           </Text>
                           <Ionicons
@@ -176,7 +185,10 @@ export default function Bookmarks() {
                         </View>
                       </TouchableOpacity>
                     </View>
-                    <Text className="text-[18px] font-semibold leading-5 text-darkNeutral dark:text-lightText">
+                    <Text
+                      style={{ fontFamily: "rubikSB" }}
+                      className="text-[18px] font-semibold leading-5 text-darkNeutral dark:text-lightText"
+                    >
                       {bookmark.news.title}
                     </Text>
                     <View className="flex-row items-center justify-between gap-1 pt-2">
@@ -191,7 +203,10 @@ export default function Bookmarks() {
                           }
                         />
 
-                        <Text className="text-darkNeutral dark:text-lightText ml-1">
+                        <Text
+                          style={{ fontFamily: "rubikL" }}
+                          className="text-darkNeutral dark:text-lightText ml-1"
+                        >
                           {formatTimeAgo(bookmark.createdAt)}
                         </Text>
                       </View>
@@ -206,7 +221,10 @@ export default function Bookmarks() {
                               : COLORS.primaryColor
                           }
                         />
-                        <Text className="text-darkNeutral dark:text-lightText ml-1">
+                        <Text
+                          style={{ fontFamily: "rubikL" }}
+                          className="text-darkNeutral dark:text-lightText ml-1"
+                        >
                           {bookmark.news.readTime} mins read
                         </Text>
                       </View>

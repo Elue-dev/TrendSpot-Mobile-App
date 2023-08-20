@@ -161,6 +161,7 @@ export default function AuthSequence() {
               }`}
             >
               <Text
+                style={{ fontFamily: "rubikSB" }}
                 className={`text-center text-base dark:text-white ${
                   currentAction === authAction ? "font-bold" : "font-semibold"
                 } `}
@@ -173,20 +174,32 @@ export default function AuthSequence() {
 
         {authAction === "Sign Up" ? (
           <View>
-            <Text className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12">
+            <Text
+              style={{ fontFamily: "rubikSB" }}
+              className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
+            >
               Welcome to TrendSpot
             </Text>
-            <Text className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6"
+            >
               We are committed to delivering accurate and trustworthy news from
               around the world.
             </Text>
           </View>
         ) : (
           <View>
-            <Text className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12">
+            <Text
+              style={{ fontFamily: "rubikSB" }}
+              className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
+            >
               Welcome back to TrendSpot
             </Text>
-            <Text className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6"
+            >
               As always, we are committed to delivering accurate and trustworthy
               news from around the world.
             </Text>
@@ -198,6 +211,7 @@ export default function AuthSequence() {
             <View>
               <View className="mt-14">
                 <Text
+                  style={{ fontFamily: "rubikREG" }}
                   className={`absolute ${
                     currentInput === "FirstName" || firstName
                       ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -217,6 +231,7 @@ export default function AuthSequence() {
               </View>
               <View className="mt-9">
                 <Text
+                  style={{ fontFamily: "rubikREG" }}
                   className={`absolute ${
                     currentInput === "LastName" || lastName
                       ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -239,6 +254,7 @@ export default function AuthSequence() {
 
           <View className={`${authAction === "Sign Up" ? "mt-10" : "mt-12"}`}>
             <Text
+              style={{ fontFamily: "rubikREG" }}
               className={`absolute ${
                 currentInput === "Email Address" || email
                   ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -260,6 +276,7 @@ export default function AuthSequence() {
 
           <View className="mt-10">
             <Text
+              style={{ fontFamily: "rubikREG" }}
               className={`absolute ${
                 currentInput === "Password" || password
                   ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
@@ -305,7 +322,10 @@ export default function AuthSequence() {
               onPress={authAction === "Sign In" ? loginUser : createUserAccount}
               className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md"
             >
-              <Text className="text-white font-semibold text-center text-xl">
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="text-white font-semibold text-center text-xl"
+              >
                 {authAction === "Sign In" ? "Sign In" : "Sign Up"}
               </Text>
             </TouchableOpacity>
@@ -317,7 +337,10 @@ export default function AuthSequence() {
           <TouchableOpacity
             onPress={() => navigation.navigate("ForgotPassword")}
           >
-            <Text className="text-base text-darkNeutral dark:text-white mt-5 text-right">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-base text-darkNeutral dark:text-white mt-5 text-right"
+            >
               Forgot your password?
             </Text>
           </TouchableOpacity>

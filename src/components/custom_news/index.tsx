@@ -46,7 +46,10 @@ export default function CustomNews() {
   return (
     <View className="pt-10 mx-3 pb-28">
       <View className="flex-row justify-between items-center mb-3">
-        <Text className="text-darkNeutral dark:text-lightText font-bold text-[17px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-darkNeutral dark:text-lightText font-bold text-[19px]"
+        >
           News From Us
         </Text>
         <TouchableOpacity
@@ -87,7 +90,10 @@ export default function CustomNews() {
                     />
                   </TouchableOpacity>
                 </View>
-                <Text className="text-[18px] font-semibold leading-5 text-darkNeutral dark:text-lightText">
+                <Text
+                  style={{ fontFamily: "rubikMD" }}
+                  className="text-[18px] leading-5 text-darkNeutral dark:text-lightText"
+                >
                   {news.title}
                 </Text>
                 <View className="flex-row items-center justify-between gap-1 pt-2">
@@ -101,7 +107,10 @@ export default function CustomNews() {
                           : COLORS.primaryColor
                       }
                     />
-                    <Text className="text-darkNeutral dark:text-lightText ml-1">
+                    <Text
+                      style={{ fontFamily: "rubikL" }}
+                      className="text-darkNeutral dark:text-lightText ml-1"
+                    >
                       {formatTimeAgo(news.createdAt)}
                     </Text>
                   </View>
@@ -116,7 +125,10 @@ export default function CustomNews() {
                           : COLORS.primaryColor
                       }
                     />
-                    <Text className="text-darkNeutral dark:text-lightText ml-1">
+                    <Text
+                      style={{ fontFamily: "rubikL" }}
+                      className="text-darkNeutral dark:text-lightText ml-1"
+                    >
                       {news.readTime} mins read
                     </Text>
                   </View>

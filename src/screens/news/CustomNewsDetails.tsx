@@ -216,10 +216,16 @@ export default function CustomNewsDetails() {
             </TouchableOpacity>
           )}
           <View className="mx-2">
-            <Text className="absolute bottom-24 text-white font-bold text-[18px]">
+            <Text
+              style={{ fontFamily: "rubikB" }}
+              className="absolute bottom-24 text-white font-bold text-[18px]"
+            >
               {news?.title}
             </Text>
-            <Text className="absolute bottom-[62px] text-white font-bold text-base">
+            <Text
+              style={{ fontFamily: "rubikSB" }}
+              className="absolute bottom-[62px] text-white font-bold text-base"
+            >
               Category: {news?.category}
             </Text>
           </View>
@@ -236,7 +242,10 @@ export default function CustomNewsDetails() {
                   />
                   <View>
                     <View className="flex-row items-center">
-                      <Text className="text-darkNeutral dark:text-lightText font-semibold text-base mr-1">
+                      <Text
+                        style={{ fontFamily: "rubikSB" }}
+                        className="text-darkNeutral dark:text-lightText text-base mr-1"
+                      >
                         {news?.author.firstName} {news?.author.lastName}
                       </Text>
                       {news?.author.isAdmin && (
@@ -270,14 +279,17 @@ export default function CustomNewsDetails() {
                     newsId: news?.id,
                   });
                 }}
-                className="flex-row items-center gap-1 justify-center border border-primaryColorTheme px-2 py-3 rounded-full"
+                className="flex-row items-center gap-1 justify-center border-2 border-primaryColorTheme px-2 py-3 rounded-full"
               >
                 <MaterialCommunityIcons
                   name="comment-text-multiple-outline"
                   size={20}
                   color={COLORS.primaryColorTheme}
                 />
-                <Text className="text-primaryColorTheme text-[18px]">
+                <Text
+                  style={{ fontFamily: "rubikSB" }}
+                  className="text-primaryColorTheme text-[18px]"
+                >
                   View Comments
                 </Text>
               </TouchableOpacity>

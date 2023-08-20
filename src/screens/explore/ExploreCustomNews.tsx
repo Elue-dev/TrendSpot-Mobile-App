@@ -33,7 +33,10 @@ export default function ExploreCustomNews() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Custom News
         </Text>
       ),
@@ -118,6 +121,7 @@ export default function ExploreCustomNews() {
                 }`}
               >
                 <Text
+                  style={{ fontFamily: "rubikSB" }}
                   className={`${
                     currentCategory === category
                       ? "text-lightText"
@@ -136,7 +140,10 @@ export default function ExploreCustomNews() {
         externalNews.length !== 0 &&
         currentCategory !== "All" && (
           <View>
-            <Text className="text-darkNeutral dark:text-lightText text-center text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightText text-center text-base"
+            >
               {externalNews.length} news found on{" "}
               <Text className="font-bold">'{currentCategory}'</Text>
             </Text>
@@ -146,14 +153,20 @@ export default function ExploreCustomNews() {
       {externalNews.length === 0 && filterHasOccured ? (
         <View className="mt-2">
           <CuateSVG width={"90%"} height={300} />
-          <Text className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3">
+          <Text
+            style={{ fontFamily: "rubikSB" }}
+            className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3"
+          >
             No news found for '
             <Text className="text-primaryColor dark:text-primaryColorTheme font-bold">
               {currentCategory}
             </Text>
             '
           </Text>
-          <Text className="text-authDark dark:text-lightGray text-[19px] text-center mt-1 mx-3">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-authDark dark:text-lightGray text-[19px] text-center mt-1 mx-3"
+          >
             Try searching something else
           </Text>
         </View>
@@ -179,7 +192,10 @@ export default function ExploreCustomNews() {
                         className="rounded-lg"
                         style={{ backgroundColor: "rgba(0,0,0,.7)" }}
                       >
-                        <Text className="text-white py-[3px] px-[5px] font-semibold text-sm">
+                        <Text
+                          style={{ fontFamily: "rubikSB" }}
+                          className="text-white py-[3px] px-[5px] font-semibold text-sm"
+                        >
                           {news.category}
                         </Text>
                       </View>
@@ -196,11 +212,17 @@ export default function ExploreCustomNews() {
                         />
                       </TouchableOpacity>
                     </View>
-                    <Text className="text-[17px] font-semibold leading-6 text-darkNeutral dark:text-lightText">
+                    <Text
+                      style={{ fontFamily: "rubikSB" }}
+                      className="text-[17px] font-semibold leading-6 text-darkNeutral dark:text-lightText"
+                    >
                       {news.title}
                     </Text>
 
-                    <Text className="text-[15px] font-light mt-2 leading-6 text-darkNeutral dark:text-lightText">
+                    <Text
+                      style={{ fontFamily: "rubikL" }}
+                      className="text-[15px] font-light mt-2 leading-6 text-darkNeutral dark:text-lightText"
+                    >
                       {news.content.includes("<div>")
                         ? `${parseText(news.content.slice(0, 300))}...`
                         : news.content.slice(0, 150)}
@@ -217,7 +239,10 @@ export default function ExploreCustomNews() {
                               : COLORS.primaryColor
                           }
                         />
-                        <Text className="text-darkNeutral dark:text-lightText ml-1">
+                        <Text
+                          style={{ fontFamily: "rubikREG" }}
+                          className="text-darkNeutral dark:text-lightText ml-1"
+                        >
                           {formatTimeAgo(news.createdAt).includes("about")
                             ? formatTimeAgo(news.createdAt).split("about")[1]
                             : formatTimeAgo(news.createdAt)}
@@ -235,7 +260,10 @@ export default function ExploreCustomNews() {
                                 : COLORS.primaryColor
                             }
                           />
-                          <Text className="text-darkNeutral dark:text-lightText">
+                          <Text
+                            style={{ fontFamily: "rubikREG" }}
+                            className="text-darkNeutral dark:text-lightText"
+                          >
                             {news.author.firstName} {news.author.lastName}
                           </Text>
                         </View>

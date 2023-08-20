@@ -75,7 +75,10 @@ export default function OnboardingScreen() {
             Platform.OS === "ios" ? "mt-5" : "mt-12"
           }`}
         >
-          <Text className="text-right text-primaryColorTheme dark:text-primaryColorTheme text-xl">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-right text-primaryColorTheme dark:text-primaryColorTheme text-xl"
+          >
             Skip
           </Text>
           <MaterialIcons
@@ -108,6 +111,9 @@ export default function OnboardingScreen() {
             <Text
               style={[
                 styles.titleText,
+                {
+                  fontFamily: "rubikSB",
+                },
                 isDarkMode
                   ? { color: COLORS.grayNeutral }
                   : { color: COLORS.primaryColorSec },
@@ -118,6 +124,9 @@ export default function OnboardingScreen() {
             <Text
               style={[
                 styles.subTitle,
+                {
+                  fontFamily: "rubikREG",
+                },
                 isDarkMode
                   ? { color: COLORS.gray300 }
                   : { color: COLORS.primaryColorSec },
@@ -219,7 +228,10 @@ export default function OnboardingScreen() {
                     }
                   >
                     <View className="flex-col justify-center items-center">
-                      <Text className="text-center text-white font-bold text-xl">
+                      <Text
+                        style={{ fontFamily: "rubikSB" }}
+                        className="text-center text-white font-bold text-xl"
+                      >
                         {currentSlideIndex === screensData.length - 1
                           ? "Get Started"
                           : "Next"}
