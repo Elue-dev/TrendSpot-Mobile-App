@@ -23,7 +23,6 @@ import { formatTimeAgo } from "../../helpers";
 import ServerError from "../../components/custom_news/server_error";
 import CuateSVG from "../../assets/cuate.svg";
 import { httpRequest } from "../../services";
-import { categories } from "../../data/categories";
 import { parseText } from "../../utils";
 
 interface CategoryParams {
@@ -34,8 +33,7 @@ export default function ExploreCustomNews() {
   let originalNews: News[];
   const { selectedCategories } = useRoute().params as CategoryParams;
   const [customNews, setCustomNews] = useState<News[]>([]);
-  const [filterHasOccured, setFilterHasOccured] = useState(false);
-  const [currentCategory, setCurrentCategory] = useState("All");
+
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
 
@@ -67,8 +65,7 @@ export default function ExploreCustomNews() {
       selectedCategories === "All" ? originalNews : newsBySelectedCategories;
 
     setCustomNews(newsToUse!);
-    setFilterHasOccured(true);
-  }, [currentCategory]);
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -122,39 +119,29 @@ export default function ExploreCustomNews() {
             News
           </Text>
         ) : (
-          <Text
-            style={{ fontFamily: "rubikREG" }}
-            className="text-darkNeutral dark:text-lightText text-[17px] leading-6"
-          >
-            Showing news results for{" "}
-            <Text className="text-primaryColorTheme">
-              {Array.isArray(selectedCategories) &&
-                selectedCategories?.join(", ")}
-            </Text>
-          </Text>
+          <>
+            {customNews.length > 0 && (
+              <Text
+                style={{ fontFamily: "rubikREG" }}
+                className="text-darkNeutral dark:text-lightText text-[17px] leading-6"
+              >
+                Showing news results for{" "}
+                <Text className="text-primaryColorTheme">
+                  {Array.isArray(selectedCategories) &&
+                    selectedCategories?.join(", ")}
+                </Text>
+              </Text>
+            )}
+          </>
         )}
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {filterHasOccured &&
-          customNews.length !== 0 &&
-          currentCategory !== "All" && (
-            <View>
-              <Text
-                style={{ fontFamily: "rubikREG" }}
-                className="text-darkNeutral dark:text-lightText text-center text-base"
-              >
-                {customNews.length} news found on{" "}
-                <Text className="font-bold">'{currentCategory}'</Text>
-              </Text>
-            </View>
-          )}
-
-        {customNews.length === 0 && filterHasOccured ? (
+        {customNews.length === 0 ? (
           <View className="mt-2">
             <CuateSVG width={"90%"} height={300} />
             <Text
               style={{ fontFamily: "rubikSB" }}
-              className="text-darkNeutral dark:text-lightGray text-[19px] mt-5 mx-3"
+              className="text-darkNeutral dark:text-lightGray text-center text-[19px] mt-5 mx-3"
             >
               No news found for '
               <Text className="text-primaryColor dark:text-primaryColorTheme font-bold">
@@ -165,7 +152,7 @@ export default function ExploreCustomNews() {
             </Text>
             <Text
               style={{ fontFamily: "rubikREG" }}
-              className="text-authDark dark:text-lightGray text-[19px] mt-2 mx-3"
+              className="text-authDark dark:text-lightGray text-[19px] text-center mt-2 mx-3"
             >
               Try searching something else
             </Text>

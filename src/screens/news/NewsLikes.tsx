@@ -36,7 +36,7 @@ export default function NewsLikes() {
   const { isDarkMode } = useSheet();
 
   const queryFn = async function (): Promise<Likes[]> {
-    return httpRequest.get(`/likes/${newsId}`).then((res) => {
+    return httpRequest.get(`/likes/news/${newsId}`).then((res) => {
       return res.data.likes;
     });
   };

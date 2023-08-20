@@ -107,8 +107,6 @@ export default function Categories() {
               className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite dark:bg-transparent ${
                 selectedCategories.includes(category)
                   ? "border-2 border-authDark"
-                  : isAllSelected
-                  ? "bg-lightText dark:bg-neutral-900 light:border border-lightText"
                   : "border border-lightText dark:border-lightBorder"
               } `}
             >
@@ -120,7 +118,7 @@ export default function Categories() {
                   {category}
                 </Text>
               </View>
-              {selectedCategories.includes(category) ? (
+              {selectedCategories.includes(category) || isAllSelected ? (
                 <Ionicons
                   name="checkmark-circle"
                   size={30}
