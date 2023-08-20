@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  RefreshControl,
-  Platform,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
@@ -13,6 +6,7 @@ import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { DEFAULT_AVATAR } from "../../utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function Header() {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -45,11 +39,27 @@ export default function Header() {
             style={{ fontFamily: "rubikREG" }}
             className="text-[15px] text-grayNeutralTheme dark:text-lightText mb-1"
           >
-            {user ? `${user?.firstName} ${user?.lastName}` : "Hello there 👋"}
+            {user ? (
+              `${user?.firstName} ${user?.lastName}`
+            ) : (
+              <View className="flex-row items-center">
+                <Text
+                  style={{ fontFamily: "rubikREG" }}
+                  className="mr-1 text-[15px]"
+                >
+                  Hello there
+                </Text>
+                <MaterialCommunityIcons
+                  name="human-greeting-variant"
+                  size={16}
+                  color={COLORS.authDark}
+                />
+              </View>
+            )}
           </Text>
           <Text
             style={{ fontFamily: "rubikMD" }}
-            className="font-bold text-darkNeutral dark:text-lightText text-[17px]"
+            className="font-bold text-darkNeutral dark:text-lightText text-[17px] -mt-[1px]"
           >
             {user ? "Welcome Back!" : "Welcome Guest!"}
           </Text>

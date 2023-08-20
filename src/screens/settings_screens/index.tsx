@@ -128,6 +128,8 @@ export default function SettingsScreen() {
   async function logOutUser() {
     try {
       removeActiveUser();
+      navigation.navigate("TabStack", { screen: "Home" });
+      setCurrRoute("Home");
     } catch (error: any) {
       console.log(error);
       showAlertAndContent({

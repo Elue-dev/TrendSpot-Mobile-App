@@ -110,7 +110,10 @@ export default function Bookmarks() {
       {bookmarks?.length === 0 ? (
         <View className="mt-7">
           <CuateSVG width={"90%"} height={300} />
-          <Text className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3">
+          <Text
+            style={{ fontFamily: "rubikREG" }}
+            className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3"
+          >
             All your bookmarks will appear here
           </Text>
         </View>

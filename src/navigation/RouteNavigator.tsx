@@ -25,6 +25,7 @@ import ExploreCustomNews from "../screens/explore/ExploreCustomNews";
 import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
 import ProfileScreen from "../screens/settings_screens";
 import Bookmarks from "../screens/bookmarks";
+import NewsLikes from "../screens/news/NewsLikes";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -117,7 +118,6 @@ export default function RouteNavigator() {
         options={{
           headerShown: false,
           headerTitleAlign: "center",
-          presentation: Platform.OS === "ios" ? "containedModal" : "formSheet",
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
@@ -326,6 +326,21 @@ export default function RouteNavigator() {
         options={{
           headerShown: true,
           headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="NewsLikes"
+        component={NewsLikes}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          presentation: "formSheet",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode

@@ -142,6 +142,7 @@ export default function CustomNewsDetails() {
   );
 
   async function handlePostLike() {
+    if (!user) return navigation.navigate("AuthSequence", { state: "Sign In" });
     setLikeLoading(true);
     try {
       const response = await likeMutation.mutateAsync(newsFromParams.id);
@@ -318,7 +319,15 @@ export default function CustomNewsDetails() {
                       <Text className="text-darkNeutral dark:text-lightText font-light text-base">
                         {formatTimeAgo(news?.createdAt || "")} .
                       </Text>
-                      <TouchableOpacity>
+
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("NewsLikes", {
+                            newsId: news?.id,
+                            newsLikes: news?.likes.length.toString(),
+                          })
+                        }
+                      >
                         <Text
                           style={{ fontFamily: "rubikREG" }}
                           className="text-primaryColorLighter font-light text-base underline"
