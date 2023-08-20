@@ -45,7 +45,7 @@ export default function Header() {
               <View className="flex-row items-center">
                 <Text
                   style={{ fontFamily: "rubikREG" }}
-                  className="mr-1 text-[15px]"
+                  className="mr-1 text-[15px] text-darkNeutral dark:text-lightText"
                 >
                   Hello there
                 </Text>

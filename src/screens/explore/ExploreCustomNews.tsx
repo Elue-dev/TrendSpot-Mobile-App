@@ -188,9 +188,10 @@ export default function ExploreCustomNews() {
                         </View>
 
                         <TouchableOpacity
-                          onPress={() =>
-                            navigation.navigate("CustomNewsDetails", { news })
-                          }
+                          onPress={() => {
+                            navigation.goBack();
+                            navigation.navigate("CustomNewsDetails", { news });
+                          }}
                         >
                           <SimpleLineIcons
                             name="eye"
