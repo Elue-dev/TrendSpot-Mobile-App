@@ -21,7 +21,7 @@ import { styles } from "./pages/styles";
 import { useAlert } from "../../context/alert/AlertContext";
 import { useModal } from "../../context/modal/ModalCotext";
 
-export default function ProfileScreen() {
+export default function SettingsScreen() {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const {
@@ -41,7 +41,7 @@ export default function ProfileScreen() {
           style={{ fontFamily: "rubikMD" }}
           className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
         >
-          More
+          Settings
         </Text>
       ),
     });

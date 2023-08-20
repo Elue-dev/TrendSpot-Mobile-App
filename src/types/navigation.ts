@@ -47,7 +47,7 @@ export type TabStackParamList = {
   Explore: undefined;
   AddNews: undefined;
   Profile: undefined;
-  More: undefined;
+  Settings: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

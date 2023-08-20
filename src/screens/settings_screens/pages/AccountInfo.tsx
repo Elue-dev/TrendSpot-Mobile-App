@@ -95,10 +95,10 @@ export default function AccountInfo() {
                 }}
               >
                 <Text
-                  style={{ fontFamily: "rubikL" }}
+                  style={{ fontFamily: "rubikSB" }}
                   className="text-primaryColor dark:text-primaryColorTheme text-[15px]"
                 >
-                  Edit Profile
+                  Edit
                 </Text>
 
                 <AntDesign

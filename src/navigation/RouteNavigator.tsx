@@ -5,16 +5,16 @@ import { RootStackParamList } from "../types/navigation";
 import TabNavigator from "./TabNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Platform } from "react-native";
 import { COLORS } from "../common/colors";
 import AuthSequence from "../screens/auth_sequence";
 import SearchScreen from "../screens/search";
-import ContactSupport from "../screens/profile/pages/ContactSupport";
-import TermsAndPrivacy from "../screens/profile/pages/TermsAndPrivacy";
+import ContactSupport from "../screens/settings_screens/pages/ContactSupport";
+import TermsAndPrivacy from "../screens/settings_screens/pages/TermsAndPrivacy";
 import SavedScreen from "../screens/saved";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
-import AccountInfo from "../screens/profile/pages/AccountInfo";
-import EditProfile from "../screens/profile/EditProfile";
+import AccountInfo from "../screens/settings_screens/pages/AccountInfo";
+import EditProfile from "../screens/settings_screens/EditProfile";
 import ForgotPassword from "../screens/auth/forgot_password";
 import NewsComments from "../screens/news/NewsComments";
 import ExternalNewsDetails from "../screens/news/ExternalNewsDetails";
@@ -23,7 +23,7 @@ import MoreExternalNews from "../screens/news/MoreExternalNews";
 import MoreCustomNews from "../screens/news/MoreCustomNews";
 import ExploreCustomNews from "../screens/explore/ExploreCustomNews";
 import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
-import ProfileScreen from "../screens/profile";
+import ProfileScreen from "../screens/settings_screens";
 import Bookmarks from "../screens/bookmarks";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -117,7 +117,7 @@ export default function RouteNavigator() {
         options={{
           headerShown: false,
           headerTitleAlign: "center",
-          presentation: "containedModal",
+          presentation: Platform.OS === "ios" ? "containedModal" : "formSheet",
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {

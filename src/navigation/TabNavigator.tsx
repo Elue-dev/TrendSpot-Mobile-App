@@ -12,7 +12,7 @@ import {
 } from "@expo/vector-icons";
 import { Platform, StyleSheet } from "react-native";
 import HomeScreen from "../screens/home";
-import ProfileScreen from "../screens/profile";
+import SettingsScreen from "../screens/settings_screens";
 import { COLORS } from "../common/colors";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
 import { useAuth } from "../context/auth/AuthContext";
@@ -65,10 +65,10 @@ export default function TabsNavigator() {
               />
             );
 
-          case "More":
+          case "Settings":
             return (
-              <Fontisto
-                name="more-v-a"
+              <Ionicons
+                name="ios-settings-outline"
                 size={size}
                 color={focused ? colorToUse : "#AEAEB2"}
                 style={styles.tabBarIcon}
@@ -168,13 +168,13 @@ export default function TabsNavigator() {
       )}
 
       <TabStack.Screen
-        name="More"
-        component={ProfileScreen}
+        name="Settings"
+        component={SettingsScreen}
         options={{
           headerShown: true,
           headerTitleAlign: "center",
           tabBarItemStyle:
-            currrRoute === "More"
+            currrRoute === "Settings"
               ? {
                   borderTopWidth: 2,
                   borderColor: isDarkMode

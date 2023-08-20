@@ -4,6 +4,7 @@ import {
   Image,
   TouchableOpacity,
   RefreshControl,
+  Platform,
 } from "react-native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
@@ -27,7 +28,11 @@ export default function Header() {
   }
 
   return (
-    <View className="flex-row justify-between items-center mx-3 pt-2">
+    <View
+      className={`flex-row justify-between items-center mx-3 ${
+        Platform.OS === "ios" ? "pt-2" : "pt-14"
+      }`}
+    >
       <View className="flex-row items-center gap-3">
         <View>
           <Image

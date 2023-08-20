@@ -22,6 +22,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
   Octicons,
+  AntDesign,
 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
@@ -31,7 +32,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "../../services";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useAlert } from "../../context/alert/AlertContext";
-import { Bookmark } from "../../types/bookmarks";
 import {
   addRemoveBookmark,
   userHasBookmarkedPost,
@@ -47,7 +47,9 @@ export default function CustomNewsDetails() {
   const { news: newsFromParams } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [loading, setloading] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
   const {
@@ -122,6 +124,54 @@ export default function CustomNewsDetails() {
     }
   );
 
+  const likeMutation = useMutation(
+    (newsId: string) => {
+      return httpRequest.post(
+        `/likes/togglePostLike/${newsId}`,
+        "",
+        authHeaders
+      );
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([`news-${newsFromParams.id}`]);
+        queryClient.invalidateQueries(["bookmarks"]);
+        queryClient.invalidateQueries(["likes"]);
+      },
+    }
+  );
+
+  async function handlePostLike() {
+    setLikeLoading(true);
+    try {
+      const response = await likeMutation.mutateAsync(newsFromParams.id);
+      if (response && response.data.message === "News liked") {
+        setLikeLoading(false);
+        showAlertAndContent({
+          type: "success",
+          message: "News liked",
+        });
+        setIsLiked(true);
+      } else {
+        setLikeLoading(false);
+        showAlertAndContent({
+          type: "info",
+          message: "News like removed",
+        });
+        setIsLiked(false);
+      }
+      queryClient.invalidateQueries(["likes"]);
+    } catch (error: any) {
+      setLikeLoading(false);
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data?.message ||
+          "Something went wrong. Please try again later",
+      });
+    }
+  }
+
   if (isLoading)
     return (
       <View className="flex-1 bg-transparent dark:bg-darkNeutral">
@@ -132,6 +182,10 @@ export default function CustomNewsDetails() {
     );
 
   if (error) return <ServerError refetch={refetch} />;
+
+  function userHasLikedPost(): boolean | undefined {
+    return news?.likes?.some((like) => like?.userId === user?.id);
+  }
 
   return (
     <View className="bg-shadowWhite dark:bg-darkNeutral flex-1">
@@ -233,8 +287,8 @@ export default function CustomNewsDetails() {
 
         <View className="rounded-tl-[10px] dark:rounded-tl-[20px] rounded-tr-[10px] dark:rounded-tr-[20px] w-ull h-full bg-white dark:bg-darkNeutral -mt-4">
           <View className="mx-3 mt-5">
-            <View className="flex-row justify-between items-center mb-4 border-b border-b-lightText dark:border-b-dark">
-              <View className="mb-2">
+            <View className="mb-4 border-b border-b-lightText dark:border-b-dark">
+              <View className="mb-2 flex-row justify-between items-center">
                 <View className="flex-row items-center gap-2">
                   <Image
                     source={{ uri: news?.author.avatar }}
@@ -260,11 +314,46 @@ export default function CustomNewsDetails() {
                         />
                       )}
                     </View>
-                    <Text className="text-darkNeutral dark:text-lightText font-light text-base">
-                      {formatTimeAgo(news?.createdAt || "")}
-                    </Text>
+                    <View className="flex-row items-center">
+                      <Text className="text-darkNeutral dark:text-lightText font-light text-base">
+                        {formatTimeAgo(news?.createdAt || "")} .
+                      </Text>
+                      <TouchableOpacity>
+                        <Text
+                          style={{ fontFamily: "rubikREG" }}
+                          className="text-primaryColorLighter font-light text-base underline"
+                        >
+                          {" "}
+                          {news?.likes.length}{" "}
+                          {news?.likes.length === 1 ? "like" : "likes"}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
+
+                {likeLoading ? (
+                  <ActivityIndicator
+                    size="small"
+                    color={COLORS.primaryColorTheme}
+                  />
+                ) : userHasLikedPost() || isLiked ? (
+                  <TouchableOpacity onPress={handlePostLike}>
+                    <AntDesign
+                      name="heart"
+                      size={26}
+                      color={COLORS.primaryColorTheme}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={handlePostLike}>
+                    <AntDesign
+                      name="hearto"
+                      size={26}
+                      color={COLORS.primaryColorTheme}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
             <View className="pb-8">
