@@ -126,7 +126,7 @@ export default function CommentLayout({
             >
               <MaterialCommunityIcons
                 name="reply-outline"
-                size={20}
+                size={25}
                 color={isDarkMode ? COLORS.lightGray : COLORS.authDark}
               />
             </TouchableOpacity>

@@ -67,6 +67,7 @@ export default function Alert() {
                 fontWeight: "bold",
                 fontSize: 16,
                 marginLeft: 8,
+                fontFamily: "rubikSB",
               }}
             >
               {message}

@@ -43,7 +43,10 @@ export default function EditProfile() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <Text className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px]"
+        >
           Edit Profile
         </Text>
       ),
@@ -138,7 +141,10 @@ export default function EditProfile() {
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <ScrollView ref={scrollViewRef} keyboardShouldPersistTaps="handled">
-        <Text className="text-[17px] text-darkNeutral font-bold dark:text-gray-400 mb-3">
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-[17px] text-darkNeutral font-bold dark:text-gray-400 mb-3"
+        >
           Photo
         </Text>
         <View style={styles.flexTop}>
@@ -150,20 +156,26 @@ export default function EditProfile() {
           <View>
             <TouchableOpacity onPress={pickImageAsync}>
               <Text
-                style={styles.replaceText}
+                style={[styles.replaceText, { fontFamily: "rubikSB" }]}
                 className="text-primaryColor dark:text-primaryColorTheme"
               >
                 {user?.avatar !== "" ? "Replace Photo" : "Add Photo"}
               </Text>
             </TouchableOpacity>
-            <Text className="text-darkNeutral dark:text-lightText text-base">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className="text-darkNeutral dark:text-lightText text-base"
+            >
               JPG and PNG are acceptable
             </Text>
           </View>
         </View>
 
         <View className="pt-11">
-          <Text className="text-[17px] text-darkNeutral font-bold dark:text-gray-400">
+          <Text
+            style={{ fontFamily: "rubikSB" }}
+            className="text-[17px] text-darkNeutral font-bold dark:text-gray-400"
+          >
             First Name
           </Text>
           <View style={styles.flexInput}>
@@ -180,7 +192,10 @@ export default function EditProfile() {
             />
           </View>
 
-          <Text className="text-[17px] text-darkNeutral font-bold dark:text-gray-400 mt-4">
+          <Text
+            style={{ fontFamily: "rubikSB" }}
+            className="text-[17px] text-darkNeutral font-bold dark:text-gray-400 mt-4"
+          >
             Last Name
           </Text>
           <View style={styles.flexInput}>
@@ -196,7 +211,7 @@ export default function EditProfile() {
               onChangeText={(newName) => setLastName(newName)}
             />
           </View>
-          <Text className="text-authDark">
+          <Text style={{ fontFamily: "rubikL" }} className="text-authDark">
             This will appear on your posts and profile.
           </Text>
 
@@ -206,7 +221,10 @@ export default function EditProfile() {
               className="bg-primaryColor dark:bg-primaryColorTheme"
               onPress={() => navigation.goBack()}
             >
-              <Text style={styles.btnText} className="text-white">
+              <Text
+                style={[styles.btnText, { fontFamily: "rubikSB" }]}
+                className="text-white"
+              >
                 Cancel
               </Text>
             </TouchableOpacity>
@@ -225,7 +243,7 @@ export default function EditProfile() {
                 />
               ) : (
                 <Text
-                  style={styles.btnText}
+                  style={[styles.btnText, { fontFamily: "rubikSB" }]}
                   className="text-primaryColor dark:text-primaryColorTheme"
                 >
                   Save Changes
@@ -235,7 +253,10 @@ export default function EditProfile() {
           </View>
 
           {user?.isDeactivated && (
-            <Text className="text-gray-500 dark:text-gray-400 mt-10 text-right italic">
+            <Text
+              style={{ fontFamily: "rubikL" }}
+              className="text-gray-500 dark:text-gray-400 mt-10 text-right italic"
+            >
               Your account is currently deactivated
             </Text>
           )}
