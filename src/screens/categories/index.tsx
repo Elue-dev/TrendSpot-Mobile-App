@@ -59,17 +59,20 @@ export default function Categories() {
   }
 
   return (
-    <ScrollView className="">
+    <ScrollView
+      className="flex-1 bg-shadowWhite dark:bg-darkNeutral"
+      showsVerticalScrollIndicator={false}
+    >
       <View className="pt-5 mb-20 mx-3">
         <Pressable
           onPress={() => {
             setSelectedCategories([]);
             setIsAllSelected(!isAllSelected);
           }}
-          className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite ${
+          className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite dark:bg-transparent ${
             isAllSelected
               ? "border-2 border-authDark"
-              : "border border-lightText"
+              : "border border-lightText dark:border-lightBorder"
           } `}
         >
           <Text
@@ -101,12 +104,12 @@ export default function Categories() {
               onPress={() =>
                 isAllSelected ? () => {} : manageCategories(category)
               }
-              className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite ${
+              className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite dark:bg-transparent ${
                 selectedCategories.includes(category)
                   ? "border-2 border-authDark"
                   : isAllSelected
-                  ? "bg-lightText border-lightText border"
-                  : "border border-lightText"
+                  ? "bg-lightText dark:bg-neutral-900 light:border border-lightText"
+                  : "border border-lightText dark:border-lightBorder"
               } `}
             >
               <View>
@@ -128,10 +131,10 @@ export default function Categories() {
                   name="circle"
                   size={26}
                   color={
-                    isDarkMode
+                    isDarkMode && !isAllSelected
                       ? COLORS.lightGray
-                      : isAllSelected
-                      ? COLORS.gray300
+                      : isDarkMode && isAllSelected
+                      ? COLORS.dark
                       : COLORS.gray600
                   }
                 />

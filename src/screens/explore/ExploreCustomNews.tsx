@@ -135,41 +135,6 @@ export default function ExploreCustomNews() {
         )}
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <View className="px-3 pt-8 pb-5">
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={modifiedCategories}
-          keyExtractor={(categories) => categories}
-          renderItem={({ item: category }) => (
-            <TouchableOpacity
-              onPress={() => setCurrentCategory(category)}
-              className="mr-2"
-            >
-              <View
-                className={`p-3 border-[2px] border-primaryColorLighter rounded-lg 
-                ${
-                  currentCategory === category
-                    ? "bg-primaryColor dark:bg-primaryColorTheme"
-                    : "bg-transparent"
-                }`}
-              >
-                <Text
-                  style={{ fontFamily: "rubikSB" }}
-                  className={`${
-                    currentCategory === category
-                      ? "text-lightText"
-                      : "text-primaryColor dark:text-primaryColorTheme"
-                  }  font-bold`}
-                >
-                  {category}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      </View> */}
-
         {filterHasOccured &&
           customNews.length !== 0 &&
           currentCategory !== "All" && (
@@ -189,7 +154,7 @@ export default function ExploreCustomNews() {
             <CuateSVG width={"90%"} height={300} />
             <Text
               style={{ fontFamily: "rubikSB" }}
-              className="text-darkNeutral dark:text-lightGray text-[19px] text-center mt-5 mx-3"
+              className="text-darkNeutral dark:text-lightGray text-[19px] mt-5 mx-3"
             >
               No news found for '
               <Text className="text-primaryColor dark:text-primaryColorTheme font-bold">
@@ -200,7 +165,7 @@ export default function ExploreCustomNews() {
             </Text>
             <Text
               style={{ fontFamily: "rubikREG" }}
-              className="text-authDark dark:text-lightGray text-[19px] text-center mt-1 mx-3"
+              className="text-authDark dark:text-lightGray text-[19px] mt-2 mx-3"
             >
               Try searching something else
             </Text>

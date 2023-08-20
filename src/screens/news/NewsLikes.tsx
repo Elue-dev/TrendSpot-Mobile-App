@@ -104,14 +104,14 @@ export default function NewsLikes() {
                 <View className="flex-row items-start gap-2">
                   <Image
                     source={{ uri: like.user.avatar }}
-                    className="h-12 w-12 rounded-full"
+                    className="h-12 w-12 rounded-full bg-primaryColorDisabled"
                   />
                   <View>
                     <Text
                       style={{ fontFamily: "rubikSB" }}
                       className="text-darkNeutral dark:text-lightText mb-1 text-[16px]"
                     >
-                      {like.user?.firstName}
+                      {like.user?.firstName} {like.user?.lastName}
                     </Text>
                     <Text
                       style={{ fontFamily: "rubikL" }}
