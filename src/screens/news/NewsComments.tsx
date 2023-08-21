@@ -17,13 +17,11 @@ import { RootStackParamList } from "../../types/navigation";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../common/colors";
-import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../home/styles";
 import { useAuth } from "../../context/auth/AuthContext";
 import { DEFAULT_AVATAR } from "../../utils";
 import { AntDesign } from "@expo/vector-icons";
 import Loader from "../../components/loader";
-import Comments from "../../components/news/comments";
 import { AddComment, Comment, News, UpdateComment } from "../../types/news";
 import { useAlert } from "../../context/alert/AlertContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -34,10 +32,11 @@ import CommentLayout from "../../components/news/comments/CommentLayout";
 
 interface NewsParams {
   newsId: string;
+  rootCommentsCount: number;
 }
 
 export default function NewsComments() {
-  const { newsId } = useRoute().params as NewsParams;
+  const { newsId, rootCommentsCount } = useRoute().params as NewsParams;
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [heightAdjust, setHeightAdjust] = useState(false);
@@ -66,7 +65,7 @@ export default function NewsComments() {
           style={{ fontFamily: "rubikSB" }}
           className="font-semibold text-[18px] text-primaryColorSec dark:text-gray300"
         >
-          Comments
+          Comments ({rootCommentsCount})
         </Text>
       ),
 

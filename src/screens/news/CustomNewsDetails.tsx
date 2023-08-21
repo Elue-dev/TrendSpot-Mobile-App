@@ -383,6 +383,7 @@ export default function CustomNewsDetails() {
                   navigation.navigate("NewsComments", {
                     commentID: news?.comments,
                     newsId: news?.id,
+                    rootCommentsCount,
                   });
                 }}
                 className="flex-row items-center gap-1 justify-center border-2 border-primaryColorTheme px-2 py-3 rounded-full"
@@ -396,7 +397,7 @@ export default function CustomNewsDetails() {
                   style={{ fontFamily: "rubikSB" }}
                   className="text-primaryColorTheme text-[18px]"
                 >
-                  View Comments ({rootCommentsCount})
+                  View Comments
                 </Text>
               </TouchableOpacity>
             </View>

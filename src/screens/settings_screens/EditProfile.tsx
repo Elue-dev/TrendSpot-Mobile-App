@@ -18,7 +18,7 @@ import { DEFAULT_AVATAR } from "../../utils";
 import * as ImagePicker from "expo-image-picker";
 import { useAlert } from "../../context/alert/AlertContext";
 import { COLORS } from "../../common/colors";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { httpRequest } from "../../services";
 import { uploadImageToCloud } from "../../helpers/imageUpload";
@@ -54,11 +54,7 @@ export default function EditProfile() {
       headerLeft: () =>
         Platform.OS === "ios" ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons
-              name="arrow-back-circle"
-              size={29}
-              color={COLORS.gray200}
-            />
+            <AntDesign name="closecircle" size={23} color={COLORS.gray200} />
           </TouchableOpacity>
         ) : null,
     });

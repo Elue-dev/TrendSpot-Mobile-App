@@ -8,9 +8,9 @@ import {
 import React, { useLayoutEffect, useState } from "react";
 import { useSheet } from "../../../context/bottom_sheet/BottomSheetContext";
 import { TextInput } from "react-native-gesture-handler";
-import { useAlert } from "../../../context/alert/AlertContext";
+
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../../common/colors";
 
 export default function ForgotPassword() {
@@ -19,7 +19,6 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
   const { isDarkMode } = useSheet();
-  const { showAlertAndContent, closeAlert } = useAlert();
   const navigation = useNavigation<NavigationProp<any>>();
 
   useLayoutEffect(() => {
@@ -36,11 +35,7 @@ export default function ForgotPassword() {
       headerLeft: () =>
         Platform.OS === "ios" ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons
-              name="arrow-back-circle"
-              size={29}
-              color={COLORS.gray200}
-            />
+            <AntDesign name="closecircle" size={23} color={COLORS.gray200} />
           </TouchableOpacity>
         ) : null,
     });
