@@ -73,11 +73,7 @@ export default function NewsComments() {
       headerLeft: () =>
         Platform.OS === "ios" ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons
-              name="arrow-back-circle"
-              size={29}
-              color={COLORS.gray200}
-            />
+            <AntDesign name="closecircle" size={23} color={COLORS.gray200} />
           </TouchableOpacity>
         ) : null,
     });
@@ -150,6 +146,7 @@ export default function NewsComments() {
         setLoading(false);
         setCommentAuthor("");
         setIsReplying(false);
+        inputRef.current.blur();
       }
     } catch (error: any) {
       console.log(error.response.data.message);
@@ -175,6 +172,7 @@ export default function NewsComments() {
       setLoading(false);
       setCommentIsAReply(false);
       setReplyAuthorName("");
+      inputRef.current.blur();
     }
     try {
       setLoading(false);
@@ -256,21 +254,23 @@ export default function NewsComments() {
             </Text>
           </View>
         ) : (
-          <View className="border-b border-b-lightText dark:border-b-lightBorder mb-3">
-            <View className="mt-5 mx-2">
+          <View className="">
+            <View className="mt-5 mx-2 ">
               <FlatList
                 keyExtractor={(rootComments) => rootComments.id}
                 showsHorizontalScrollIndicator={false}
                 data={rootComments}
                 scrollEnabled={false}
                 renderItem={({ item: comment }) => (
-                  <CommentLayout
-                    allComments={comments}
-                    comment={comment}
-                    initiateEditAction={initiateEditAction}
-                    initiateReplyAction={initiateReplyAction}
-                    replies={getReplies(comment.id)}
-                  />
+                  <View className="border-b border-b-lightText dark:border-b-lightBorder">
+                    <CommentLayout
+                      allComments={comments}
+                      comment={comment}
+                      initiateEditAction={initiateEditAction}
+                      initiateReplyAction={initiateReplyAction}
+                      replies={getReplies(comment.id)}
+                    />
+                  </View>
                 )}
               />
             </View>

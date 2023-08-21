@@ -16,6 +16,8 @@ export interface Bookmark {
 
 export interface BookmarkArgs {
   newsId: string;
+  user: User | null;
+  navigation: any;
   setloading: Dispatch<SetStateAction<boolean>>;
   bookmarksMutation: UseMutationResult<
     AxiosResponse<any, any>,

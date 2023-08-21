@@ -13,7 +13,7 @@ export default function CreateAccountStart() {
   const { isDarkMode } = useSheet();
 
   return (
-    <SafeAreaView className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
+    <SafeAreaView className="flex-1 bg-white dark:bg-darkNeutral">
       <View className="ml-4">
         <View>
           <Text

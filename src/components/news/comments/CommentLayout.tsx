@@ -10,7 +10,6 @@ import { COLORS } from "../../../common/colors";
 import { useAuth } from "../../../context/auth/AuthContext";
 import { Comment } from "../../../types/news";
 import { useState } from "react";
-import { parseText } from "../../../utils";
 
 export default function CommentLayout({
   allComments,
@@ -53,7 +52,7 @@ export default function CommentLayout({
   }
 
   return (
-    <View className="">
+    <View className="ml-2 mt-2 mb-[4px]">
       <View className="flex-row justify-between mb-3">
         <View className="flex-row items-start gap-2">
           <Image
@@ -88,67 +87,80 @@ export default function CommentLayout({
 
             <Text
               style={{ fontFamily: "rubikREG" }}
-              className="text-darkNeutral dark:text-lightText text-base w-72"
+              className="text-darkNeutral dark:text-lightText text-base w-72 mb-[4px]"
             >
               {formatCommentMessage(comment.message)}
             </Text>
 
-            <View className="mt-2">
-              {getReplies(comment.id)?.length !== 0 && (
-                <TouchableOpacity onPress={() => setShowReplies(!showReplies)}>
-                  {showReplies ? (
-                    <Text className="font-light text-darkNeutral dark:text-lightText text-[12px]">
-                      Hide Replies
-                    </Text>
-                  ) : (
-                    <>
-                      {replies?.length > 0 && (
-                        <Text
-                          style={{ fontFamily: "rubikL" }}
-                          className="font-light text-darkNeutral dark:text-lightText text-[12px]"
-                        >
-                          Show Replies ({replies?.length})
-                        </Text>
-                      )}
-                    </>
-                  )}
+            <View className="flex-row items-center gap-3">
+              {comment.authorId !== user?.id && user && (
+                <TouchableOpacity
+                  onPress={() => initiateReplyAction(comment)}
+                  className="flex-row items-center"
+                >
+                  <MaterialCommunityIcons
+                    name="reply-outline"
+                    size={12}
+                    color={isDarkMode ? COLORS.lightGray : COLORS.authDark}
+                  />
+                  <Text
+                    style={{ fontFamily: "rubikL" }}
+                    className="text-darkNeutral dark:text-lightText ml-[2px]"
+                  >
+                    Reply
+                  </Text>
                 </TouchableOpacity>
               )}
+              {comment.authorId === user?.id && (
+                <TouchableOpacity
+                  onPress={() => initiateEditAction(comment)}
+                  className="flex-row items-center"
+                >
+                  <AntDesign
+                    name="edit"
+                    size={12}
+                    color={isDarkMode ? COLORS.lightGray : COLORS.authDark}
+                  />
+                  <Text
+                    style={{ fontFamily: "rubikL" }}
+                    className="text-darkNeutral dark:text-lightText ml-[2px]"
+                  >
+                    Edit
+                  </Text>
+                </TouchableOpacity>
+              )}
+
+              <View className="mt-2">
+                {getReplies(comment.id)?.length !== 0 && (
+                  <TouchableOpacity
+                    onPress={() => setShowReplies(!showReplies)}
+                  >
+                    {showReplies ? (
+                      <Text className="font-light text-darkNeutral dark:text-lightText text-[12px]">
+                        Hide Replies
+                      </Text>
+                    ) : (
+                      <>
+                        {replies?.length > 0 && (
+                          <Text
+                            style={{ fontFamily: "rubikL" }}
+                            className="font-light text-darkNeutral dark:text-lightText text-[12px]"
+                          >
+                            Show Replies ({replies?.length})
+                          </Text>
+                        )}
+                      </>
+                    )}
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
           </View>
-        </View>
-
-        <View className="flex-row items-center">
-          {comment.authorId !== user?.id && user ? (
-            <TouchableOpacity
-              onPress={() => initiateReplyAction(comment)}
-              className="mr-1"
-            >
-              <MaterialCommunityIcons
-                name="reply-outline"
-                size={25}
-                color={isDarkMode ? COLORS.lightGray : COLORS.authDark}
-              />
-            </TouchableOpacity>
-          ) : null}
-
-          {comment.authorId === user?.id ? (
-            <TouchableOpacity
-              onPress={() => initiateEditAction(comment)}
-              className="mr-16"
-            >
-              <AntDesign
-                name="edit"
-                size={18}
-                color={isDarkMode ? COLORS.lightGray : COLORS.authDark}
-              />
-            </TouchableOpacity>
-          ) : null}
         </View>
       </View>
 
       {showReplies && (
-        <View className="ml-2">
+        <View className="border-l border-l-[#E9ECEF] dark:border-l-lightBorder">
           <FlatList
             keyExtractor={(replies) => replies.id}
             showsHorizontalScrollIndicator={false}

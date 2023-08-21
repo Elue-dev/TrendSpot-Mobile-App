@@ -3,12 +3,15 @@ import { Bookmark, BookmarkArgs } from "../types/bookmarks";
 
 export async function addRemoveBookmark({
   newsId,
+  user,
+  navigation,
   bookmarksMutation,
   setIsBookmarked,
   setloading,
   showAlertAndContent,
   queryClient,
 }: BookmarkArgs) {
+  if (!user) return navigation.navigate("AuthSequence", { state: "Sign In" });
   setloading(true);
   try {
     const response = await bookmarksMutation.mutateAsync(newsId);
@@ -28,6 +31,7 @@ export async function addRemoveBookmark({
       setIsBookmarked(false);
     }
     queryClient.invalidateQueries(["bookmarks"]);
+    queryClient.invalidateQueries([`news-${newsId}`]);
   } catch (error: any) {
     setloading(false);
     showAlertAndContent({

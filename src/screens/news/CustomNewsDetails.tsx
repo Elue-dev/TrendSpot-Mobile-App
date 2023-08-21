@@ -189,6 +189,10 @@ export default function CustomNewsDetails() {
     return news?.likes?.some((like) => like?.userId === user?.id);
   }
 
+  const rootCommentsCount = news?.comments.filter(
+    (comment) => comment.parentId === null
+  ).length;
+
   return (
     <View className="bg-shadowWhite dark:bg-darkNeutral flex-1">
       {scrollPage && (
@@ -244,6 +248,8 @@ export default function CustomNewsDetails() {
               onPress={() =>
                 addRemoveBookmark({
                   newsId: news?.id || "",
+                  user,
+                  navigation,
                   setIsBookmarked,
                   setloading,
                   bookmarksMutation,
@@ -390,7 +396,7 @@ export default function CustomNewsDetails() {
                   style={{ fontFamily: "rubikSB" }}
                   className="text-primaryColorTheme text-[18px]"
                 >
-                  View Comments
+                  View Comments ({rootCommentsCount})
                 </Text>
               </TouchableOpacity>
             </View>

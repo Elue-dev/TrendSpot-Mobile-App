@@ -72,6 +72,8 @@ export default function VirtualHeader({
           onPress={() =>
             addRemoveBookmark({
               newsId: news?.id || "",
+              user,
+              navigation,
               setIsBookmarked,
               setloading,
               bookmarksMutation,

@@ -17,7 +17,7 @@ import {
 } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../common/colors";
-import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { httpRequest } from "../../services";
 import Loader from "../../components/loader";
 import ServerError from "../../components/custom_news/server_error";
@@ -68,11 +68,7 @@ export default function NewsLikes() {
       headerLeft: () =>
         Platform.OS === "ios" ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons
-              name="arrow-back-circle"
-              size={29}
-              color={COLORS.gray200}
-            />
+            <AntDesign name="closecircle" size={23} color={COLORS.gray200} />
           </TouchableOpacity>
         ) : null,
     });

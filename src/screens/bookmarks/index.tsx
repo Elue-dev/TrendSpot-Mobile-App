@@ -84,20 +84,13 @@ export default function Bookmarks() {
     },
   });
 
-  const bookmarksMutation = useMutation(
-    function (newsId: string) {
-      return httpRequest.post(
-        `/bookmarks/toggleBookmark/${newsId}`,
-        "",
-        authHeaders
-      );
-    },
-    {
-      onSuccess: function () {
-        queryClient.invalidateQueries(["bookmarks"]);
-      },
-    }
-  );
+  const bookmarksMutation = useMutation(function (newsId: string) {
+    return httpRequest.post(
+      `/bookmarks/toggleBookmark/${newsId}`,
+      "",
+      authHeaders
+    );
+  });
 
   if (isLoading) return <Loader />;
   if (error) return <ServerError refetch={refetch} />;
