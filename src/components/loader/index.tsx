@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import React from "react";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
@@ -9,7 +9,7 @@ export default function Loader() {
   return (
     <View className="flex-1 bg-transparent dark:bg-darkNeutral">
       <ActivityIndicator
-        size="small"
+        size="large"
         color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
         style={{ marginTop: 40 }}
       />
