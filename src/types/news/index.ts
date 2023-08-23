@@ -114,6 +114,7 @@ export interface Comment {
 export interface UpdateComment {
   message: string;
   isEdited: boolean;
+  newsId: string;
 }
 export interface AddComment {
   message: string;

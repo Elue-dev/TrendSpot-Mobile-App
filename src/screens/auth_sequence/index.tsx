@@ -24,6 +24,7 @@ import { useAuth } from "../../context/auth/AuthContext";
 import { useAlert } from "../../context/alert/AlertContext";
 import { COLORS } from "../../common/colors";
 import { httpRequest } from "../../services";
+import { useQueryClient } from "@tanstack/react-query";
 
 const initiaCredentials: Credentials = {
   firstName: "",
@@ -50,6 +51,7 @@ export default function AuthSequence() {
   const { setActiveUser, setCurrRoute } = useAuth();
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
+  const queryClient = useQueryClient();
 
   function handleTextChange(name: string, text: string) {
     setCredentials({ ...credentials, [name]: text });
@@ -80,6 +82,7 @@ export default function AuthSequence() {
             routes: [{ name: "TabStack" }],
           })
         );
+        queryClient.invalidateQueries(["activities"]);
         setCurrRoute("Home");
       }
     } catch (error: any) {
@@ -114,6 +117,7 @@ export default function AuthSequence() {
             routes: [{ name: "TabStack" }],
           })
         );
+        queryClient.invalidateQueries(["activities"]);
         setCurrRoute("Home");
       }
     } catch (error: any) {

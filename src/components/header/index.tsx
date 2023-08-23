@@ -67,7 +67,8 @@ export default function Header() {
       </View>
       <View className="flex-row gap-3">
         <TouchableOpacity
-          onPress={resetOnboarding}
+          // onPress={resetOnboarding}
+          onPress={() => navigation.navigate("Activities")}
           className="bg-shadowWhite dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <Feather

@@ -32,6 +32,7 @@ export async function addRemoveBookmark({
     }
     queryClient.invalidateQueries(["bookmarks"]);
     queryClient.invalidateQueries([`news-${newsId}`]);
+    queryClient.invalidateQueries(["activities"]);
   } catch (error: any) {
     setloading(false);
     showAlertAndContent({

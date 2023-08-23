@@ -165,6 +165,7 @@ export default function NewsComments() {
     const response = await editCommentMutation.mutateAsync({
       message: commentIsAReply ? `${replyAuthorName}  ${comment}` : comment,
       isEdited: true,
+      newsId,
     });
     if (response) {
       setComment("");

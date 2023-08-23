@@ -28,6 +28,7 @@ import Bookmarks from "../screens/bookmarks";
 import NewsLikes from "../screens/news/NewsLikes";
 import Search from "../screens/search";
 import Categories from "../screens/categories";
+import Activities from "../screens/activities";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -357,6 +358,20 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="Categories"
         component={Categories}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode
+              ? "rgba(31, 31, 31, 0.99)"
+              : COLORS.shadowWhite,
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="Activities"
+        component={Activities}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

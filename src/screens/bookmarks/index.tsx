@@ -124,6 +124,8 @@ export default function Bookmarks() {
                       ? () => {}
                       : addRemoveBookmark({
                           newsId: bookmark.news?.id || "",
+                          user,
+                          navigation,
                           setIsBookmarked,
                           setloading,
                           bookmarksMutation,

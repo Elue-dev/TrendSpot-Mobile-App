@@ -46,6 +46,7 @@ export type RootStackParamList = {
   };
   Categories: undefined;
   Search: undefined;
+  Activities: undefined;
 };
 
 export type TabStackParamList = {

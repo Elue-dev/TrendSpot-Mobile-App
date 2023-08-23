@@ -1,31 +1,10 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  TouchableOpacity,
-  Button,
-  Platform,
-  ScrollView,
-} from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../../types/navigation";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
-import NewsCard from "../../components/news/NewsCard";
+import { useState } from "react";
+import { View, SafeAreaView, ScrollView } from "react-native";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
-import BottomSheetComponent from "../../components/bottom_sheet";
-import { SharedElement } from "react-native-shared-element";
 import { COLORS } from "../../common/colors";
-import Loader from "../../components/loader";
-import { useAuth } from "../../context/auth/AuthContext";
-import { categories } from "../../data/categories";
-import CuateSVG from "../../assets/cuate.svg";
 import Header from "../../components/header";
 import ExternalNews from "../../components/exteral_news";
 import CustomNews from "../../components/custom_news";
-import { News } from "../../types/news";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -39,6 +18,7 @@ export default function HomeScreen() {
     queryClient.invalidateQueries(["customNews"]);
     queryClient.invalidateQueries(["externalNews"]);
     queryClient.invalidateQueries(["bookmarks"]);
+    queryClient.invalidateQueries(["activities"]);
 
     setTimeout(() => setRefresh(false), 3000);
   }
