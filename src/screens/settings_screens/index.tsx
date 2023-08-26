@@ -168,7 +168,7 @@ export default function SettingsScreen() {
                   isDarkMode
                     ? "text-lightText font-light"
                     : "text-gray200 font-normal"
-                } pt-1 text-[15px] `}
+                } pt-1 text-[14px] `}
               >
                 Switch between Light and Dark Theme
               </Text>
@@ -212,7 +212,7 @@ export default function SettingsScreen() {
                     isDarkMode
                       ? "text-lightText font-light"
                       : "text-gray200 font-normal"
-                  } pt-1 text-[15px]`}
+                  } pt-1 text-[14px]`}
                 >
                   {data.description}
                 </Text>
@@ -260,7 +260,7 @@ export default function SettingsScreen() {
                     ? "Account Reactivation"
                     : "Account Deactivation"}
                 </Text>
-                <Text className="text-gray200 text-[15px] font-normal dark:text-lightText dark:font-light pt-1">
+                <Text className="text-gray200 text-[14px] font-normal dark:text-lightText dark:font-light pt-1">
                   {user?.isDeactivated
                     ? "Reactivate your account here"
                     : "Deactivate your account here"}
@@ -298,7 +298,7 @@ export default function SettingsScreen() {
                   >
                     Log Out
                   </Text>
-                  <Text className="text-gray200 text-[15px] font-normal dark:text-lightText dark:font-light pt-1">
+                  <Text className="text-gray200 text-[14px] font-normal dark:text-lightText dark:font-light pt-1">
                     Log out of your account
                   </Text>
                 </View>
@@ -338,7 +338,7 @@ export default function SettingsScreen() {
                   >
                     Sign Up / Sign In
                   </Text>
-                  <Text className="text-gray200 text-[15.5px] font-normal dark:text-lightText dark:font-light pt-1">
+                  <Text className="text-gray200 text-[14px] font-normal dark:text-lightText dark:font-light pt-1">
                     Sign up or Sign in to your account
                   </Text>
                 </View>

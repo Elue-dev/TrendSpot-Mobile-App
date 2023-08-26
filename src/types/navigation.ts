@@ -45,7 +45,9 @@ export type RootStackParamList = {
     newsLikes: string;
   };
   Categories: undefined;
-  Search: undefined;
+  Search: {
+    news: News;
+  };
   Activities: undefined;
 };
 

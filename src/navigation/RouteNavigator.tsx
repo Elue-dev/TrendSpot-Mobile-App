@@ -263,7 +263,6 @@ export default function RouteNavigator() {
         options={{
           headerShown: true,
           headerTitleAlign: "center",
-          presentation: "fullScreenModal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",

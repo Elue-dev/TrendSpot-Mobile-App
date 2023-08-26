@@ -32,11 +32,10 @@ import CommentLayout from "../../components/news/comments/CommentLayout";
 
 interface NewsParams {
   newsId: string;
-  rootCommentsCount: number;
 }
 
 export default function NewsComments() {
-  const { newsId, rootCommentsCount } = useRoute().params as NewsParams;
+  const { newsId } = useRoute().params as NewsParams;
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [heightAdjust, setHeightAdjust] = useState(false);
@@ -65,7 +64,7 @@ export default function NewsComments() {
           style={{ fontFamily: "rubikSB" }}
           className="font-semibold text-[18px] text-primaryColorSec dark:text-gray300"
         >
-          Comments ({rootCommentsCount})
+          Comments
         </Text>
       ),
 

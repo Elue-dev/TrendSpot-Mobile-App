@@ -192,10 +192,6 @@ export default function CustomNewsDetails() {
     return news?.likes?.some((like) => like?.userId === user?.id);
   }
 
-  const rootCommentsCount = news?.comments.filter(
-    (comment) => comment.parentId === null
-  ).length;
-
   return (
     <View className="bg-shadowWhite dark:bg-darkNeutral flex-1">
       {scrollPage && (
@@ -386,7 +382,6 @@ export default function CustomNewsDetails() {
                   navigation.navigate("NewsComments", {
                     commentID: news?.comments,
                     newsId: news?.id,
-                    rootCommentsCount,
                   });
                 }}
                 className="flex-row items-center gap-1 justify-center border-2 border-primaryColorTheme px-2 py-3 rounded-full"

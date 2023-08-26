@@ -62,7 +62,7 @@ export default function ExploreCustomNews() {
     );
 
     const newsToUse =
-      selectedCategories === "All" ? originalNews : newsBySelectedCategories;
+      selectedCategories === "All" ? news : newsBySelectedCategories;
 
     setCustomNews(newsToUse!);
   }, []);
@@ -90,21 +90,17 @@ export default function ExploreCustomNews() {
         ) : null,
 
       headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Search", { news })}
+        >
           <FontAwesome name="search" size={24} color={COLORS.gray200} />
         </TouchableOpacity>
       ),
     });
   }, [isDarkMode]);
 
-  useEffect(() => {
-    // categoriesFromRoute
-  }, []);
-
   if (isLoading) return <Loader />;
   if (error) return <ServerError refetch={refetch} />;
-
-  originalNews = news!;
 
   return (
     <View className="flex-1 bg-[#f8f8f8] dark:bg-darkNeutral">
