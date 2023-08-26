@@ -16,9 +16,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
 } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
+
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons, Feather } from "@expo/vector-icons";
@@ -40,12 +39,12 @@ interface PageParams {
 }
 
 export default function AuthSequence() {
-  const [authStep, setAuthStep] = useState("credentials");
+  const { state } = useRoute().params as PageParams;
   const [credentials, setCredentials] = useState(initiaCredentials);
   const [currentInput, setCurrentInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
-  const [authAction, setAuthAction] = useState("Sign Up");
+  const [authAction, setAuthAction] = useState(state ? state : "Sign Up");
   const changedActionState = authAction === "Sign Up" ? "Sign In" : "Sign Up";
   const isAndroid = Platform.OS === "android";
   const navigation = useNavigation<NavigationProp<any>>();
@@ -54,7 +53,6 @@ export default function AuthSequence() {
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
   const queryClient = useQueryClient();
-  const height = useHeaderHeight();
 
   function handleTextChange(name: string, text: string) {
     setCredentials({ ...credentials, [name]: text });
@@ -64,7 +62,7 @@ export default function AuthSequence() {
     if (!firstName || !lastName || !email || !password)
       return showAlertAndContent({
         type: "error",
-        message: "Please fill all fields",
+        message: "Please provide all credentials",
       });
 
     try {
@@ -103,7 +101,7 @@ export default function AuthSequence() {
     if (!email || !password)
       return showAlertAndContent({
         type: "error",
-        message: "Please fill all fields",
+        message: "both email and password are required",
       });
     try {
       setLoading(true);
@@ -142,127 +140,126 @@ export default function AuthSequence() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         className="px-4 mt-8"
-        style={{ paddingTop: isAndroid ? 60 : null }}
+        style={{
+          paddingTop: isAndroid ? 60 : null,
+        }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back-outline"
-            size={24}
-            color={isDarkMode ? "white" : "#1C1C1E"}
-          />
-        </TouchableOpacity>
-        <View className="bg-grayNeutral dark:bg-dark  flex-row p-[5px] justify-around items-center rounded-lg mt-5 overflow-hidden">
-          {["Sign Up", "Sign In"].map((currentAction, index) => (
-            <TouchableOpacity
-              onPress={() => {
-                setAuthAction(changedActionState);
-                setCredentials(initiaCredentials);
-              }}
-              key={index}
-              className={`py-1 px-16 rounded-lg ${
-                currentAction === authAction && isDarkMode
-                  ? "bg-authDark"
-                  : currentAction === authAction && !isDarkMode
-                  ? "bg-white"
-                  : ""
-              }`}
-            >
+        <View className={currentInput !== "" ? "-mt-10" : ""}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons
+              name="arrow-back-outline"
+              size={24}
+              color={isDarkMode ? "white" : "#1C1C1E"}
+            />
+          </TouchableOpacity>
+          <View className="bg-grayNeutral dark:bg-dark  flex-row p-[5px] justify-around items-center rounded-lg mt-5 overflow-hidden">
+            {["Sign Up", "Sign In"].map((currentAction, index) => (
+              <TouchableOpacity
+                onPress={() => {
+                  setAuthAction(changedActionState);
+                  setCredentials(initiaCredentials);
+                }}
+                key={index}
+                className={`py-1 px-16 rounded-lg ${
+                  currentAction === authAction && isDarkMode
+                    ? "bg-authDark"
+                    : currentAction === authAction && !isDarkMode
+                    ? "bg-white"
+                    : ""
+                }`}
+              >
+                <Text
+                  style={{ fontFamily: "rubikSB" }}
+                  className={`text-center text-base dark:text-white ${
+                    currentAction === authAction ? "font-bold" : "font-semibold"
+                  } `}
+                >
+                  {currentAction}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {authAction === "Sign Up" ? (
+            <View>
               <Text
                 style={{ fontFamily: "rubikSB" }}
-                className={`text-center text-base dark:text-white ${
-                  currentAction === authAction ? "font-bold" : "font-semibold"
-                } `}
+                className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
               >
-                {currentAction}
+                Welcome to TrendSpot
               </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {authAction === "Sign Up" ? (
-          <View>
-            <Text
-              style={{ fontFamily: "rubikSB" }}
-              className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
-            >
-              Welcome to TrendSpot
-            </Text>
-            <Text
-              style={{ fontFamily: "rubikREG" }}
-              className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6"
-            >
-              We are committed to delivering accurate and trustworthy news from
-              around the world.
-            </Text>
-          </View>
-        ) : (
-          <View>
-            <Text
-              style={{ fontFamily: "rubikSB" }}
-              className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
-            >
-              Welcome back to TrendSpot
-            </Text>
-            <Text
-              style={{ fontFamily: "rubikREG" }}
-              className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6"
-            >
-              As always, we are committed to delivering accurate and trustworthy
-              news from around the world.
-            </Text>
-          </View>
-        )}
-
-        <View>
-          {authAction === "Sign Up" && (
-            <KeyboardAvoidingView
-              keyboardVerticalOffset={height + 47}
-              behavior="padding"
-              style={{ flex: 1 }}
-              enabled
-            >
-              <View className="mt-14">
-                <Text
-                  style={{ fontFamily: "rubikREG" }}
-                  className={`absolute ${
-                    currentInput === "FirstName" || firstName
-                      ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
-                      : "bottom-2 text-[16px] text-grayText dark:text-lightText"
-                  }`}
-                >
-                  First Name
-                </Text>
-                <TextInput
-                  value={firstName}
-                  onChangeText={(text) => handleTextChange("firstName", text)}
-                  className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
-                  onFocus={() => setCurrentInput("FirstName")}
-                  onBlur={() => setCurrentInput("")}
-                  style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
-                />
-              </View>
-              <View className="mt-9">
-                <Text
-                  style={{ fontFamily: "rubikREG" }}
-                  className={`absolute ${
-                    currentInput === "LastName" || lastName
-                      ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
-                      : "bottom-2 text-[16px] text-grayText dark:text-lightText"
-                  }`}
-                >
-                  Last Name
-                </Text>
-                <TextInput
-                  value={lastName}
-                  onChangeText={(text) => handleTextChange("lastName", text)}
-                  className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
-                  onFocus={() => setCurrentInput("LastName")}
-                  onBlur={() => setCurrentInput("")}
-                  style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
-                />
-              </View>
-            </KeyboardAvoidingView>
+              <Text
+                style={{ fontFamily: "rubikREG" }}
+                className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6"
+              >
+                We are committed to delivering accurate and trustworthy news
+                from around the world.
+              </Text>
+            </View>
+          ) : (
+            <View>
+              <Text
+                style={{ fontFamily: "rubikSB" }}
+                className="text-darkNeutral dark:text-lightText text-2xl font-bold  mt-12"
+              >
+                Welcome back to TrendSpot
+              </Text>
+              <Text
+                style={{ fontFamily: "rubikREG" }}
+                className="text-darkNeutral dark:text-lightText font-normal dark:font-light text-[18px] mt-3 tracking-wide leading-6"
+              >
+                As always, we are committed to delivering accurate and
+                trustworthy news from around the world.
+              </Text>
+            </View>
           )}
+
+          <View>
+            {authAction === "Sign Up" && (
+              <View>
+                <View className="mt-14">
+                  <Text
+                    style={{ fontFamily: "rubikREG" }}
+                    className={`absolute ${
+                      currentInput === "FirstName" || firstName
+                        ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
+                        : "bottom-2 text-[16px] text-grayText dark:text-lightText"
+                    }`}
+                  >
+                    First Name
+                  </Text>
+                  <TextInput
+                    value={firstName}
+                    onChangeText={(text) => handleTextChange("firstName", text)}
+                    className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
+                    onFocus={() => setCurrentInput("FirstName")}
+                    onBlur={() => setCurrentInput("")}
+                    style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
+                  />
+                </View>
+                <View className="mt-9">
+                  <Text
+                    style={{ fontFamily: "rubikREG" }}
+                    className={`absolute ${
+                      currentInput === "LastName" || lastName
+                        ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
+                        : "bottom-2 text-[16px] text-grayText dark:text-lightText"
+                    }`}
+                  >
+                    Last Name
+                  </Text>
+                  <TextInput
+                    value={lastName}
+                    onChangeText={(text) => handleTextChange("lastName", text)}
+                    className="border-b-2 relative text-[16px] border-lightGray dark:border-lightBorder"
+                    onFocus={() => setCurrentInput("LastName")}
+                    onBlur={() => setCurrentInput("")}
+                    style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
+                  />
+                </View>
+              </View>
+            )}
+          </View>
 
           <View className={`${authAction === "Sign Up" ? "mt-10" : "mt-12"}`}>
             <Text
@@ -286,7 +283,10 @@ export default function AuthSequence() {
             />
           </View>
 
-          <View className="mt-10">
+          <View
+            className="mt-10"
+            style={{ flex: 1, justifyContent: "flex-end" }}
+          >
             <Text
               style={{ fontFamily: "rubikREG" }}
               className={`absolute ${
