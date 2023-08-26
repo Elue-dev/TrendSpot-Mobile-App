@@ -99,7 +99,7 @@ export default function StepOne({
               className="border border-gray100 dark:border-extraLightGray shadow-sm px-2 py-4 mt-3 rounded-lg"
               style={{
                 elevation: 1,
-                backgroundColor: isDarkMode ? COLORS.darkNeutral : "#fefefe",
+                backgroundColor: isDarkMode ? COLORS.darkCard : "#fefefe",
               }}
             >
               <View className="mx-1">
@@ -118,7 +118,7 @@ export default function StepOne({
                   }`}
                   style={{
                     elevation: 1,
-                    backgroundColor: isDarkMode ? "transparent" : "#fefefe",
+                    backgroundColor: isDarkMode ? "#222" : "#fefefe",
                   }}
                 >
                   <TextInput
@@ -145,7 +145,7 @@ export default function StepOne({
               className="border border-gray100 dark:border-extraLightGray mb-5 shadow-sm px-2 py-4 mt-3 rounded-lg"
               style={{
                 elevation: 1,
-                backgroundColor: isDarkMode ? COLORS.darkNeutral : "#FFF",
+                backgroundColor: isDarkMode ? COLORS.darkCard : "#FFF",
               }}
             >
               <View className="mx-1">
@@ -164,7 +164,7 @@ export default function StepOne({
                   }`}
                   style={{
                     elevation: 1,
-                    backgroundColor: isDarkMode ? "transparent" : "#FFF",
+                    backgroundColor: isDarkMode ? "#222" : "#FFF",
                   }}
                 >
                   <TextInput
@@ -191,7 +191,7 @@ export default function StepOne({
           <TouchableOpacity onPress={pickImageAsync}>
             <View
               style={styles.imgWrap}
-              className="border-lightBorder dark:border-lightText bg-grayNeutral dark:bg-darkNeutral"
+              className="border-lightBorder dark:border-lightText bg-grayNeutral dark:bg-darkCard"
             >
               {image ? (
                 <Image
@@ -216,7 +216,7 @@ export default function StepOne({
                     />
                     <Text
                       style={{ fontFamily: "rubikREG" }}
-                      className="text-primaryColor dark:text-primaryColorTheme text-[20px]"
+                      className="text-darkNeutral dark:text-lightText text-[20px]"
                     >
                       {" "}
                       Click to add image

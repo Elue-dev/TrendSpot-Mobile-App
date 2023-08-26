@@ -69,7 +69,7 @@ export default function Categories() {
             setSelectedCategories([]);
             setIsAllSelected(!isAllSelected);
           }}
-          className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite dark:bg-transparent ${
+          className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-white dark:bg-darkCard ${
             isAllSelected
               ? "border-2 border-authDark"
               : "border border-lightText dark:border-lightBorder"
@@ -104,7 +104,7 @@ export default function Categories() {
               onPress={() =>
                 isAllSelected ? () => {} : manageCategories(category)
               }
-              className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-shadowWhite dark:bg-transparent ${
+              className={`flex-row justify-between items-center rounded-lg py-4 px-4 mt-2 shadow-sm bg-white dark:bg-darkCard ${
                 selectedCategories.includes(category)
                   ? "border-2 border-authDark"
                   : "border border-lightText dark:border-lightBorder"

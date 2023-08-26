@@ -61,7 +61,7 @@ export default function CustomNews() {
         data={news?.slice(0, 5)}
         scrollEnabled={false}
         renderItem={({ item: news }) => (
-          <View className="bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-[5px] rounded-lg">
+          <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-[5px] rounded-lg">
             <View className="flex-row gap-4">
               <View className="w-[70%] flex-col justify-around">
                 <View className="flex-row justify-between items-center mb-2">

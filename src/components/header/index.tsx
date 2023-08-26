@@ -68,7 +68,7 @@ export default function Header() {
       <View className="flex-row gap-3">
         <TouchableOpacity
           onPress={() => navigation.navigate("Activities")}
-          className="bg-shadowWhite dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
+          className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <Feather
             name="activity"
@@ -82,7 +82,7 @@ export default function Header() {
               ? navigation.navigate("AccountInfo")
               : navigation.navigate("AuthSequence", { state: "Sign In" })
           }
-          className="bg-shadowWhite dark:bg-authDark h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
+          className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <FontAwesome5
             name="user"

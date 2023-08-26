@@ -24,7 +24,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#f0f0f0] dark:bg-darkNeutral">
+    <SafeAreaView className="flex-1 bg-[#f7f7f7] dark:bg-darkNeutral">
       <View className="h-4" />
       <ScrollView
         showsVerticalScrollIndicator={false}

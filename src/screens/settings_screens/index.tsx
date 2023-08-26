@@ -143,7 +143,7 @@ export default function SettingsScreen() {
     <ScrollView className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
       <View className="pt-10 mx-3 pb-20">
         <Pressable
-          className={`flex-row justify-between items-center pb-5 border-grayNeutral dark:border-b-lightBorder border-b-2`}
+          className={`flex-row justify-between items-center border-grayNeutral dark:border-b-lightBorder border-b-2 shadow-sm rounded-tl-lg rounded-tr-lg bg-white dark:bg-darkCard mb-[2px] p-2`}
         >
           <View className="flex-row items-center gap-3">
             <View>
@@ -194,7 +194,7 @@ export default function SettingsScreen() {
             onPress={() => handleProfileNavigation(data.title)}
             className={`${
               isDarkMode ? "border-b-lightBorder" : "border-grayNeutral"
-            } flex-row justify-between items-center pb-5  border-b-2`}
+            } flex-row justify-between items-center pb-5  border-b-2 shadow-sm bg-white dark:bg-darkCard mb-[2px] p-2`}
           >
             <View className="flex-row items-center gap-3">
               <View>{renderIcon(data.title)}</View>
@@ -233,7 +233,7 @@ export default function SettingsScreen() {
             onPress={
               user?.isDeactivated ? reactivateAccount : deactivateAccount
             }
-            className={`flex-row justify-between items-center pb-5 border-grayNeutral dark:border-b-lightBorder border-b-2`}
+            className={`flex-row justify-between items-center pb-5 border-grayNeutral dark:border-b-lightBorder border-b-2 shadow-sm bg-white dark:bg-darkCard mb-[2px] p-2`}
           >
             <View className="flex-row items-center gap-3">
               <View>
@@ -278,7 +278,7 @@ export default function SettingsScreen() {
 
         {user ? (
           <TouchableOpacity onPress={logOutUser}>
-            <View className="flex-row justify-between items-center pb-5">
+            <View className="flex-row justify-between items-center pb-5 shadow-sm bg-white dark:bg-darkCard p-2 rounded-bl-lg rounded-br-lg">
               <View className="flex-row items-center gap-3">
                 <View>
                   <MaterialCommunityIcons
@@ -317,7 +317,7 @@ export default function SettingsScreen() {
               onPress={() =>
                 navigation.navigate("AuthSequence", { state: "Sign Up" })
               }
-              className="flex-row justify-between items-center pb-5"
+              className="flex-row justify-between items-center pb-5 shadow-sm rounded-bl-lg rounded-br-lg bg-white dark:bg-darkCard  mb-1 p-2"
             >
               <View className="flex-row items-center gap-2">
                 <View>

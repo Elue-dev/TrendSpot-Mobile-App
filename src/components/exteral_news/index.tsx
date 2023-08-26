@@ -51,11 +51,7 @@ export default function ExternalNews() {
         </Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("ExploreExternalNews")}
-        >
-          {/* <Text className="text-authDark dark:text-lightText text-[16px]">
-            See More
-          </Text> */}
-        </TouchableOpacity>
+        ></TouchableOpacity>
       </View>
       <FlatList
         keyExtractor={(news) => news.title}
@@ -64,7 +60,7 @@ export default function ExternalNews() {
         data={news?.slice(0, 4)}
         renderItem={({ item: news }) => (
           <TouchableOpacity
-            className="mr-1 bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm overflow-hidden rounded-lg mt-3"
+            className="mr-1 bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm overflow-hidden rounded-lg mt-3"
             onPress={() => navigation.navigate("ExternalNewsDetails", { news })}
           >
             <View>

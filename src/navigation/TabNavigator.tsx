@@ -83,19 +83,14 @@ export default function TabsNavigator() {
       tabBarShowLabel: true,
       tabBarLabelStyle: styles.label,
       headerStyle: {
-        backgroundColor: isDarkMode
-          ? "rgba(31, 31, 31, 0.99)"
-          : COLORS.shadowWhite,
+        backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
       },
       tabBarStyle: {
         display: state.bottomSheetOpen ? "none" : "flex",
         borderTopWidth: isDarkMode ? 0 : 0.8,
-        borderColor: "#000",
-        backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#f7f7f7",
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
+        borderColor: Platform.OS === "android" ? "#dbdbdb" : "999",
+        backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
+        height: Platform.OS === "android" ? 55 : 80,
       },
     };
   }
@@ -190,8 +185,8 @@ export default function TabsNavigator() {
 
 const styles = StyleSheet.create({
   tabBarIcon: {
-    fontSize: 22,
-    paddingTop: Platform.OS === "ios" ? 5 : 3,
+    fontSize: Platform.OS === "ios" ? 22 : 25,
+    paddingTop: Platform.OS === "ios" ? 5 : 0,
   },
   tabBarIconSec: {
     paddingTop: Platform.OS === "ios" ? 2 : 3,

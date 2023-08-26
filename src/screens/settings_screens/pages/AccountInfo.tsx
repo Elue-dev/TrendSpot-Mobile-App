@@ -5,7 +5,6 @@ import {
   Image,
   ScrollView,
   Platform,
-  KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";

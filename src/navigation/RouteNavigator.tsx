@@ -109,9 +109,7 @@ export default function RouteNavigator() {
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -124,9 +122,7 @@ export default function RouteNavigator() {
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -140,9 +136,7 @@ export default function RouteNavigator() {
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -155,9 +149,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -170,9 +162,7 @@ export default function RouteNavigator() {
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -185,9 +175,7 @@ export default function RouteNavigator() {
           headerBackTitleVisible: false,
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -200,9 +188,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -215,9 +201,7 @@ export default function RouteNavigator() {
           presentation: "modal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -230,9 +214,7 @@ export default function RouteNavigator() {
           presentation: "modal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -246,9 +228,7 @@ export default function RouteNavigator() {
           presentation: "modal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -260,9 +240,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -274,9 +252,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -290,9 +266,7 @@ export default function RouteNavigator() {
           presentation: "fullScreenModal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -305,9 +279,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -319,9 +291,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -334,9 +304,7 @@ export default function RouteNavigator() {
           presentation: "formSheet",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -349,9 +317,7 @@ export default function RouteNavigator() {
           presentation: "fullScreenModal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -363,9 +329,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />
@@ -377,9 +341,7 @@ export default function RouteNavigator() {
           headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
-            backgroundColor: isDarkMode
-              ? "rgba(31, 31, 31, 0.99)"
-              : COLORS.shadowWhite,
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
           },
         }}
       />

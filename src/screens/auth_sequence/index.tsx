@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import UserCredentials from "../../components/auth/UserCredentials";
 import UserInterests from "../../components/auth/UserInterests";
 import { Credentials } from "../../types/auth";
@@ -16,7 +16,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
 } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons, Feather } from "@expo/vector-icons";
@@ -52,6 +54,7 @@ export default function AuthSequence() {
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
   const queryClient = useQueryClient();
+  const height = useHeaderHeight();
 
   function handleTextChange(name: string, text: string) {
     setCredentials({ ...credentials, [name]: text });
@@ -212,7 +215,12 @@ export default function AuthSequence() {
 
         <View>
           {authAction === "Sign Up" && (
-            <View>
+            <KeyboardAvoidingView
+              keyboardVerticalOffset={height + 47}
+              behavior="padding"
+              style={{ flex: 1 }}
+              enabled
+            >
               <View className="mt-14">
                 <Text
                   style={{ fontFamily: "rubikREG" }}
@@ -253,7 +261,7 @@ export default function AuthSequence() {
                   style={{ color: isDarkMode ? "#E5E5EA" : "#000" }}
                 />
               </View>
-            </View>
+            </KeyboardAvoidingView>
           )}
 
           <View className={`${authAction === "Sign Up" ? "mt-10" : "mt-12"}`}>
