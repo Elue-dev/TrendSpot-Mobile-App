@@ -7,6 +7,7 @@ import {
   Pressable,
   FlatList,
   Image,
+  Button,
 } from "react-native";
 import { useEffect, useLayoutEffect, useState } from "react";
 import {
@@ -24,6 +25,7 @@ import {
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { News } from "../../types/news";
 import RafikiSVG from "../../assets/rafiki.svg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface NewsParams {
   news: News[];
@@ -33,7 +35,9 @@ export default function Search() {
   const { news } = useRoute().params as NewsParams;
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredNews, setFilteredNews] = useState<undefined | News[]>([]);
-  const [showRecentSearches, setShowRecentSearches] = useState(true);
+  const [userRecentSearchHistory, setUserRecentSearchHistory] = useState<
+    string[] | null
+  >(null);
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
 
@@ -57,8 +61,6 @@ export default function Search() {
     });
   }, [isDarkMode]);
 
-  const recentSearches = ["ios", "AI", "Technology"];
-
   useEffect(() => {
     const newsBySearchQuery = news.filter(
       (n: News) =>
@@ -68,6 +70,44 @@ export default function Search() {
 
     setFilteredNews(newsBySearchQuery);
   }, [searchQuery]);
+
+  useEffect(() => {
+    (async function getUserSearchHistory() {
+      const userSearchHistory = await AsyncStorage.getItem("userSearches");
+      const parsedUserSearchHistory = JSON.parse(userSearchHistory!);
+      if (!parsedUserSearchHistory) return;
+      setUserRecentSearchHistory(parsedUserSearchHistory?.slice(0, 4));
+    })();
+  }, []);
+
+  async function pushSearchToUserSearchHistory() {
+    if (searchQuery === "") return;
+    const userRecentSearches = await AsyncStorage.getItem("userSearches");
+    if (userRecentSearches) {
+      const parsedSearches = JSON.parse(userRecentSearches);
+      let userRecentSearchesWithoutCurrentSearch;
+      if (userRecentSearches.includes(searchQuery)) {
+        userRecentSearchesWithoutCurrentSearch = parsedSearches.filter(
+          (search: string) => search !== searchQuery
+        );
+      }
+      const updatedSearchHistory = [
+        searchQuery,
+        ...userRecentSearchesWithoutCurrentSearch,
+      ];
+      await AsyncStorage.setItem(
+        "userSearches",
+        JSON.stringify(updatedSearchHistory)
+      );
+    } else {
+      const newSearchArray = [];
+      newSearchArray.push(searchQuery);
+      await AsyncStorage.setItem(
+        "userSearches",
+        JSON.stringify(newSearchArray)
+      );
+    }
+  }
 
   return (
     <ScrollView className="bg-shadowWhite dark:bg-darkNeutral">
@@ -93,12 +133,7 @@ export default function Search() {
           />
 
           {searchQuery && (
-            <TouchableOpacity
-              onPress={() => {
-                setSearchQuery("");
-                setShowRecentSearches(true);
-              }}
-            >
+            <TouchableOpacity onPress={() => setSearchQuery("")}>
               <MaterialIcons
                 name="clear"
                 size={28}
@@ -143,28 +178,20 @@ export default function Search() {
                     onPress={() => {
                       navigation.goBack();
                       navigation.navigate("CustomNewsDetails", { news });
+                      pushSearchToUserSearchHistory();
                     }}
-                    className="shadow-sm rounded-md  bg-white dark:bg-darkCard p-2 mb-1"
+                    className="shadow-sm rounded-md bg-white dark:bg-darkCard px-2 py-3 mb-1"
                   >
                     <View className="flex-row items-center gap-2">
                       <Image
                         source={{ uri: news.image }}
-                        className="w-12 h-10 rounded-lg object-cover"
+                        className="w-10 h-12 rounded-lg object-cover"
                       />
                       <Text
                         style={{ fontFamily: "rubikB" }}
                         className="text-darkNeutral dark:text-lightText w-80"
                       >
                         {news.title}
-                      </Text>
-                      <Text
-                        style={{ fontFamily: "rubikB" }}
-                        className="text-darkNeutral dark:text-lightText w-80"
-                      >
-                        Category:{" "}
-                        <Text className="text-primaryColorTheme">
-                          {news.category}
-                        </Text>
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -173,17 +200,23 @@ export default function Search() {
             )}
           </View>
         )}
-        {showRecentSearches && !searchQuery && (
+
+        {userRecentSearchHistory !== null && !searchQuery && (
           <View className="pt-6">
             <Text
               style={{ fontFamily: "rubikB" }}
-              className="text-darkNeutral dark:text-lightText"
+              className="text-darkNeutral dark:text-lightText text-[17px]"
             >
-              Recent Searches
+              Some Recent Searches
             </Text>
             <View className="shadow-sm rounded-md  bg-white dark:bg-darkCard mb-[2px] p-2 mt-2">
-              {recentSearches.map((searchString, idx) => (
-                <View key={idx} className="mb-3">
+              {userRecentSearchHistory?.map((searchString, idx) => (
+                <View
+                  key={idx}
+                  className={`${
+                    userRecentSearchHistory.length === 1 ? "mb-2" : "mb-4"
+                  }`}
+                >
                   <View className="flex-row justify-between items-center">
                     <View className="flex-row items-center">
                       <MaterialIcons
@@ -195,7 +228,7 @@ export default function Search() {
                       />
                       <Text
                         style={{ fontFamily: "rubikREG" }}
-                        className="text-darkNeutral dark:text-lightText ml-1"
+                        className="text-darkNeutral dark:text-lightText ml-1 text-[16px]"
                       >
                         {searchString}
                       </Text>
@@ -203,8 +236,8 @@ export default function Search() {
 
                     <Pressable
                       onPress={() => {
-                        setShowRecentSearches(false);
                         setSearchQuery(searchString);
+                        pushSearchToUserSearchHistory();
                       }}
                     >
                       <MaterialCommunityIcons
