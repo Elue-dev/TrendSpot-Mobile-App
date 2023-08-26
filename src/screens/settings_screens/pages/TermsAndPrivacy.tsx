@@ -45,8 +45,8 @@ export default function TermsAndPrivacy() {
   }, [isDarkMode]);
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-darkNeutral">
-      <View className="pt-6 mx-3">
+    <SafeAreaView className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
+      <View className="pt-6 mx-2">
         <View className="flex-row p-[5px] bg-grayNeutral dark:bg-dark justify-around items-center rounded-lg mt-5 overflow-hidden">
           {["Terms Of Use", "Privacy Policy"].map((title) => (
             <TouchableOpacity
@@ -77,9 +77,7 @@ export default function TermsAndPrivacy() {
           style={{
             height: 12,
             elevation: 1,
-            backgroundColor: isDarkMode
-              ? COLORS.darkNeutral
-              : "rgba(255, 255, 255, 0.9)",
+            backgroundColor: isDarkMode ? COLORS.darkNeutral : "#f7f7f7",
           }}
         />
 

@@ -53,7 +53,7 @@ export default function AccountInfo() {
 
   return (
     <ScrollView
-      className={`flex-1 bg-white dark:bg-darkNeutral ${
+      className={`flex-1 bg-shadowWhite dark:bg-darkNeutral ${
         currentInput === "CurrentPassword"
           ? "-mt-40"
           : currentInput === "NewPassword"

@@ -42,7 +42,9 @@ export default function ExploreScreen() {
       <View className="mt-5 mx-3">
         <Pressable
           onPress={() => setNewsType("Custom")}
-          className="flex-row justify-between items-center border border-lightGray mt-4 py-8 px-4 rounded-lg"
+          className={`flex-row justify-between items-center mt-4 py-8 px-4 rounded-lg bg-white dark:bg-grayNeutralTheme shadow-sm ${
+            newsType === "Custom" ? "border border-authDark" : ""
+          }`}
         >
           <View>
             <Text
@@ -75,7 +77,9 @@ export default function ExploreScreen() {
 
         <Pressable
           onPress={() => setNewsType("External")}
-          className="flex-row justify-between items-center border border-lightGray rounded-lg py-8 px-4 mt-6"
+          className={`flex-row justify-between items-center mt-4 py-8 px-4 rounded-lg bg-white dark:bg-grayNeutralTheme shadow-sm ${
+            newsType === "External" ? "border border-authDark" : ""
+          }`}
         >
           <View>
             <Text
