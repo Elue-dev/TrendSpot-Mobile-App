@@ -22,18 +22,23 @@ import {
 } from "@expo/vector-icons";
 import { COLORS } from "../../../common/colors";
 import { TextInput } from "react-native";
+import { httpRequest } from "../../../services";
+import { useAlert } from "../../../context/alert/AlertContext";
 
 export default function AccountInfo() {
   const [currentInput, setCurrentInput] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { isDarkMode } = useSheet();
+  const { showAlertAndContent } = useAlert();
   const {
     state: { user },
+    removeActiveUser,
   } = useAuth();
+  const authHeaders = { headers: { authorization: `Bearer ${user?.token}` } };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -50,6 +55,47 @@ export default function AccountInfo() {
         isDarkMode && Platform.OS === "ios" ? <CustomLeftHeader /> : null,
     });
   }, [isDarkMode]);
+
+  async function changeUserPassword() {
+    if (!changeUserPassword || !newPassword || !passwordConfirm)
+      return showAlertAndContent({
+        type: "error",
+        message: "Please provide all password credentials",
+      });
+    setLoading(true);
+    const passwordCredetials = {
+      oldPassword: currentPassword,
+      newPassword,
+      confirmNewPassword: passwordConfirm,
+    };
+    try {
+      const response = await httpRequest.put(
+        "/users/account/change-password",
+        passwordCredetials,
+        authHeaders
+      );
+      if (response) {
+        removeActiveUser();
+        navigation.navigate("AuthSequence", { state: "Sign In" });
+        showAlertAndContent({
+          type: "success",
+          message: response.data.message + " .Please sign in again",
+        });
+        setCurrentPassword("");
+        setNewPassword("");
+        setPasswordConfirm("");
+      }
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      return showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong, Please try again later",
+      });
+    }
+  }
 
   return (
     <ScrollView
@@ -242,7 +288,7 @@ export default function AccountInfo() {
               <Text
                 style={{ fontFamily: "rubikREG" }}
                 className={`absolute ${
-                  currentInput === "PasswordConfirm" || newPassword
+                  currentInput === "PasswordConfirm" || passwordConfirm
                     ? "bottom-5 text-[12px] mb-2 text-grayText dark:text-lightText"
                     : "bottom-2 text-[16px] text-grayText dark:text-lightText"
                 }`}
@@ -267,7 +313,7 @@ export default function AccountInfo() {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={changeUserPassword}
                 className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md"
               >
                 <Text
