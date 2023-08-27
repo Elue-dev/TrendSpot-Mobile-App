@@ -4,7 +4,7 @@ export default function TermsOfUse() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View className="pt-4 pb-28 bg-shadowWhite dark:bg-darkNeutral">
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
@@ -24,7 +24,7 @@ export default function TermsOfUse() {
           </Text>
         </View>
 
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1">
             Content Moderation
           </Text>
@@ -41,7 +41,7 @@ export default function TermsOfUse() {
           </Text>
         </View>
 
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1">
             Intellectual Property
           </Text>
@@ -58,7 +58,7 @@ export default function TermsOfUse() {
           </Text>
         </View>
 
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1">
             Prohibited Activities
           </Text>
@@ -72,7 +72,7 @@ export default function TermsOfUse() {
             or any other actions that may harm the app or its users.
           </Text>
         </View>
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1">
             Age Restriction
           </Text>

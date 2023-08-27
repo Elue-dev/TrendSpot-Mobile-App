@@ -6,6 +6,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { News } from "./news";
 import { User } from "./auth";
 
+("926a079a-6c6d-408e-8400-3e7f92b4d48b");
+
 export type RootStackParamList = {
   TabStack: NavigatorScreenParams<TabStackParamList>;
   Onboarding: undefined;
@@ -22,11 +24,7 @@ export type RootStackParamList = {
   CustomNewsDetails: {
     news: string;
   };
-
-  Saved: undefined;
   AccountInfo: undefined;
-  ManageInterests: undefined;
-  ContactSupport: undefined;
   Terms: {
     defaultTitle: "string";
   };
@@ -53,6 +51,7 @@ export type RootStackParamList = {
   UserProfile: {
     user: User;
   };
+  UserLikes: undefined;
 };
 
 export type TabStackParamList = {

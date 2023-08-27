@@ -143,6 +143,7 @@ export default function CustomNewsDetails() {
         queryClient.invalidateQueries(["likes"]);
         queryClient.invalidateQueries(["activities"]);
         queryClient.invalidateQueries(["userNews"]);
+        queryClient.invalidateQueries(["userLikes"]);
       },
     }
   );
@@ -169,6 +170,7 @@ export default function CustomNewsDetails() {
       }
       queryClient.invalidateQueries(["likes"]);
       queryClient.invalidateQueries(["activities"]);
+      queryClient.invalidateQueries(["userLikes"]);
     } catch (error: any) {
       setLikeLoading(false);
       showAlertAndContent({

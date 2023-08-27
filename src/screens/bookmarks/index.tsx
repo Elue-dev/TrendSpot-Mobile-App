@@ -118,7 +118,7 @@ export default function Bookmarks() {
             data={bookmarks}
             scrollEnabled={false}
             renderItem={({ item: bookmark }) => (
-              <View className="bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[20px] rounded-lg relative">
+              <View className="bg-shadowWhite dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[20px] rounded-lg relative">
                 <TouchableOpacity
                   onPress={() => {
                     loading

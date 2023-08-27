@@ -20,6 +20,7 @@ export default function HomeScreen() {
     queryClient.invalidateQueries(["userNews"]);
     queryClient.invalidateQueries(["bookmarks"]);
     queryClient.invalidateQueries(["activities"]);
+    queryClient.invalidateQueries(["userLikes"]);
 
     setTimeout(() => setRefresh(false), 3000);
   }

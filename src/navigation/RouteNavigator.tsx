@@ -9,7 +9,6 @@ import { COLORS } from "../common/colors";
 import AuthSequence from "../screens/auth_sequence";
 import ContactSupport from "../screens/settings_screens/pages/ContactSupport";
 import TermsAndPrivacy from "../screens/settings_screens/pages/TermsAndPrivacy";
-import SavedScreen from "../screens/saved";
 import { useSheet } from "../context/bottom_sheet/BottomSheetContext";
 import AccountInfo from "../screens/settings_screens/pages/AccountInfo";
 import EditProfile from "../screens/settings_screens/EditProfile";
@@ -27,6 +26,7 @@ import Categories from "../screens/categories";
 import Activities from "../screens/activities";
 import OnboardingScreen from "../screens/onboarding";
 import UserProfile from "../screens/user_profile";
+import UserLikes from "../screens/user_likes";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -140,33 +140,8 @@ export default function RouteNavigator() {
       />
 
       <RootStack.Screen
-        name="ContactSupport"
-        component={ContactSupport}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
-          headerStyle: {
-            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
-          },
-        }}
-      />
-      <RootStack.Screen
         name="Terms"
         component={TermsAndPrivacy}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerBackTitleVisible: false,
-          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
-          headerStyle: {
-            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
-          },
-        }}
-      />
-      <RootStack.Screen
-        name="Saved"
-        component={SavedScreen}
         options={{
           headerShown: true,
           headerTitleAlign: "center",
@@ -320,6 +295,18 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="UserProfile"
         component={UserProfile}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="UserLikes"
+        component={UserLikes}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

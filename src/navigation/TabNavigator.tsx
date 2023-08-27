@@ -141,7 +141,7 @@ export default function TabsNavigator() {
         }}
       />
 
-      {user && (
+      {user && user.isAdmin && (
         <TabStack.Screen
           name="AddNews"
           component={AddNews}

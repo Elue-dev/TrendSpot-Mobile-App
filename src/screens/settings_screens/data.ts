@@ -14,4 +14,9 @@ export const profileData = [
     description: "View news you bookmarked",
     isProtected: true,
   },
+  {
+    title: "Likes",
+    description: "View news you have liked",
+    isProtected: true,
+  },
 ];

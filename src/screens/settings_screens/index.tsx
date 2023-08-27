@@ -12,6 +12,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   Feather,
+  AntDesign,
 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { profileData } from "./data";
@@ -76,14 +77,22 @@ export default function SettingsScreen() {
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
           />
         );
-      case "Contact Support":
+      case "Likes":
         return (
-          <MaterialIcons
-            name="support-agent"
+          <AntDesign
+            name="like2"
             size={28}
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
           />
         );
+      // case "Contact Support":
+      //   return (
+      //     <MaterialIcons
+      //       name="support-agent"
+      //       size={28}
+      //       color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+      //     />
+      //   );
       default:
         return null;
     }
@@ -99,6 +108,9 @@ export default function SettingsScreen() {
         break;
       case "Bookmarks":
         navigation.navigate("Bookmarks");
+        break;
+      case "Likes":
+        navigation.navigate("UserLikes");
         break;
       default:
         return null;

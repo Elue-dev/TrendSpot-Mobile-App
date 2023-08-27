@@ -4,7 +4,7 @@ export default function PrivacyPolicy() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View className="pt-4 pb-28 bg-shadowWhite dark:bg-darkNeutral">
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
@@ -15,15 +15,15 @@ export default function PrivacyPolicy() {
             style={{ fontFamily: "rubikREG" }}
             className="leading-4 text-base text-darkNeutral dark:text-lightText"
           >
-            The privacy policy must be transparent about the types of data the
-            app collects from users. This may include personal information (such
-            as name, email, and profile picture) and non-personal data (such as
+            The privacy policy must be darkCard about the types of data the app
+            collects from users. This may include personal information (such as
+            name, email, and profile picture) and non-personal data (such as
             device information, app usage patterns, etc.). It should clarify
             that this data is used to enhance user experience, personalize
             content, and improve the overall performance of the app.
           </Text>
         </View>
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
             moderation process.
           </Text>
         </View>
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
             privacy policies apply.
           </Text>
         </View>
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
@@ -73,7 +73,7 @@ export default function PrivacyPolicy() {
             disclosure.
           </Text>
         </View>
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
@@ -90,7 +90,7 @@ export default function PrivacyPolicy() {
             app is not responsible for the content of their communications.
           </Text>
         </View>
-        <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
+        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}
             className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"

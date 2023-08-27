@@ -17,7 +17,7 @@ import {
 } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../common/colors";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { httpRequest } from "../../services";
 import Loader from "../../components/loader";
 import ServerError from "../../components/custom_news/server_error";
@@ -103,12 +103,25 @@ export default function NewsLikes() {
                     className="h-12 w-12 rounded-full bg-primaryColorDisabled"
                   />
                   <View>
-                    <Text
-                      style={{ fontFamily: "rubikSB" }}
-                      className="text-darkNeutral dark:text-lightText mb-1 text-[16px]"
-                    >
-                      {like.user?.firstName} {like.user?.lastName}
-                    </Text>
+                    <View className="flex-row items-center gap-[2px] mb-1">
+                      <Text
+                        style={{ fontFamily: "rubikSB" }}
+                        className="text-darkNeutral dark:text-lightText  text-[16px]"
+                      >
+                        {like.user?.firstName} {like.user?.lastName}
+                      </Text>
+                      {like.user.isAdmin && (
+                        <MaterialIcons
+                          name="verified"
+                          size={14}
+                          color={
+                            isDarkMode
+                              ? COLORS.primaryColorTheme
+                              : COLORS.primaryColor
+                          }
+                        />
+                      )}
+                    </View>
                     <Text
                       style={{ fontFamily: "rubikL" }}
                       className="text-darkNeutral dark:text-lightText"

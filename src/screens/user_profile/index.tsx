@@ -13,7 +13,7 @@ import {
 } from "@react-navigation/native";
 import { User } from "../../types/auth";
 import {
-  AntDesign,
+  MaterialIcons,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
@@ -63,12 +63,23 @@ export default function UserProfile() {
             source={{ uri: UserFromParams?.avatar || DEFAULT_AVATAR }}
             className="h-28 w-28 rounded-full bg-primaryColorLighter"
           />
-          <Text
-            style={{ fontFamily: "rubikREG" }}
-            className="pt-2 text-darkNeutral dark:text-lightText text-xl font-bold"
-          >
-            {UserFromParams?.firstName} {UserFromParams?.lastName}
-          </Text>
+          <View className="flex-row items-center gap-[2px] pt-2">
+            <Text
+              style={{ fontFamily: "rubikREG" }}
+              className=" text-darkNeutral dark:text-lightText text-xl font-bold"
+            >
+              {UserFromParams?.firstName} {UserFromParams?.lastName}
+            </Text>
+            {UserFromParams.isAdmin && (
+              <MaterialIcons
+                name="verified"
+                size={16}
+                color={
+                  isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
+                }
+              />
+            )}
+          </View>
 
           {UserFromParams.id === user?.id && (
             <TouchableOpacity
