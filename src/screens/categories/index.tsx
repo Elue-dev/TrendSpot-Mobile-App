@@ -43,7 +43,11 @@ export default function Categories() {
       headerLeft: () =>
         Platform.OS === "ios" ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <AntDesign name="closecircle" size={23} color={COLORS.gray200} />
+            <Ionicons
+              name="arrow-back-circle"
+              size={29}
+              color={COLORS.gray200}
+            />
           </TouchableOpacity>
         ) : null,
     });

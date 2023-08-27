@@ -7,7 +7,6 @@ import {
   Pressable,
   FlatList,
   Image,
-  Button,
 } from "react-native";
 import { useEffect, useLayoutEffect, useState } from "react";
 import {
@@ -20,7 +19,7 @@ import { COLORS } from "../../common/colors";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
-  AntDesign,
+  Ionicons,
 } from "@expo/vector-icons";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { News } from "../../types/news";
@@ -55,7 +54,11 @@ export default function Search() {
       headerLeft: () =>
         Platform.OS === "ios" ? (
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <AntDesign name="closecircle" size={23} color={COLORS.gray200} />
+            <Ionicons
+              name="arrow-back-circle"
+              size={29}
+              color={COLORS.gray200}
+            />
           </TouchableOpacity>
         ) : null,
     });
@@ -185,7 +188,7 @@ export default function Search() {
                     <View className="flex-row items-center gap-2">
                       <Image
                         source={{ uri: news.image }}
-                        className="w-10 h-12 rounded-lg object-cover"
+                        className="w-10 h-12 rounded-lg object-cover bg-primaryColorDisabled"
                       />
                       <Text
                         style={{ fontFamily: "rubikB" }}

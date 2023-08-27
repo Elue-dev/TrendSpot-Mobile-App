@@ -12,6 +12,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { COLORS } from "../../../common/colors";
+import { httpRequest } from "../../../services";
+import { useAlert } from "../../../context/alert/AlertContext";
 
 export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
@@ -19,6 +21,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
   const { isDarkMode } = useSheet();
+  const { showAlertAndContent } = useAlert();
   const navigation = useNavigation<NavigationProp<any>>();
 
   useLayoutEffect(() => {
@@ -41,7 +44,30 @@ export default function ForgotPassword() {
     });
   }, [isDarkMode]);
 
-  async function sendResetEmail() {}
+  async function sendResetEmail() {
+    if (!email)
+      return setError("Please provide the email associated with your account");
+
+    try {
+      setLoading(true);
+      const response = await httpRequest.post("/auth/forgot-password", {
+        email,
+      });
+      if (response) {
+        navigation.goBack();
+        showAlertAndContent({
+          type: "success",
+          message: `An email has been sent to ${email} to reset your password`,
+        });
+      }
+      setLoading(false);
+    } catch (error: any) {
+      setLoading(false);
+      setError(
+        error.response.data.message || "Something went wrong. Please try again"
+      );
+    }
+  }
 
   return (
     <View className="flex-1 bg-shadowWhite dark:bg-darkNeutral px-3">
@@ -96,12 +122,14 @@ export default function ForgotPassword() {
           <Text className="text-base text-primaryColor dark:text-primaryColorTheme">
             Please enter a valid email address
           </Text>
+        ) : error === "NotRegistered" ? (
+          <Text className="text-base text-primaryColor dark:text-primaryColorTheme">
+            The email provided is not registered
+          </Text>
         ) : (
-          error === "NotRegistered" && (
-            <Text className="text-base text-primaryColor dark:text-primaryColorTheme">
-              The email provided is not registered
-            </Text>
-          )
+          <Text className="text-base text-primaryColor dark:text-primaryColorTheme">
+            {error}
+          </Text>
         )}
 
         <View className="mt-10">

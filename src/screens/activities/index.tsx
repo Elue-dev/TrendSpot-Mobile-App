@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/loader";
 import ServerError from "../../components/custom_news/server_error";
 import { formatTimeAgo } from "../../helpers";
+import RafikiSVG from "../../assets/rafiki.svg";
 import UnionSVG from "../../assets/union.svg";
 import { User } from "../../types/auth";
 
@@ -84,7 +85,7 @@ function AuthenticatedActivities({ user }: { user: User }) {
       <View className="mx-3 mt-3 mb-12">
         {activities?.length === 0 ? (
           <View className="mt-4">
-            <UnionSVG width={"90%"} height={300} />
+            <RafikiSVG width={"90%"} height={300} />
             <Text
               style={{ fontFamily: "rubikREG" }}
               className="text-xl text-center pb-4 text-darkNeutral dark:text-lightText"
@@ -159,7 +160,7 @@ function UnauthenticatedActivities() {
   return (
     <View className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
       <View className="mx-3 mt-4">
-        <RafikiSVG width={"90%"} height={300} />
+        <UnionSVG width={"90%"} height={300} />
         <Text
           style={{ fontFamily: "rubikREG" }}
           className="text-xl text-center pb-4 text-darkNeutral dark:text-lightText"

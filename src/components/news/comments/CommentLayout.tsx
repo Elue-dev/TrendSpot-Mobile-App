@@ -123,7 +123,7 @@ export default function CommentLayout({
                   />
                   <Text
                     style={{ fontFamily: "rubikL" }}
-                    className="text-darkNeutral dark:text-lightText ml-[2px]"
+                    className="text-darkNeutral dark:text-lightText ml-[4px]"
                   >
                     Edit
                   </Text>

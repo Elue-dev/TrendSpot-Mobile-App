@@ -90,7 +90,7 @@ export default function TabsNavigator() {
         borderTopWidth: isDarkMode ? 0 : 0.8,
         borderColor: Platform.OS === "android" ? "#dbdbdb" : "999",
         backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
-        height: Platform.OS === "android" ? 55 : 80,
+        height: Platform.OS === "android" ? 60 : 80,
       },
     };
   }

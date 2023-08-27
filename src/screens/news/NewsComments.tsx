@@ -133,7 +133,9 @@ export default function NewsComments() {
     setLoading(true);
     try {
       const response = await addCommentMutation.mutateAsync({
-        message: isReplying ? `@${commentAuthor}  ${comment}` : comment,
+        message: isReplying
+          ? `@${commentAuthor} ${comment.trim()}`
+          : comment.trim(),
         newsId,
         authorEmail: user?.email || "",
         path: "none",
@@ -162,7 +164,9 @@ export default function NewsComments() {
   async function editComment() {
     setLoading(true);
     const response = await editCommentMutation.mutateAsync({
-      message: commentIsAReply ? `${replyAuthorName}  ${comment}` : comment,
+      message: commentIsAReply
+        ? `${replyAuthorName} ${comment.trim()}`
+        : comment.trim(),
       isEdited: true,
       newsId,
     });
