@@ -123,6 +123,7 @@ export default function StepTwo({
       onSuccess: () => {
         setLoading(false);
         queryClient.invalidateQueries(["customNews"]);
+        queryClient.invalidateQueries(["userNews"]);
       },
       onError: () => {
         setLoading(false);

@@ -34,12 +34,12 @@ export default function OnboardingScreen() {
     return (
       <View
         className={`w-4 h-4 flex items-center justify-center rounded-full p-2 ${
-          selected ? "border border-primaryColor" : ""
+          selected ? "border border-primaryColorTheme" : ""
         }`}
       >
         <View
           className={`w-2 h-2 rounded-full ${
-            selected ? "bg-primaryColor" : "bg-primaryColorDisabled"
+            selected ? "bg-primaryColorTheme" : "bg-primaryColorTetTheme"
           }`}
         ></View>
       </View>

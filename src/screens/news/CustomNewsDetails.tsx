@@ -109,6 +109,8 @@ export default function CustomNewsDetails() {
     refetchOnWindowFocus: false,
   });
 
+  // console.log({ likes: news?.likes });
+
   const bookmarksMutation = useMutation(
     (newsId: string) => {
       return httpRequest.post(
@@ -140,6 +142,7 @@ export default function CustomNewsDetails() {
         queryClient.invalidateQueries(["bookmarks"]);
         queryClient.invalidateQueries(["likes"]);
         queryClient.invalidateQueries(["activities"]);
+        queryClient.invalidateQueries(["userNews"]);
       },
     }
   );

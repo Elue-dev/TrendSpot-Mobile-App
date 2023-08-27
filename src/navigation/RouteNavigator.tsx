@@ -1,11 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CreateAccountStart from "../screens/auth/create_account_start";
-import OnboardingScreen from "../screens/onboarding";
 import { RootStackParamList } from "../types/navigation";
 import TabNavigator from "./TabNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Platform } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { COLORS } from "../common/colors";
 import AuthSequence from "../screens/auth_sequence";
 import ContactSupport from "../screens/settings_screens/pages/ContactSupport";
@@ -28,6 +27,8 @@ import NewsLikes from "../screens/news/NewsLikes";
 import Search from "../screens/search";
 import Categories from "../screens/categories";
 import Activities from "../screens/activities";
+import OnboardingScreen from "../screens/onboarding";
+import UserProfile from "../screens/user_profile";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -333,6 +334,18 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="Activities"
         component={Activities}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="UserProfile"
+        component={UserProfile}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

@@ -4,6 +4,7 @@ import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { News } from "./news";
+import { User } from "./auth";
 
 export type RootStackParamList = {
   TabStack: NavigatorScreenParams<TabStackParamList>;
@@ -49,6 +50,9 @@ export type RootStackParamList = {
     news: News;
   };
   Activities: undefined;
+  UserProfile: {
+    user: User;
+  };
 };
 
 export type TabStackParamList = {

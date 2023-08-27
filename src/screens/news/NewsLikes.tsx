@@ -120,14 +120,24 @@ export default function NewsLikes() {
                     </Text>
                   </View>
                 </View>
-                <TouchableOpacity className="border-2 border-primaryColorTheme rounded-full p-2 bg-primaryColorLighter">
-                  <Text
-                    style={{ fontFamily: "rubikREG" }}
-                    className="text-shadowWhite text-[16px]"
+                {!`${like.user?.firstName} ${like.user?.lastName}`.includes(
+                  "Trendspot Admin"
+                ) && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.goBack();
+                      navigation.navigate("UserProfile", { user: like.user });
+                    }}
+                    className="border-2 border-primaryColorTheme rounded-full p-2 bg-primaryColorLighter"
                   >
-                    View Profile
-                  </Text>
-                </TouchableOpacity>
+                    <Text
+                      style={{ fontFamily: "rubikREG" }}
+                      className="text-shadowWhite text-[16px]"
+                    >
+                      View Profile
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           )}

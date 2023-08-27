@@ -128,7 +128,7 @@ export default function Modal() {
 
             <View className="flex-row justify-center items-center pt-3">
               <TouchableOpacity
-                onPress={closeModal}
+                onPress={loading ? () => {} : closeModal}
                 className="border border-1 border-lightGray mr-3 rounded-md bg-grayNeutral"
               >
                 <Text

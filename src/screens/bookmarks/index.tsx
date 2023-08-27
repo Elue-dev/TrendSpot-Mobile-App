@@ -74,11 +74,12 @@ export default function Bookmarks() {
   const {
     data: bookmarks,
     isLoading,
+    isFetching,
     error,
     refetch,
   } = useQuery<Bookmark[]>(["bookmarks"], queryFn, {
-    staleTime: 60000,
     refetchOnWindowFocus: true,
+    refetchOnMount: true,
     onError(error) {
       console.log(error);
     },
@@ -92,7 +93,7 @@ export default function Bookmarks() {
     );
   });
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isFetching) return <Loader />;
   if (error) return <ServerError refetch={refetch} />;
 
   return (

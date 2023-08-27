@@ -17,6 +17,7 @@ export default function HomeScreen() {
     setRefresh(true);
     queryClient.invalidateQueries(["customNews"]);
     queryClient.invalidateQueries(["externalNews"]);
+    queryClient.invalidateQueries(["userNews"]);
     queryClient.invalidateQueries(["bookmarks"]);
     queryClient.invalidateQueries(["activities"]);
 
