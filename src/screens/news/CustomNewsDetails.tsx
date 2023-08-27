@@ -380,7 +380,6 @@ export default function CustomNewsDetails() {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("NewsComments", {
-                    commentID: news?.comments,
                     newsId: news?.id,
                   });
                 }}

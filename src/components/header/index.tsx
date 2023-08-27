@@ -78,14 +78,11 @@ export default function Header() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            if (user) {
-              navigation.navigate("AccountInfo");
-            } else {
-              navigation.navigate("AuthSequence", { state: "Sign In" });
-              setPreviousRoute("AccountInfo");
-            }
-          }}
+          onPress={() =>
+            user
+              ? navigation.navigate("AccountInfo")
+              : navigation.navigate("AuthSequence", { state: "Sign In" })
+          }
           className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <FontAwesome5

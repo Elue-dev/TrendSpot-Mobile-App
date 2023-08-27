@@ -44,7 +44,7 @@ export default function CustomNews() {
     );
 
   return (
-    <View className="pt-10 mx-3 pb-28">
+    <View className="pt-10 mx-3 pb-14">
       <View className="flex-row justify-between items-center mb-3">
         <Text
           style={{ fontFamily: "rubikSB" }}
@@ -64,10 +64,16 @@ export default function CustomNews() {
           <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-[5px] rounded-lg">
             <View className="flex-row gap-4">
               <View className="w-[70%] flex-col justify-around">
-                <View className="flex-row justify-between items-center mb-2">
+                <Text
+                  style={{ fontFamily: "rubikMD" }}
+                  className="text-[18px] leading-5 text-darkNeutral dark:text-lightText"
+                >
+                  {news.title}
+                </Text>
+                <View className="flex-row items-center justify-between gap-1 pt-2">
                   <View
                     className="rounded-lg"
-                    style={{ backgroundColor: "rrgba(185, 48, 55, 0.524)" }}
+                    style={{ backgroundColor: "rgba(0,0,0,.7)" }}
                   >
                     <Text className="text-white py-[3px] px-[5px] font-semibold text-sm">
                       {news.category}
@@ -78,62 +84,26 @@ export default function CustomNews() {
                     onPress={() =>
                       navigation.navigate("CustomNewsDetails", { news })
                     }
+                    className="flex-row items-center"
                   >
                     <SimpleLineIcons
                       name="eye"
-                      size={22}
-                      color={COLORS.authDark}
+                      size={17}
+                      color={COLORS.primaryColor}
                     />
+                    <Text
+                      style={{ fontFamily: "rubikSB" }}
+                      className="text-primaryColorTheme  ml-1"
+                    >
+                      Read More
+                    </Text>
                   </TouchableOpacity>
-                </View>
-                <Text
-                  style={{ fontFamily: "rubikMD" }}
-                  className="text-[18px] leading-5 text-darkNeutral dark:text-lightText"
-                >
-                  {news.title}
-                </Text>
-                <View className="flex-row items-center justify-between gap-1 pt-2">
-                  <View className="flex-row items-center">
-                    <Fontisto
-                      name="date"
-                      size={16}
-                      color={
-                        isDarkMode
-                          ? COLORS.primaryColorTheme
-                          : COLORS.primaryColor
-                      }
-                    />
-                    <Text
-                      style={{ fontFamily: "rubikL" }}
-                      className="text-darkNeutral dark:text-lightText ml-1"
-                    >
-                      {formatTimeAgo(news.createdAt)}
-                    </Text>
-                  </View>
-
-                  <View className="flex-row items-center">
-                    <Ionicons
-                      name="ios-time-outline"
-                      size={16}
-                      color={
-                        isDarkMode
-                          ? COLORS.primaryColorTheme
-                          : COLORS.primaryColor
-                      }
-                    />
-                    <Text
-                      style={{ fontFamily: "rubikL" }}
-                      className="text-darkNeutral dark:text-lightText ml-1"
-                    >
-                      {news.readTime} mins read
-                    </Text>
-                  </View>
                 </View>
               </View>
               <View className="w-[25%]">
                 <Image
                   source={{ uri: news.image }}
-                  className="h-32 w-20 rounded-lg bg-primaryColorDisabled"
+                  className="h-24 w-20 rounded-lg bg-primaryColorDisabled"
                   resizeMode="cover"
                 />
               </View>

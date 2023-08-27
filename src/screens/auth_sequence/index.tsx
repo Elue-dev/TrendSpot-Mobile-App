@@ -27,7 +27,7 @@ import { COLORS } from "../../common/colors";
 import { httpRequest } from "../../services";
 import { useQueryClient } from "@tanstack/react-query";
 
-const initiaCredentials: Credentials = {
+const initialCredentials: Credentials = {
   firstName: "",
   lastName: "",
   email: "",
@@ -40,7 +40,7 @@ interface PageParams {
 
 export default function AuthSequence() {
   const { state } = useRoute().params as PageParams;
-  const [credentials, setCredentials] = useState(initiaCredentials);
+  const [credentials, setCredentials] = useState(initialCredentials);
   const [currentInput, setCurrentInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
@@ -120,6 +120,8 @@ export default function AuthSequence() {
             })
           );
           setCurrRoute("Home");
+        } else if (previousRoute === "Comments") {
+          navigation.goBack();
         } else {
           navigation.dispatch(
             CommonActions.reset({
@@ -152,7 +154,9 @@ export default function AuthSequence() {
         }}
       >
         <View className={currentInput !== "" ? "-mt-10" : ""}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() => (loading ? () => {} : navigation.goBack())}
+          >
             <Ionicons
               name="arrow-back-outline"
               size={24}
@@ -163,8 +167,12 @@ export default function AuthSequence() {
             {["Sign Up", "Sign In"].map((currentAction, index) => (
               <TouchableOpacity
                 onPress={() => {
-                  setAuthAction(changedActionState);
-                  setCredentials(initiaCredentials);
+                  if (loading) {
+                    () => {};
+                  } else {
+                    setAuthAction(changedActionState);
+                    setCredentials(initialCredentials);
+                  }
                 }}
                 key={index}
                 className={`py-1 px-16 rounded-lg ${

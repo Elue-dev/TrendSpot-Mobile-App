@@ -5,7 +5,6 @@ import {
   View,
   Image,
   TextInput,
-  Keyboard,
 } from "react-native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import {
@@ -51,6 +50,7 @@ export default function NewsComments() {
   const { showAlertAndContent } = useAlert();
   const {
     state: { user },
+    setPreviousRoute,
   } = useAuth();
   const queryClient = useQueryClient();
   const authHeaders = {
@@ -358,6 +358,7 @@ export default function NewsComments() {
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
+              setPreviousRoute("Comments");
               navigation.navigate("AuthSequence", { state: "Sign In" });
             }}
             className="flex-row justify-center items-center gap-2 pt-2"

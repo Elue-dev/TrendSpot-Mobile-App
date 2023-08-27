@@ -4,7 +4,7 @@ import { TouchableOpacity } from "@gorhom/bottom-sheet";
 export default function ServerError({ refetch }: { refetch: () => void }) {
   return (
     <View
-      className="bg-white dark:bg-darkNeutral"
+      className="bg-transparent dark:bg-darkNeutral"
       style={{
         flex: 1,
         justifyContent: "center",

@@ -42,7 +42,9 @@ function AuthenticatedActivities({ user }: { user: User }) {
 
       headerLeft: () =>
         Platform.OS === "ios" ? (
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("TabStack", { route: "Home" })}
+          >
             <Ionicons
               name="arrow-back-circle"
               size={29}
