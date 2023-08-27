@@ -23,10 +23,11 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/loader";
 import { formatTimeAgo } from "../../helpers";
 import ServerError from "../../components/custom_news/server_error";
-import { filterNewsBySearchQuery } from "../../helpers/search.algorithm";
+
 import CuateSVG from "../../assets/cuate.svg";
 import CustomLeftHeader from "../../helpers/CustomLeftHeader";
 import { httpRequest } from "../../services";
+import { filterNewsBySearchQuery } from "../../helpers/search.algotithm";
 
 export default function ExploreExternalNews() {
   let originalNews: ExternalNewsI[];

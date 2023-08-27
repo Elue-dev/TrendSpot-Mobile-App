@@ -17,8 +17,6 @@ import ForgotPassword from "../screens/auth/forgot_password";
 import NewsComments from "../screens/news/NewsComments";
 import ExternalNewsDetails from "../screens/news/ExternalNewsDetails";
 import CustomNewsDetails from "../screens/news/CustomNewsDetails";
-import MoreExternalNews from "../screens/news/MoreExternalNews";
-import MoreCustomNews from "../screens/news/MoreCustomNews";
 import ExploreCustomNews from "../screens/explore/ExploreCustomNews";
 import ExploreExternalNews from "../screens/explore/ExploreExternalNews";
 import ProfileScreen from "../screens/settings_screens";
@@ -226,30 +224,6 @@ export default function RouteNavigator() {
           headerShown: true,
           headerTitleAlign: "center",
           presentation: "modal",
-          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
-          headerStyle: {
-            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
-          },
-        }}
-      />
-      <RootStack.Screen
-        name="MoreExternalNews"
-        component={MoreExternalNews}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
-          headerStyle: {
-            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
-          },
-        }}
-      />
-      <RootStack.Screen
-        name="MoreCustomNews"
-        component={MoreCustomNews}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",

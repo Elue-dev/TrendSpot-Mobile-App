@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, View, LogBox } from "react-native";
 import { BottomSheetProvider } from "./src/context/bottom_sheet/BottomSheetContext";
 import * as Font from "expo-font";
 import {
@@ -17,6 +17,8 @@ import Modal from "./src/components/modal/Modal";
 import Alert from "./src/components/alert/Alert";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
+
+LogBox.ignoreAllLogs();
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
