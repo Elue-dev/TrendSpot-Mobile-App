@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, Platform } from "react-native";
 import { COLORS } from "../common/colors";
 import AuthSequence from "../screens/auth_sequence";
-import SearchScreen from "../screens/search";
 import ContactSupport from "../screens/settings_screens/pages/ContactSupport";
 import TermsAndPrivacy from "../screens/settings_screens/pages/TermsAndPrivacy";
 import SavedScreen from "../screens/saved";
@@ -313,7 +312,6 @@ export default function RouteNavigator() {
         options={{
           headerShown: true,
           headerTitleAlign: "center",
-          presentation: "fullScreenModal",
           headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
           headerStyle: {
             backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",

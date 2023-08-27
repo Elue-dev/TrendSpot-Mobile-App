@@ -13,7 +13,6 @@ export default function Header() {
 
   const {
     state: { user },
-    setPreviousRoute,
   } = useAuth();
   const { isDarkMode } = useSheet();
 
@@ -68,7 +67,7 @@ export default function Header() {
       </View>
       <View className="flex-row gap-3">
         <TouchableOpacity
-          onPress={() => navigation.navigate("Activities")}
+          onPress={resetOnboarding}
           className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <Feather

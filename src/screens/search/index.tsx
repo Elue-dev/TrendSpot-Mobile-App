@@ -11,6 +11,7 @@ import {
 import { useEffect, useLayoutEffect, useState } from "react";
 import {
   NavigationProp,
+  useFocusEffect,
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
@@ -39,6 +40,10 @@ export default function Search() {
   >(null);
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
+
+  useFocusEffect(() => {
+    getUserSearchHistory();
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,13 +79,15 @@ export default function Search() {
     setFilteredNews(newsBySearchQuery);
   }, [searchQuery]);
 
+  async function getUserSearchHistory() {
+    const userSearchHistory = await AsyncStorage.getItem("userSearches");
+    const parsedUserSearchHistory = JSON.parse(userSearchHistory!);
+    if (!parsedUserSearchHistory) return;
+    setUserRecentSearchHistory(parsedUserSearchHistory?.slice(0, 4));
+  }
+
   useEffect(() => {
-    (async function getUserSearchHistory() {
-      const userSearchHistory = await AsyncStorage.getItem("userSearches");
-      const parsedUserSearchHistory = JSON.parse(userSearchHistory!);
-      if (!parsedUserSearchHistory) return;
-      setUserRecentSearchHistory(parsedUserSearchHistory?.slice(0, 4));
-    })();
+    getUserSearchHistory();
   }, []);
 
   async function pushSearchToUserSearchHistory() {
@@ -88,16 +95,14 @@ export default function Search() {
     const userRecentSearches = await AsyncStorage.getItem("userSearches");
     if (userRecentSearches) {
       const parsedSearches = JSON.parse(userRecentSearches);
-      let userRecentSearchesWithoutCurrentSearch;
-      if (userRecentSearches.includes(searchQuery)) {
-        userRecentSearchesWithoutCurrentSearch = parsedSearches.filter(
-          (search: string) => search !== searchQuery
-        );
-      }
-      const updatedSearchHistory = [
-        searchQuery,
-        ...userRecentSearchesWithoutCurrentSearch,
-      ];
+      let userRecentSearchesToUse;
+      parsedSearches.includes(searchQuery)
+        ? (userRecentSearchesToUse = parsedSearches.filter(
+            (searchTerm: string) => searchTerm !== searchQuery
+          ))
+        : (userRecentSearchesToUse = parsedSearches);
+
+      const updatedSearchHistory = [searchQuery, ...userRecentSearchesToUse];
       await AsyncStorage.setItem(
         "userSearches",
         JSON.stringify(updatedSearchHistory)
@@ -128,8 +133,8 @@ export default function Search() {
             value={searchQuery}
             onChangeText={(value) => setSearchQuery(value)}
             className="text-base h-full mt-2 text-darkNeutral dark:text-grayNeutral w-[90%]"
-            placeholder="Search news by title, category"
-            placeholderTextColor={isDarkMode ? "white" : COLORS.grayText}
+            placeholder="Search news by title, category..."
+            placeholderTextColor={isDarkMode ? COLORS.gray50 : COLORS.grayText}
             selectionColor={
               isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor
             }
@@ -179,9 +184,10 @@ export default function Search() {
                 renderItem={({ item: news }) => (
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.goBack();
                       navigation.navigate("CustomNewsDetails", { news });
                       pushSearchToUserSearchHistory();
+                      setSearchQuery("");
+                      getUserSearchHistory();
                     }}
                     className="shadow-sm rounded-md bg-white dark:bg-darkCard px-2 py-3 mb-1"
                   >
@@ -208,7 +214,7 @@ export default function Search() {
           <View className="pt-6">
             <Text
               style={{ fontFamily: "rubikB" }}
-              className="text-darkNeutral dark:text-lightText text-[17px]"
+              className="text-darkNeutral dark:text-lightText text-[16px]"
             >
               Some Recent Searches
             </Text>

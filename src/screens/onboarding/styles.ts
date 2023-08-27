@@ -50,4 +50,17 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 50,
     borderRadius: 5,
   },
+
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  img: {
+    flex: 0.7,
+    justifyContent: "center",
+    height: 300,
+  },
+  title: {},
+  subTitleText: {},
 });

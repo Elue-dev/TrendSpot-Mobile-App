@@ -9,7 +9,7 @@ export default function CustomLeftHeader() {
 
   const { isDarkMode } = useSheet();
 
-  return isDarkMode ? (
+  return isDarkMode && Platform.OS === "ios" ? (
     <TouchableOpacity
       onPress={() => navigation.navigate("TabStack", { route: "Home" })}
       className=""

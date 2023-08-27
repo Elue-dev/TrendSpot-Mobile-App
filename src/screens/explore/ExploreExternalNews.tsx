@@ -12,16 +12,13 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import {
-  Ionicons,
   SimpleLineIcons,
   FontAwesome5,
   Fontisto,
   FontAwesome,
   AntDesign,
-  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { ExternalNewsI } from "../../types/news";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/loader";
 import { formatTimeAgo } from "../../helpers";
@@ -29,14 +26,7 @@ import ServerError from "../../components/custom_news/server_error";
 import { filterNewsBySearchQuery } from "../../helpers/search.algorithm";
 import CuateSVG from "../../assets/cuate.svg";
 import CustomLeftHeader from "../../helpers/CustomLeftHeader";
-
-const apiKey = "48f6f47da09747cda4b6e8cbb903d4d1";
-const apiUrl = `https://newsapi.org/v2/top-headlines`;
-const params = {
-  apiKey,
-  country: "us",
-  category: "general",
-};
+import { httpRequest } from "../../services";
 
 export default function ExploreExternalNews() {
   let originalNews: ExternalNewsI[];
@@ -62,13 +52,13 @@ export default function ExploreExternalNews() {
   }, [isDarkMode]);
 
   const queryFn = async function () {
-    return axios.get(apiUrl, { params }).then((response) => {
-      return response.data.articles;
+    return httpRequest.get("/news/external-news").then((response) => {
+      return response.data.news;
     });
   };
 
   const { data, isLoading, error, refetch } = useQuery<ExternalNewsI[]>(
-    [`customnews`],
+    [`externalNews`],
     queryFn,
     {
       staleTime: 60000,
@@ -94,7 +84,7 @@ export default function ExploreExternalNews() {
     >
       <View className="flex-row items-center mb-1">
         <View
-          className={`mt-8 px-3 pb-4 mx-4 shadow-sm bg-white rounded-lg flex-row justify-between items-center border-gray100 dark:border-gray200 ${
+          className={`mt-8 px-3 pb-4 mx-2 shadow-sm bg-white rounded-lg flex-row justify-between items-center border-gray100 dark:border-gray200 ${
             Platform.OS === "android" ? "border-4 dark:border" : "border"
           }`}
           style={{
@@ -124,7 +114,7 @@ export default function ExploreExternalNews() {
               name="closecircleo"
               size={33}
               color={isDarkMode ? "#E5E5EA" : COLORS.authDark}
-              style={{ paddingTop: 27, marginLeft: -8 }}
+              style={{ paddingTop: 27, marginLeft: -4 }}
             />
           </TouchableOpacity>
         ) : (
@@ -169,13 +159,13 @@ export default function ExploreExternalNews() {
           </Text>
         </View>
       ) : (
-        <View className="mb-20 mx-2">
+        <View className="mb-20 mx-2 mt-2">
           <FlatList
             keyExtractor={(externalNews) => externalNews.title}
             data={externalNews}
             scrollEnabled={false}
             renderItem={({ item: news }) => (
-              <View className="border-x dark:border bg-white dark:bg-transparent border-x-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[5px] rounded-lg">
+              <View className="border-x dark:border bg-white dark:bg-darkCard border-x-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[5px] rounded-lg">
                 <View className="flex-row gap-2">
                   <View className="w-[25%]">
                     <Image

@@ -14,7 +14,6 @@ import {
   FontAwesome5,
   Fontisto,
   FontAwesome,
-  MaterialIcons,
 } from "@expo/vector-icons";
 import { News } from "../../types/news";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +29,6 @@ interface CategoryParams {
 }
 
 export default function ExploreCustomNews() {
-  let originalNews: News[];
   const { selectedCategories } = useRoute().params as CategoryParams;
   const [customNews, setCustomNews] = useState<News[]>([]);
 
@@ -65,7 +63,7 @@ export default function ExploreCustomNews() {
       selectedCategories === "All" ? news : newsBySelectedCategories;
 
     setCustomNews(newsToUse!);
-  }, []);
+  }, [news, selectedCategories]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
