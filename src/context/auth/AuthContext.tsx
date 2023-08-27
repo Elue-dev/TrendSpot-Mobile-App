@@ -5,7 +5,6 @@ import {
   useEffect,
   Dispatch,
   useState,
-  SetStateAction,
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthReducer } from "./AuthReducer";
@@ -13,19 +12,8 @@ import {
   AuthProviderProps,
   User,
   AuthAction,
-  AuthState,
+  AuthContextType,
 } from "../../types/auth";
-
-interface AuthContextType {
-  state: AuthState;
-  selectedInterest: string;
-  setSelectedInterest: Dispatch<SetStateAction<string>>;
-  currrRoute: any;
-  setCurrRoute: any;
-  dispatch: Dispatch<AuthAction>;
-  setActiveUser: (user: User) => Promise<void>;
-  removeActiveUser: () => void;
-}
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -46,6 +34,7 @@ async function loadUserFromStorage(dispatch: Dispatch<AuthAction>) {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [selectedInterest, setSelectedInterest] = useState("All");
   const [currrRoute, setCurrRoute] = useState("Home");
+  const [previousRoute, setPreviousRoute] = useState("");
   const [state, dispatch] = useReducer(AuthReducer, {
     user: null,
   });
@@ -75,6 +64,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setSelectedInterest,
     currrRoute,
     setCurrRoute,
+    previousRoute,
+    setPreviousRoute,
     dispatch,
     setActiveUser,
     removeActiveUser,

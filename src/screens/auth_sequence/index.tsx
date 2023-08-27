@@ -49,7 +49,7 @@ export default function AuthSequence() {
   const isAndroid = Platform.OS === "android";
   const navigation = useNavigation<NavigationProp<any>>();
   const { email, password, firstName, lastName } = credentials;
-  const { setActiveUser, setCurrRoute } = useAuth();
+  const { setActiveUser, setCurrRoute, previousRoute } = useAuth();
   const { isDarkMode } = useSheet();
   const { showAlertAndContent } = useAlert();
   const queryClient = useQueryClient();
@@ -112,19 +112,26 @@ export default function AuthSequence() {
       if (response.data.status === "success") {
         setLoading(false);
         setActiveUser(response.data.user);
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: "TabStack" }],
-          })
-        );
+        if (previousRoute === "") {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "TabStack" }],
+            })
+          );
+          setCurrRoute("Home");
+        } else {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: previousRoute }],
+            })
+          );
+        }
         queryClient.invalidateQueries(["activities"]);
-        setCurrRoute("Home");
       }
     } catch (error: any) {
-      console.log(error);
       console.log(error?.response?.data?.message);
-
       showAlertAndContent({
         type: "error",
         message:

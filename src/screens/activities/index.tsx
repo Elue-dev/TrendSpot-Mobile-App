@@ -156,6 +156,7 @@ function AuthenticatedActivities({ user }: { user: User }) {
 
 function UnauthenticatedActivities() {
   const navigation = useNavigation<NavigationProp<any>>();
+  const { setPreviousRoute } = useAuth();
 
   return (
     <View className="flex-1 bg-shadowWhite dark:bg-darkNeutral">
@@ -168,9 +169,10 @@ function UnauthenticatedActivities() {
           Sign in to see all your activities
         </Text>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("AuthSequence", { state: "Sign In" })
-          }
+          onPress={() => {
+            setPreviousRoute("Activities");
+            navigation.navigate("AuthSequence", { state: "Sign In" });
+          }}
           className="bg-primaryColor dark:bg-primaryColorTheme py-3 rounded-md"
         >
           <Text

@@ -28,6 +28,7 @@ import { formatTimeAgo } from "../../helpers";
 import ServerError from "../../components/custom_news/server_error";
 import { filterNewsBySearchQuery } from "../../helpers/search.algorithm";
 import CuateSVG from "../../assets/cuate.svg";
+import CustomLeftHeader from "../../helpers/CustomLeftHeader";
 
 const apiKey = "48f6f47da09747cda4b6e8cbb903d4d1";
 const apiUrl = `https://newsapi.org/v2/top-headlines`;
@@ -56,16 +57,7 @@ export default function ExploreExternalNews() {
         </Text>
       ),
 
-      headerLeft: () =>
-        Platform.OS === "ios" ? (
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons
-              name="arrow-back-circle"
-              size={29}
-              color={COLORS.gray200}
-            />
-          </TouchableOpacity>
-        ) : null,
+      headerLeft: () => <CustomLeftHeader />,
     });
   }, [isDarkMode]);
 

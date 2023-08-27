@@ -3,24 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../loader";
 import { ExternalNewsI } from "../../types/news";
 import { formatTimeAgo } from "../../helpers";
-import axios from "axios";
+
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import ServerError from "../custom_news/server_error";
 
-const apiKey = "48f6f47da09747cda4b6e8cbb903d4d1";
-const apiUrl = `https://newsapi.org/v2/top-headlines`;
-const params = {
-  apiKey,
-  country: "us",
-  category: "general",
-};
+import { httpRequest } from "../../services";
 
 export default function ExternalNews() {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const queryFn = async function () {
-    return axios.get(apiUrl, { params }).then((response) => {
-      return response.data.articles;
+    return httpRequest.get("/news/external-news").then((response) => {
+      return response.data.news;
     });
   };
 

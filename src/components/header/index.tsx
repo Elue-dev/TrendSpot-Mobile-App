@@ -13,6 +13,7 @@ export default function Header() {
 
   const {
     state: { user },
+    setPreviousRoute,
   } = useAuth();
   const { isDarkMode } = useSheet();
 
@@ -77,11 +78,14 @@ export default function Header() {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() =>
-            user
-              ? navigation.navigate("AccountInfo")
-              : navigation.navigate("AuthSequence", { state: "Sign In" })
-          }
+          onPress={() => {
+            if (user) {
+              navigation.navigate("AccountInfo");
+            } else {
+              navigation.navigate("AuthSequence", { state: "Sign In" });
+              setPreviousRoute("AccountInfo");
+            }
+          }}
           className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
         >
           <FontAwesome5

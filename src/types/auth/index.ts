@@ -45,6 +45,19 @@ export interface AuthState {
   user: User | null;
 }
 
+export interface AuthContextType {
+  state: AuthState;
+  selectedInterest: string;
+  setSelectedInterest: Dispatch<SetStateAction<string>>;
+  currrRoute: string;
+  setCurrRoute: Dispatch<SetStateAction<string>>;
+  previousRoute: string;
+  setPreviousRoute: Dispatch<SetStateAction<string>>;
+  dispatch: Dispatch<AuthAction>;
+  setActiveUser: (user: User) => Promise<void>;
+  removeActiveUser: () => void;
+}
+
 export type AuthAction =
   | { type: "SET_ACTIVE_USER"; payload: User | null }
   | { type: "REMOVE_ACTIVE_USER" };
