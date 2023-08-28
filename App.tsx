@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, View, LogBox } from "react-native";
 import { BottomSheetProvider } from "./src/context/bottom_sheet/BottomSheetContext";
 import * as Font from "expo-font";
-import {
-  DefaultTheme,
-  NavigationContainer,
-  Theme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "./src/context/auth/AuthContext";
 import { ModalProvider } from "./src/context/modal/ModalCotext";
@@ -17,6 +13,7 @@ import Modal from "./src/components/modal/Modal";
 import Alert from "./src/components/alert/Alert";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
+// import * as Linking from "expo-linking";
 
 LogBox.ignoreAllLogs();
 

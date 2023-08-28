@@ -3,10 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../loader";
 import { ExternalNewsI } from "../../types/news";
 import { formatTimeAgo } from "../../helpers";
-
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import ServerError from "../custom_news/server_error";
-
 import { httpRequest } from "../../services";
 
 export default function ExternalNews() {

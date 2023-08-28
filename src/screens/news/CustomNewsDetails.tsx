@@ -9,8 +9,10 @@ import {
   Animated,
   ActivityIndicator,
   Platform,
+  Share,
+  Linking,
 } from "react-native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { News } from "../../types/news";
 import {
   NavigationProp,
@@ -109,8 +111,6 @@ export default function CustomNewsDetails() {
     refetchOnWindowFocus: false,
   });
 
-  // console.log({ likes: news?.likes });
-
   const bookmarksMutation = useMutation(
     (newsId: string) => {
       return httpRequest.post(
@@ -195,6 +195,21 @@ export default function CustomNewsDetails() {
 
   function userHasLikedPost(): boolean | undefined {
     return news?.likes?.some((like) => like?.userId === user?.id);
+  }
+
+  async function shareNews() {
+    const url = await Linking.getInitialURL();
+
+    try {
+      await Share.share({
+        url: `${url}`,
+      });
+    } catch (error: any) {
+      showAlertAndContent({
+        type: "info",
+        message: "Something went wrong. Please try again later.",
+      });
+    }
   }
 
   return (
@@ -353,28 +368,37 @@ export default function CustomNewsDetails() {
                   </View>
                 </View>
 
-                {likeLoading ? (
-                  <ActivityIndicator
-                    size="small"
-                    color={COLORS.primaryColorTheme}
-                  />
-                ) : userHasLikedPost() || isLiked ? (
-                  <TouchableOpacity onPress={handlePostLike}>
+                <View className="flex-row items-center gap-1">
+                  {likeLoading ? (
+                    <ActivityIndicator
+                      size="small"
+                      color={COLORS.primaryColorTheme}
+                    />
+                  ) : userHasLikedPost() || isLiked ? (
+                    <TouchableOpacity onPress={handlePostLike}>
+                      <AntDesign
+                        name="heart"
+                        size={26}
+                        color={COLORS.primaryColorTheme}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity onPress={handlePostLike}>
+                      <AntDesign
+                        name="hearto"
+                        size={26}
+                        color={COLORS.primaryColorTheme}
+                      />
+                    </TouchableOpacity>
+                  )}
+                  <TouchableOpacity onPress={shareNews}>
                     <AntDesign
-                      name="heart"
-                      size={26}
+                      name="sharealt"
+                      size={24}
                       color={COLORS.primaryColorTheme}
                     />
                   </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity onPress={handlePostLike}>
-                    <AntDesign
-                      name="hearto"
-                      size={26}
-                      color={COLORS.primaryColorTheme}
-                    />
-                  </TouchableOpacity>
-                )}
+                </View>
               </View>
             </View>
             <View className="pb-8">

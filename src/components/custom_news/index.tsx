@@ -4,15 +4,13 @@ import { httpRequest } from "../../services";
 import { News } from "../../types/news";
 import Loader from "../loader";
 import ServerError from "./server_error";
-import { formatTimeAgo } from "../../helpers";
-import { SimpleLineIcons, Fontisto, Ionicons } from "@expo/vector-icons";
+
+import { SimpleLineIcons } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 
 export default function CustomNews() {
   const navigation = useNavigation<NavigationProp<any>>();
-  const { isDarkMode } = useSheet();
 
   const queryFn = async (): Promise<News[]> => {
     return httpRequest.get("/news").then((res) => {
