@@ -84,7 +84,7 @@ function AuthenticatedActivities({ user }: { user: User }) {
       showsVerticalScrollIndicator={false}
       className="flex-1 bg-shadowWhite dark:bg-darkNeutral"
     >
-      <View className="mx-3 mt-3 mb-12">
+      <View className="mx-2 mt-3 mb-12">
         {activities?.length === 0 ? (
           <View className="mt-4">
             <RafikiSVG width={"90%"} height={300} />
@@ -101,7 +101,7 @@ function AuthenticatedActivities({ user }: { user: User }) {
             scrollEnabled={false}
             data={activities}
             renderItem={({ item: activity }) => (
-              <View className="bg-white dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-1 rounded-lg">
+              <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-1 rounded-lg">
                 <View className="flex-row items-center mb-2">
                   <MaterialIcons
                     name="workspaces-outline"

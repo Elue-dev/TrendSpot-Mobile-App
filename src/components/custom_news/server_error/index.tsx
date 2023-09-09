@@ -15,7 +15,7 @@ export default function ServerError({ refetch }: { refetch: () => void }) {
         Something Went Wrong ☹️
       </Text>
 
-      <Text className="font-bold text-base text-center text-darkNeutral dark:text-lightText">
+      <Text className="font-semibold py-2 text-base text-center w-[90%] text-darkNeutral dark:text-lightText">
         Try to sign out and sign in again, your session may have expired.
       </Text>
 
