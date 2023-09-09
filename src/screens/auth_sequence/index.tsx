@@ -1,6 +1,4 @@
 import { useState } from "react";
-import UserCredentials from "../../components/auth/UserCredentials";
-import UserInterests from "../../components/auth/UserInterests";
 import { Credentials } from "../../types/auth";
 import {
   CommonActions,
@@ -133,7 +131,7 @@ export default function AuthSequence() {
         queryClient.invalidateQueries(["activities"]);
       }
     } catch (error: any) {
-      console.log(error?.response?.data?.message);
+      // console.log(error?.response?.data?.message);
       showAlertAndContent({
         type: "error",
         message:

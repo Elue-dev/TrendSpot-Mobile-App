@@ -31,10 +31,11 @@ import CommentLayout from "../../components/news/comments/CommentLayout";
 
 interface NewsParams {
   newsId: string;
+  newsAuthorEmail: string;
 }
 
 export default function NewsComments() {
-  const { newsId } = useRoute().params as NewsParams;
+  const { newsId, newsAuthorEmail } = useRoute().params as NewsParams;
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [heightAdjust, setHeightAdjust] = useState(false);
@@ -137,8 +138,8 @@ export default function NewsComments() {
           ? `@${commentAuthor} ${comment.trim()}`
           : comment.trim(),
         newsId,
-        authorEmail: user?.email || "",
-        path: "none",
+        authorEmail: isReplying ? commentAuthor : newsAuthorEmail,
+        path: "exp://172.20.10.10:19000",
         parentId: isReplying ? commentId : null,
       });
       if (response) {
@@ -151,13 +152,16 @@ export default function NewsComments() {
     } catch (error: any) {
       console.log(error.response.data.message);
       setLoading(false);
-      navigation.goBack();
-      showAlertAndContent({
-        type: "error",
-        message:
-          error.response.data.message ||
-          "Something went wrong. Please try again later",
-      });
+      if (error.response.data.message.includes("expired")) {
+      } else {
+        navigation.goBack();
+        showAlertAndContent({
+          type: "error",
+          message:
+            error.response.data.message ||
+            "Something went wrong. Please try again later",
+        });
+      }
     }
   }
 

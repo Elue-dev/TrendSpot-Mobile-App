@@ -1,5 +1,5 @@
 export const DEFAULT_AVATAR =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlr0nV3MSR5rc0souSDovrbJ1NIj--YEqwQ&usqp=CAU";
+  "https://res.cloudinary.com/dwdsjbetu/image/upload/v1694223269/djsplkr1hyxxtor7mogw.jpg";
 
 export const parseText = (html: string) => {
   const htmlTagsRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>|<!--[\s\S]*?-->/gi;

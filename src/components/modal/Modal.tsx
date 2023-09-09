@@ -89,13 +89,15 @@ export default function Modal() {
         type: "success",
         message: response.data.message,
       });
-    } catch (error) {
-      console.log({ error });
+    } catch (error: any) {
+      // console.log({ error: error.response.data.message });
       setLoading(false);
       closeModal();
       showAlertAndContent({
         type: "error",
-        message: "Something went wrong. Please try again",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again",
       });
     }
   }

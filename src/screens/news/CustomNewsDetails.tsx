@@ -41,6 +41,7 @@ import {
 } from "../../helpers/handleBookmarks";
 import Loader from "../../components/loader";
 import ServerError from "../../components/custom_news/server_error";
+import { DEFAULT_AVATAR } from "../../utils";
 
 interface NewsParams {
   news: News;
@@ -200,6 +201,8 @@ export default function CustomNewsDetails() {
   async function shareNews() {
     const url = await Linking.getInitialURL();
 
+    console.log({ url });
+
     try {
       await Share.share({
         url: `${url}`,
@@ -318,7 +321,7 @@ export default function CustomNewsDetails() {
               <View className="mb-2 flex-row justify-between items-center">
                 <View className="flex-row items-center gap-2">
                   <Image
-                    source={{ uri: news?.author.avatar }}
+                    source={{ uri: news?.author.avatar || DEFAULT_AVATAR }}
                     className="h-11 w-11 bg-primaryColorDisabled rounded-full"
                   />
                   <View>
@@ -410,6 +413,7 @@ export default function CustomNewsDetails() {
                 onPress={() => {
                   navigation.navigate("NewsComments", {
                     newsId: news?.id,
+                    newsAuthorEmail: news?.author.email,
                   });
                 }}
                 className="flex-row items-center gap-1 justify-center border-2 border-primaryColorTheme px-2 py-3 rounded-full"
