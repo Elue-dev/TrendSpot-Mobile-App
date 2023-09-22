@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   ActivityIndicator,
+  Button,
 } from "react-native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/auth/AuthContext";
@@ -22,6 +23,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { httpRequest } from "../../services";
 import { uploadImageToCloud } from "../../helpers/imageUpload";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EditProfile() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -59,6 +61,11 @@ export default function EditProfile() {
         ) : null,
     });
   }, [isDarkMode]);
+
+  async function resetOnboarding() {
+    await AsyncStorage.removeItem("userHasOnboarded");
+    navigation.navigate("Onboarding");
+  }
 
   async function pickImageAsync() {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -255,6 +262,10 @@ export default function EditProfile() {
             >
               Your account is currently deactivated
             </Text>
+          )}
+
+          {user?.email === "eluewisdom@gmail.com" && (
+            <Button title="Reset" onPress={resetOnboarding} />
           )}
         </View>
       </ScrollView>

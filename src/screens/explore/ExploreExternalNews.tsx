@@ -17,15 +17,14 @@ import {
   Fontisto,
   FontAwesome,
   AntDesign,
+  Ionicons,
 } from "@expo/vector-icons";
 import { ExternalNewsI } from "../../types/news";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/loader";
 import { formatTimeAgo } from "../../helpers";
 import ServerError from "../../components/custom_news/server_error";
-
 import CuateSVG from "../../assets/cuate.svg";
-import CustomLeftHeader from "../../helpers/CustomLeftHeader";
 import { httpRequest } from "../../services";
 import { filterNewsBySearchQuery } from "../../helpers/search.algotithm";
 
@@ -48,7 +47,14 @@ export default function ExploreExternalNews() {
         </Text>
       ),
 
-      headerLeft: () => <CustomLeftHeader />,
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate("TabStack", { route: "Home" })}
+          className=""
+        >
+          <Ionicons name="arrow-back-circle" size={29} color={COLORS.gray200} />
+        </TouchableOpacity>
+      ),
     });
   }, [isDarkMode]);
 

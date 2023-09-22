@@ -4,7 +4,6 @@ import { Feather, FontAwesome5 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { DEFAULT_AVATAR } from "../../utils";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -15,11 +14,6 @@ export default function Header() {
     state: { user },
   } = useAuth();
   const { isDarkMode } = useSheet();
-
-  async function resetOnboarding() {
-    await AsyncStorage.removeItem("userHasOnboarded");
-    navigation.navigate("Onboarding");
-  }
 
   return (
     <View

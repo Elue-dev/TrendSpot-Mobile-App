@@ -46,7 +46,7 @@ export default function ExternalNews() {
         ></TouchableOpacity>
       </View>
       <FlatList
-        keyExtractor={(news) => news.title}
+        keyExtractor={(news) => news.title + Math.random()}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={news?.slice(0, 4)}

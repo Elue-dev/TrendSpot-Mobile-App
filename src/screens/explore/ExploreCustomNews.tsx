@@ -205,7 +205,7 @@ export default function ExploreCustomNews() {
                         style={{ fontFamily: "rubikL" }}
                         className="text-[15px] font-light mt-2 leading-6 text-darkNeutral dark:text-lightText"
                       >
-                        {news.content.includes("<div>")
+                        {news.content.includes("<")
                           ? `${parseText(news.content.slice(0, 300))}...`
                           : news.content.slice(0, 150)}
                         ...
