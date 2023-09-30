@@ -6,8 +6,6 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { News } from "./news";
 import { User } from "./auth";
 
-("926a079a-6c6d-408e-8400-3e7f92b4d48b");
-
 export type RootStackParamList = {
   TabStack: NavigatorScreenParams<TabStackParamList>;
   Onboarding: undefined;
@@ -52,6 +50,7 @@ export type RootStackParamList = {
     user: User;
   };
   UserLikes: undefined;
+  Admin: undefined;
 };
 
 export type TabStackParamList = {

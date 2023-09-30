@@ -84,6 +84,16 @@ export default function Header() {
             color={isDarkMode ? "#f9f9f9" : COLORS.dark}
           />
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Admin")}
+          className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
+        >
+          <MaterialCommunityIcons
+            name="web"
+            size={27}
+            color={isDarkMode ? "#f9f9f9" : COLORS.dark}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -3,13 +3,7 @@ import {
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import { RoutePropArg, TabStackParamList } from "../types/navigation";
-import {
-  FontAwesome,
-  Fontisto,
-  Ionicons,
-  Entypo,
-  FontAwesome5,
-} from "@expo/vector-icons";
+import { Ionicons, Entypo, FontAwesome5 } from "@expo/vector-icons";
 import { Platform, StyleSheet } from "react-native";
 import HomeScreen from "../screens/home";
 import SettingsScreen from "../screens/settings_screens";
@@ -74,6 +68,7 @@ export default function TabsNavigator() {
                 style={styles.tabBarIcon}
               />
             );
+
           default:
             return null;
         }

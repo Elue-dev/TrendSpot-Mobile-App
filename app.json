@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Trendspot",
+    "name": "TrendSpot",
     "slug": "trendspot",
     "scheme": "trendspot",
     "version": "1.0.0",
@@ -9,18 +9,19 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#74171C"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "bundleIdentifier": "com.eluewisdom.trendspot"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#74171C"
       },
       "package": "com.eluewisdom.trendspot"
     },
