@@ -8,13 +8,12 @@ export default function AccessPrompt({
 }) {
   return (
     <SafeAreaView className="flex-1 justify-center items-center bg-white">
-      <MaterialIcons name="app-blocking" size={150} color="black" />
+      <MaterialIcons name="phonelink-lock" size={150} color="black" />
       <Text
         className="text-xl my-4 px-3 text-center"
         style={{ fontFamily: "rubikMD" }}
       >
-        Access Denied. You must authenticate with your device to continue to
-        TrendSpot
+        Authenticate with your device to continue to TrendSpot
       </Text>
       <TouchableOpacity
         onPress={authenticateUser}

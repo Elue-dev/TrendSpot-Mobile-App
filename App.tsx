@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   View,
   LogBox,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
+  Platform,
+  Alert as RNAlert,
 } from "react-native";
 import { BottomSheetProvider } from "./src/context/bottom_sheet/BottomSheetContext";
 import * as Font from "expo-font";
@@ -21,14 +20,90 @@ import Alert from "./src/components/alert/Alert";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
 import * as LocalAuthetication from "expo-local-authentication";
-
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 import AccessPrompt from "./src/components/access";
+import { PushTokenProvider } from "./src/context/push_token/PushTokenContext";
 
 LogBox.ignoreAllLogs();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [expoPushToken, setExpoPushToken] = useState<any>("");
+  const [notification, setNotification] = useState<any>(false);
+  const notificationListener = useRef<any>();
+  const responseListener = useRef<any>();
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        RNAlert.alert(
+          "Notifications blocked",
+          "Nofifications from TrendSpot currently blocked by you",
+          [{ text: "GOT IT" }]
+        );
+        return;
+      }
+      token = await Notifications.getExpoPushTokenAsync({
+        projectId: Constants?.expoConfig?.extra?.eas.projectId,
+      });
+      setExpoPushToken(token);
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+
+    return token;
+  }
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) => {
+      setExpoPushToken(token);
+    });
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   async function loadFonts() {
     try {
@@ -55,8 +130,9 @@ export default function App() {
         promptMessage: "Authenticate to continue to TrendSpot",
         fallbackLabel: "Use Pin/Passcode",
       });
+      console.log(auth);
+
       setIsAuthenticated(auth.success);
-      console.log({ auth });
     })();
   }, []);
 
@@ -92,7 +168,7 @@ export default function App() {
   const queryClient = new QueryClient();
 
   return (
-    <>
+    <PushTokenProvider>
       {isAuthenticated ? (
         <GestureHandlerRootView style={{ flex: 1 }}>
           {fontLoaded ? (
@@ -103,7 +179,11 @@ export default function App() {
                     <AlertProvider>
                       <NavigationContainer>
                         <RouteNavigator />
-                        <CustomStatusBar />
+                        <CustomStatusBar
+                          token={
+                            expoPushToken?.data ? expoPushToken?.data : null
+                          }
+                        />
                         <Modal />
                         <Alert />
                       </NavigationContainer>
@@ -125,8 +205,10 @@ export default function App() {
           )}
         </GestureHandlerRootView>
       ) : (
-        <AccessPrompt authenticateUser={authenticateUser} />
+        <>
+          <AccessPrompt authenticateUser={authenticateUser} />
+        </>
       )}
-    </>
+    </PushTokenProvider>
   );
 }

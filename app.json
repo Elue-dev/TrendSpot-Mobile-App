@@ -35,7 +35,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#74171C"
       },
-      "package": "com.eluewisdom.trendspot"
+      "package": "com.eluewisdom.trendspot",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

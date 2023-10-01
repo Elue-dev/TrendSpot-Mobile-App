@@ -12,6 +12,7 @@ import { useAlert } from "../../context/alert/AlertContext";
 import { useAuth } from "../../context/auth/AuthContext";
 import { styles } from "./styles";
 import { httpRequest } from "../../services";
+import { usePushTokenContext } from "../../context/push_token/PushTokenContext";
 
 export default function Modal() {
   const { width } = Dimensions.get("window");
@@ -25,6 +26,7 @@ export default function Modal() {
   const { showAlertAndContent } = useAlert();
   const [loading, setLoading] = useState(false);
   const authHeaders = { headers: { authorization: `Bearer ${user?.token}` } };
+  const { expoPushToken } = usePushTokenContext();
 
   function handleModalAction() {
     switch (action) {
@@ -46,6 +48,7 @@ export default function Modal() {
         "/users/account/deactivate",
         {
           userId: user?.id,
+          token: expoPushToken,
         },
         authHeaders
       );
@@ -78,6 +81,7 @@ export default function Modal() {
         "/users/account/reactivate",
         {
           userId: user?.id,
+          token: expoPushToken,
         },
         authHeaders
       );

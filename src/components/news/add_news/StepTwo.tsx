@@ -27,6 +27,7 @@ import { useAuth } from "../../../context/auth/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { httpRequest } from "../../../services";
 import { uploadImageToCloud } from "../../../helpers/imageUpload";
+import { usePushTokenContext } from "../../../context/push_token/PushTokenContext";
 
 export default function StepTwo({
   values,
@@ -49,6 +50,7 @@ export default function StepTwo({
     setCurrRoute,
     state: { user },
   } = useAuth();
+  const { expoPushToken } = usePushTokenContext();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -144,6 +146,7 @@ export default function StepTwo({
           image: await uploadImageToCloud(image || ""),
           readTime: parseInt(readTime),
           category,
+          token: expoPushToken,
         };
 
         const response = await mutation.mutateAsync(newsData);

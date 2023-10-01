@@ -6,9 +6,11 @@ import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { DEFAULT_AVATAR } from "../../utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { usePushTokenContext } from "../../context/push_token/PushTokenContext";
 
 export default function Header() {
   const navigation = useNavigation<NavigationProp<any>>();
+  const { expoPushToken } = usePushTokenContext();
 
   const {
     state: { user },
@@ -86,15 +88,15 @@ export default function Header() {
         </TouchableOpacity>
         {user && user.isAdmin && (
           <TouchableOpacity
-          onPress={() => navigation.navigate("Admin")}
-          className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
-        >
-          <MaterialCommunityIcons
-            name="web"
-            size={27}
-            color={isDarkMode ? "#f9f9f9" : COLORS.dark}
-          />
-        </TouchableOpacity>
+            onPress={() => navigation.navigate("Admin")}
+            className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center"
+          >
+            <MaterialCommunityIcons
+              name="web"
+              size={27}
+              color={isDarkMode ? "#f9f9f9" : COLORS.dark}
+            />
+          </TouchableOpacity>
         )}
       </View>
     </View>

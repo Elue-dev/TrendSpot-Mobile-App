@@ -23,6 +23,7 @@ import { COLORS } from "../../../common/colors";
 import { TextInput } from "react-native";
 import { httpRequest } from "../../../services";
 import { useAlert } from "../../../context/alert/AlertContext";
+import { usePushTokenContext } from "../../../context/push_token/PushTokenContext";
 
 export default function AccountInfo() {
   const [currentInput, setCurrentInput] = useState("");
@@ -37,6 +38,7 @@ export default function AccountInfo() {
     state: { user },
     removeActiveUser,
   } = useAuth();
+  const { expoPushToken } = usePushTokenContext();
   const authHeaders = { headers: { authorization: `Bearer ${user?.token}` } };
 
   useLayoutEffect(() => {
@@ -66,6 +68,7 @@ export default function AccountInfo() {
       oldPassword: currentPassword,
       newPassword,
       confirmNewPassword: passwordConfirm,
+      token: expoPushToken,
     };
     try {
       const response = await httpRequest.put(
