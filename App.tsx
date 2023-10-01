@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View, LogBox } from "react-native";
+import {
+  ActivityIndicator,
+  View,
+  LogBox,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { BottomSheetProvider } from "./src/context/bottom_sheet/BottomSheetContext";
 import * as Font from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,11 +20,15 @@ import Modal from "./src/components/modal/Modal";
 import Alert from "./src/components/alert/Alert";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as SplashScreen from "expo-splash-screen";
+import * as LocalAuthetication from "expo-local-authentication";
+
+import AccessPrompt from "./src/components/access";
 
 LogBox.ignoreAllLogs();
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   async function loadFonts() {
     try {
@@ -39,6 +50,27 @@ export default function App() {
   }
 
   useEffect(() => {
+    (async function authenticateUser() {
+      const auth = await LocalAuthetication.authenticateAsync({
+        promptMessage: "Authenticate to continue to TrendSpot",
+        fallbackLabel: "Use Pin/Passcode",
+      });
+      setIsAuthenticated(auth.success);
+      console.log({ auth });
+    })();
+  }, []);
+
+  function authenticateUser() {
+    const auth = LocalAuthetication.authenticateAsync({
+      promptMessage: "Authenticate to continue to TrendSpot",
+      fallbackLabel: "Use Pin/Passcode",
+    });
+    auth.then((result) => {
+      setIsAuthenticated(result.success);
+    });
+  }
+
+  useEffect(() => {
     async function loadApp() {
       await loadFonts();
       SplashScreen.preventAutoHideAsync()
@@ -50,6 +82,8 @@ export default function App() {
         .catch((error) => {
           console.error("Error preventing auto hide:", error);
         });
+
+      setIsAuthenticated(false);
     }
 
     loadApp();
@@ -58,31 +92,41 @@ export default function App() {
   const queryClient = new QueryClient();
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      {fontLoaded ? (
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <BottomSheetProvider>
-              <ModalProvider>
-                <AlertProvider>
-                  <NavigationContainer>
-                    <RouteNavigator />
-                    <CustomStatusBar />
-                    <Modal />
-                    <Alert />
-                  </NavigationContainer>
-                </AlertProvider>
-              </ModalProvider>
-            </BottomSheetProvider>
-          </AuthProvider>
-        </QueryClientProvider>
+    <>
+      {isAuthenticated ? (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          {fontLoaded ? (
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <BottomSheetProvider>
+                  <ModalProvider>
+                    <AlertProvider>
+                      <NavigationContainer>
+                        <RouteNavigator />
+                        <CustomStatusBar />
+                        <Modal />
+                        <Alert />
+                      </NavigationContainer>
+                    </AlertProvider>
+                  </ModalProvider>
+                </BottomSheetProvider>
+              </AuthProvider>
+            </QueryClientProvider>
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ActivityIndicator color="#000" size="large" />
+            </View>
+          )}
+        </GestureHandlerRootView>
       ) : (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <ActivityIndicator color="#000" size="large" />
-        </View>
+        <AccessPrompt authenticateUser={authenticateUser} />
       )}
-    </GestureHandlerRootView>
+    </>
   );
 }

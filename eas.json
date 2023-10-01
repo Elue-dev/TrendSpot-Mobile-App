@@ -6,20 +6,27 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development"
+      "android": {
+        "image": "latest",
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "image": "latest",
+        "buildConfiguration": "Debug"
+      }
     },
     "preview": {
-      "distribution": "internal",
-      "channel": "preview",
+      "distribution": "internal"
+    },
+    "production": {
+      "channel": "production",
       "android": {
+        "image": "latest",
         "buildType": "apk"
       },
       "ios": {
-        "simulator": "true"
+        "image": "latest"
       }
-    },
-    "production": {
-      "channel": "production"
     }
   },
   "submit": {

@@ -7,6 +7,15 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "runtimeVersion": "49.0.0",
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow TrendSpot to use Face ID."
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
@@ -16,7 +25,10 @@
     "ios": {
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
-      "bundleIdentifier": "com.eluewisdom.trendspot"
+      "bundleIdentifier": "com.eluewisdom.trendspot",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "We need your Face ID for authentication."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -33,9 +45,7 @@
         "projectId": "04f78a3b-c806-43f6-bca6-9c7f854a1394"
       }
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+
     "updates": {
       "url": "https://u.expo.dev/04f78a3b-c806-43f6-bca6-9c7f854a1394"
     }
