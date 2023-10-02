@@ -19,7 +19,6 @@ import {
 } from "@expo/vector-icons";
 import { RootStackParamList } from "../../types/navigation";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
-import { useAlert } from "../../context/alert/AlertContext";
 import { useAuth } from "../../context/auth/AuthContext";
 import CustomLeftHeader from "../../helpers/CustomLeftHeader";
 import { Image } from "react-native";

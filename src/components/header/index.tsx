@@ -7,15 +7,37 @@ import { DEFAULT_AVATAR } from "../../utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { usePushTokenContext } from "../../context/push_token/PushTokenContext";
+import { useEffect } from "react";
+import { httpRequest } from "../../services";
 
 export default function Header() {
   const navigation = useNavigation<NavigationProp<any>>();
   const { expoPushToken } = usePushTokenContext();
-
   const {
     state: { user },
   } = useAuth();
+  const authHeaders = {
+    headers: { authorization: `Bearer ${user?.token}` },
+  };
+
   const { isDarkMode } = useSheet();
+
+  useEffect(() => {
+    async function updateUserPushToken() {
+      try {
+        await httpRequest.put(
+          `/users/${user?.id}`,
+          {
+            pushToken: expoPushToken || user?.pushToken,
+          },
+          authHeaders
+        );
+      } catch (error: any) {
+        console.log(error.response.data);
+      }
+    }
+    updateUserPushToken();
+  }, [user]);
 
   return (
     <View

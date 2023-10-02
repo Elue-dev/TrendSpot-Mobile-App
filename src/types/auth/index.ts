@@ -35,10 +35,12 @@ export interface User {
   avatar: string;
   joinedAt: Date;
   lastUpdated: Date;
+  isAuthor: boolean;
   isAdmin: boolean;
   isDeactivated: boolean;
   isDeactivatedByAdmin: boolean;
   token: string;
+  pushToken: string;
 }
 
 export interface AuthState {

@@ -130,8 +130,6 @@ export default function App() {
         promptMessage: "Authenticate to continue to TrendSpot",
         fallbackLabel: "Use Pin/Passcode",
       });
-      console.log(auth);
-
       setIsAuthenticated(auth.success);
     })();
   }, []);
