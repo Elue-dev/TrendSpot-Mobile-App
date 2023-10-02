@@ -57,7 +57,7 @@ export default function App() {
       if (finalStatus !== "granted") {
         RNAlert.alert(
           "Notifications blocked",
-          "Nofifications from TrendSpot currently blocked by you",
+          "Notifications from TrendSpot currently blocked by you",
           [{ text: "GOT IT" }]
         );
         return;

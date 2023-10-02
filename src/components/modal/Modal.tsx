@@ -16,7 +16,7 @@ import { usePushTokenContext } from "../../context/push_token/PushTokenContext";
 
 export default function Modal() {
   const { width } = Dimensions.get("window");
-  const { isDarkMode, toggleBottomSheet, toggleOverlay } = useSheet();
+  const { isDarkMode } = useSheet();
   const {
     state: { user },
     setActiveUser,
@@ -35,6 +35,8 @@ export default function Modal() {
         break;
       case "Reactivate":
         reactivateAccount();
+      case "BecomeAuthor":
+        requestToBecomeAuthor();
         break;
       default:
         return null;
@@ -106,6 +108,36 @@ export default function Modal() {
     }
   }
 
+  async function requestToBecomeAuthor() {
+    setLoading(true);
+    try {
+      const response = await httpRequest.post(
+        "/become-author",
+        "",
+        authHeaders
+      );
+
+      if (response) {
+        setLoading(false);
+        closeModal();
+        showAlertAndContent({
+          type: "success",
+          message: response.data.message,
+        });
+      }
+    } catch (error: any) {
+      console.log(error);
+      setLoading(false);
+      closeModal();
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again",
+      });
+    }
+  }
+
   return (
     <>
       {showModal ? (
@@ -144,7 +176,7 @@ export default function Modal() {
                     fontFamily: "rubikSB",
                   }}
                 >
-                  Close
+                  CLOSE
                 </Text>
               </TouchableOpacity>
 

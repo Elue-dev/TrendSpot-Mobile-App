@@ -13,6 +13,7 @@ import {
   MaterialCommunityIcons,
   Feather,
   AntDesign,
+  FontAwesome,
 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { profileData } from "./data";
@@ -85,14 +86,14 @@ export default function SettingsScreen() {
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
           />
         );
-      // case "Contact Support":
-      //   return (
-      //     <MaterialIcons
-      //       name="support-agent"
-      //       size={28}
-      //       color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
-      //     />
-      //   );
+      case "Become Author":
+        return (
+          <FontAwesome
+            name="pencil-square-o"
+            size={26}
+            color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+          />
+        );
       default:
         return null;
     }
@@ -122,7 +123,7 @@ export default function SettingsScreen() {
       title: "Account Deativation",
       message:
         "You are about to deactivate your account. You would no longer be able to comment on any news, like or save any news. Are you sure you want to proceed? You can change this settings later in your profile",
-      actionBtnText: "Deactivate",
+      actionBtnText: "DEACTIVATE",
       action: "Deactivate",
     });
   }
@@ -132,8 +133,18 @@ export default function SettingsScreen() {
       title: "Account Reactivation",
       message:
         "You are about to reactivate your account. You would now be able to comment to news, share or save news. You can change this settings later in your profile",
-      actionBtnText: "Reactivate",
+      actionBtnText: "REACTIVATE",
       action: "Reactivate",
+    });
+  }
+
+  async function requestToBecomeAuthor() {
+    showModalAndContent({
+      title: "Become An Author",
+      message:
+        "If your request is accepted, you will have write access on the platform.",
+      actionBtnText: "PROCEED",
+      action: "BecomeAuthor",
     });
   }
 
@@ -285,6 +296,45 @@ export default function SettingsScreen() {
               size={32}
               color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
             />
+          </TouchableOpacity>
+        )}
+
+        {user && (
+          <TouchableOpacity
+            onPress={requestToBecomeAuthor}
+            className={`${
+              isDarkMode ? "border-b-lightBorder" : "border-lightText"
+            } flex-row justify-between items-center pb-5  border-b shadow-sm bg-white dark:bg-darkCard p-2`}
+          >
+            <View className="flex-row items-center gap-3">
+              <View>{renderIcon("Become Author")}</View>
+              <View>
+                <Text
+                  style={{ fontFamily: "rubikMD" }}
+                  className={`${
+                    isDarkMode ? "text-gray100" : "text-primaryColorSec"
+                  }  text-[17px] mt-4 font-semibold`}
+                >
+                  Become An Author
+                </Text>
+                <Text
+                  className={`${
+                    isDarkMode
+                      ? "text-lightText font-light"
+                      : "text-gray200 font-normal"
+                  } pt-1 text-[14px]`}
+                >
+                  Gain write access on TrendSpot
+                </Text>
+              </View>
+            </View>
+            <View>
+              <MaterialIcons
+                name="keyboard-arrow-right"
+                size={32}
+                color={isDarkMode ? COLORS.gray100 : COLORS.primaryColorSec}
+              />
+            </View>
           </TouchableOpacity>
         )}
 
