@@ -171,6 +171,8 @@ export interface News {
   readTime: number;
   category: string;
   authorId: string;
+  actionTaken?: boolean;
+  isAccepted?: boolean;
   author: Author;
   likes: any[];
   bookmarks: any[];

@@ -299,7 +299,7 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         )}
 
-        {user && (
+        {user && !user.isAuthor && !user.isAdmin && (
           <TouchableOpacity
             onPress={requestToBecomeAuthor}
             className={`${

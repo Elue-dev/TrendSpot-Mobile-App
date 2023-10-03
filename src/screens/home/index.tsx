@@ -19,8 +19,6 @@ export default function HomeScreen() {
     setActiveUser,
   } = useAuth();
 
-  console.log({ user });
-
   async function getUserData() {
     const dbResponse = await httpRequest.get(`/users/${user?.id}`);
     const modifiedUser = { token: user?.token, ...dbResponse.data.user };

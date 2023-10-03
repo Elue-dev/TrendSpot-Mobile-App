@@ -136,27 +136,26 @@ export default function TabsNavigator() {
         }}
       />
 
-      {(user && user.isAdmin) ||
-        (user?.isAuthor && (
-          <TabStack.Screen
-            name="AddNews"
-            component={AddNews}
-            options={{
-              headerShown: user ? true : false,
-              tabBarLabel: "Add News",
-              headerTitleAlign: "center",
-              tabBarItemStyle:
-                currrRoute === "AddNews"
-                  ? {
-                      borderTopWidth: 2,
-                      borderColor: isDarkMode
-                        ? COLORS.primaryColorTheme
-                        : COLORS.primaryColor,
-                    }
-                  : {},
-            }}
-          />
-        ))}
+      {user && (user?.isAdmin || user?.isAuthor) && (
+        <TabStack.Screen
+          name="AddNews"
+          component={AddNews}
+          options={{
+            headerShown: user ? true : false,
+            tabBarLabel: "Add News",
+            headerTitleAlign: "center",
+            tabBarItemStyle:
+              currrRoute === "AddNews"
+                ? {
+                    borderTopWidth: 2,
+                    borderColor: isDarkMode
+                      ? COLORS.primaryColorTheme
+                      : COLORS.primaryColor,
+                  }
+                : {},
+          }}
+        />
+      )}
 
       <TabStack.Screen
         name="Settings"
