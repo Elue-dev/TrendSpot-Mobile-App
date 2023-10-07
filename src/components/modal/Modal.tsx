@@ -123,6 +123,7 @@ export default function Modal() {
         showAlertAndContent({
           type: "success",
           message: response.data.message,
+          timeout: 8000,
         });
       }
     } catch (error: any) {
@@ -145,7 +146,7 @@ export default function Modal() {
           <TouchableOpacity
             style={styles.overlay}
             activeOpacity={1}
-            onPress={closeModal}
+            onPress={loading ? () => {} : closeModal}
           />
           <View
             style={[styles.alertBox, { maxWidth: width - 50 }]}

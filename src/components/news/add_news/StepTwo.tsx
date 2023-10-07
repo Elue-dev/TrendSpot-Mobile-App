@@ -155,7 +155,10 @@ export default function StepTwo({
         if (response) {
           showAlertAndContent({
             type: "success",
-            message: "News added successfully",
+            message: user?.isAdmin
+              ? "News added successfully"
+              : "Your news has been sent to the admins for a review. We would keep in touch!",
+            timeout: user?.isAdmin ? 4000 : 8000,
           });
           setLoading(false);
           navigation.navigate("TabStack", { screen: "Home" });

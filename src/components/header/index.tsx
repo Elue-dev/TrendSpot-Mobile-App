@@ -15,10 +15,19 @@ export default function Header() {
   const { expoPushToken } = usePushTokenContext();
   const {
     state: { user },
+    setActiveUser,
   } = useAuth();
   const authHeaders = {
     headers: { authorization: `Bearer ${user?.token}` },
   };
+
+  async function getUserDataWithNewToken() {
+    const dbResponse = await httpRequest.get(
+      `/users/user-with-token/${user?.id}`
+    );
+    const modifiedUser = { token: user?.token, ...dbResponse.data.user };
+    setActiveUser(modifiedUser);
+  }
 
   const { isDarkMode } = useSheet();
 
@@ -33,7 +42,10 @@ export default function Header() {
           authHeaders
         );
       } catch (error: any) {
-        console.log(error.response.data);
+        console.log("Push token update error", error.response.data);
+        if (error.response.data.message.includes("Session expired")) {
+          getUserDataWithNewToken();
+        }
       }
     }
     updateUserPushToken();

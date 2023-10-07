@@ -47,14 +47,16 @@ export default function ExploreExternalNews() {
         </Text>
       ),
 
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => navigation.navigate("TabStack", { route: "Home" })}
-          className=""
-        >
-          <Ionicons name="arrow-back-circle" size={29} color={COLORS.gray200} />
-        </TouchableOpacity>
-      ),
+      headerLeft: () =>
+        Platform.OS === "ios" ? (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons
+              name="arrow-back-circle"
+              size={29}
+              color={COLORS.gray200}
+            />
+          </TouchableOpacity>
+        ) : null,
     });
   }, [isDarkMode]);
 

@@ -222,7 +222,7 @@ export default function EditProfile() {
             <TouchableOpacity
               style={styles.btn}
               className="bg-primaryColor dark:bg-primaryColorTheme"
-              onPress={() => navigation.goBack()}
+              onPress={loading ? () => {} : () => navigation.goBack()}
             >
               <Text
                 style={[styles.btnText, { fontFamily: "rubikSB" }]}
