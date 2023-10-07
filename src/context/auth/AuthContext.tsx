@@ -53,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  function removeActiveUser() {
+  async function removeActiveUser() {
     dispatch({ type: "REMOVE_ACTIVE_USER" });
     AsyncStorage.removeItem("user");
   }

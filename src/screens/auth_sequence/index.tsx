@@ -15,7 +15,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons, Feather } from "@expo/vector-icons";
@@ -24,6 +23,8 @@ import { useAlert } from "../../context/alert/AlertContext";
 import { COLORS } from "../../common/colors";
 import { httpRequest } from "../../services";
 import { useQueryClient } from "@tanstack/react-query";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 
 const initialCredentials: Credentials = {
   firstName: "",
@@ -65,11 +66,15 @@ export default function AuthSequence() {
 
     try {
       setLoading(true);
+      const token = await Notifications.getExpoPushTokenAsync({
+        projectId: Constants?.expoConfig?.extra?.eas.projectId,
+      });
       const response = await httpRequest.post(`/auth/register`, {
         firstName,
         lastName,
         email,
         password,
+        pushToken: token.data,
       });
 
       if (response.data.status === "success") {
@@ -108,6 +113,18 @@ export default function AuthSequence() {
         password,
       });
       if (response.data.status === "success") {
+        const token = await Notifications.getExpoPushTokenAsync({
+          projectId: Constants?.expoConfig?.extra?.eas.projectId,
+        });
+
+        await httpRequest.put(
+          `/users/${response.data.user?.id}`,
+          {
+            pushToken: token.data,
+          },
+          { headers: { authorization: `Bearer ${response.data.user?.token}` } }
+        );
+
         setLoading(false);
         setActiveUser(response.data.user);
         if (previousRoute === "") {
@@ -131,7 +148,7 @@ export default function AuthSequence() {
         queryClient.invalidateQueries(["activities"]);
       }
     } catch (error: any) {
-      // console.log(error?.response?.data?.message);
+      console.log(error?.response?.data?.message);
       showAlertAndContent({
         type: "error",
         message:

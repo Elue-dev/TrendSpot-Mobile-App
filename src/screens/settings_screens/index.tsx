@@ -22,9 +22,11 @@ import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { styles } from "./pages/styles";
 import { useAlert } from "../../context/alert/AlertContext";
 import { useModal } from "../../context/modal/ModalCotext";
+import { httpRequest } from "../../services";
 
 export default function SettingsScreen() {
   const navigation = useNavigation<NavigationProp<any>>();
+  const [loading, setLoading] = useState(false);
 
   const {
     state: { user },
@@ -35,6 +37,9 @@ export default function SettingsScreen() {
   const { showAlertAndContent } = useAlert();
   const { showModalAndContent } = useModal();
   const [isEnabled, setIsEnabled] = useState(isDarkMode);
+  const authHeaders = {
+    headers: { authorization: `Bearer ${user?.token}` },
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -149,12 +154,23 @@ export default function SettingsScreen() {
   }
 
   async function logOutUser() {
+    setLoading(true);
     try {
+      await httpRequest.put(
+        `/users/${user?.id}`,
+        {
+          updatingToken: true,
+          pushToken: "none",
+        },
+        authHeaders
+      );
+      setLoading(false);
       removeActiveUser();
       navigation.navigate("TabStack", { screen: "Home" });
       setCurrRoute("Home");
     } catch (error: any) {
-      console.log(error);
+      console.log(error.response.data.message);
+      setLoading(false);
       showAlertAndContent({
         type: "error",
         message: "Something went wrong. Please try again",
@@ -339,7 +355,7 @@ export default function SettingsScreen() {
         )}
 
         {user ? (
-          <TouchableOpacity onPress={logOutUser}>
+          <TouchableOpacity onPress={loading ? () => {} : logOutUser}>
             <View className="flex-row justify-between items-center pb-5 shadow-sm bg-white dark:bg-darkCard p-2 rounded-bl-lg rounded-br-lg">
               <View className="flex-row items-center gap-3">
                 <View>
@@ -358,10 +374,11 @@ export default function SettingsScreen() {
                     style={{ fontFamily: "rubikMD" }}
                     className="text-primaryColorSec dark:text-gray100 text-[17px] mt-4 font-semibold"
                   >
-                    Log Out
+                    {loading ? "..." : "Log Out"}
                   </Text>
+
                   <Text className="text-gray200 text-[14px] font-normal dark:text-lightText dark:font-light pt-1">
-                    Log out of your account
+                    {loading ? "..." : " Log out of your account"}
                   </Text>
                 </View>
               </View>
