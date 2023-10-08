@@ -146,7 +146,7 @@ export default function Header() {
             color={isDarkMode ? "#f7f7f7" : COLORS.dark}
           />
           <View className="absolute bottom-[23px] right-[4px] bg-primaryColorLighter rounded-full h-4 w-4 flex-row items-center justify-center">
-            <Text className="text-white ">{unreadNotifications?.length}</Text>
+            <Text className="text-white">{unreadNotifications?.length}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity

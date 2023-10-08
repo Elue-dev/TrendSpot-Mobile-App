@@ -414,6 +414,7 @@ export default function CustomNewsDetails() {
                   navigation.navigate("NewsComments", {
                     newsId: news?.id,
                     newsAuthorEmail: news?.author.email,
+                    newsAuthorId: news?.author.id,
                   });
                 }}
                 className="flex-row items-center gap-1 justify-center border-2 border-primaryColorTheme px-2 py-3 rounded-full"

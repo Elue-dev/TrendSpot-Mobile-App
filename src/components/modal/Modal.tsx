@@ -154,7 +154,6 @@ export default function Modal() {
 
   async function deleteNotification() {
     setLoading(true);
-    console.log({ param });
 
     try {
       const response = await httpRequest.delete(

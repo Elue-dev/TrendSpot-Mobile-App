@@ -32,10 +32,12 @@ import CommentLayout from "../../components/news/comments/CommentLayout";
 interface NewsParams {
   newsId: string;
   newsAuthorEmail: string;
+  newsAuthorId: string;
 }
 
 export default function NewsComments() {
-  const { newsId, newsAuthorEmail } = useRoute().params as NewsParams;
+  const { newsId, newsAuthorEmail, newsAuthorId } = useRoute()
+    .params as NewsParams;
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
   const [heightAdjust, setHeightAdjust] = useState(false);
@@ -139,8 +141,10 @@ export default function NewsComments() {
           : comment.trim(),
         newsId,
         authorEmail: isReplying ? commentAuthor : newsAuthorEmail,
+        authorId: newsAuthorId,
         path: "exp://172.20.10.10:19000",
         parentId: isReplying ? commentId : null,
+        replyerName: user?.firstName!,
       });
       if (response) {
         setComment("");

@@ -121,6 +121,8 @@ export interface AddComment {
   newsId: string;
   path: string;
   authorEmail: string;
+  authorId: string;
+  replyerName: string;
   parentId: string | null;
 }
 

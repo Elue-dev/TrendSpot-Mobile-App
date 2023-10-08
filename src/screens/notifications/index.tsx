@@ -26,6 +26,7 @@ import { useModal } from "../../context/modal/ModalCotext";
 
 function AuthenticatedNotifications({ user }: { user: User }) {
   const [loading, setLoading] = useState(false);
+
   const [allLoading, setAllLoading] = useState(false);
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
@@ -35,45 +36,6 @@ function AuthenticatedNotifications({ user }: { user: User }) {
   const { showAlertAndContent } = useAlert();
   const { showModalAndContent, setParam } = useModal();
   const queryClient = useQueryClient();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => (
-        <Text
-          style={{ fontFamily: "rubikSB" }}
-          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px] -ml-4"
-        >
-          Notifications
-        </Text>
-      ),
-
-      headerLeft: () =>
-        Platform.OS === "ios" ? (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("TabStack", { route: "Home" })}
-          >
-            <Ionicons
-              name="arrow-back-circle"
-              size={29}
-              color={COLORS.gray200}
-            />
-          </TouchableOpacity>
-        ) : null,
-
-      headerRight: () =>
-        unRead?.length === 0 || 1 ? null : (
-          <TouchableOpacity
-            onPress={
-              allLoading ? () => {} : () => markNotificationAsRead(null, "all")
-            }
-          >
-            <Text className="text-primaryColorTheme text-sm">
-              {allLoading ? "..." : "   Mark All As Read"}
-            </Text>
-          </TouchableOpacity>
-        ),
-    });
-  }, [isDarkMode]);
 
   const queryFn = async function (): Promise<NotificationsI[]> {
     return httpRequest
@@ -102,6 +64,45 @@ function AuthenticatedNotifications({ user }: { user: User }) {
   const unRead = notifications?.filter(
     (notification) => notification.isRead === false
   );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-primaryColorSec dark:text-gray300 font-semibold text-[18px] -ml-4"
+        >
+          Notifications
+        </Text>
+      ),
+
+      headerLeft: () =>
+        Platform.OS === "ios" ? (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("TabStack", { route: "Home" })}
+          >
+            <Ionicons
+              name="arrow-back-circle"
+              size={29}
+              color={COLORS.gray200}
+            />
+          </TouchableOpacity>
+        ) : null,
+
+      headerRight: () =>
+        unRead?.length === 0 ? null : (
+          <TouchableOpacity
+            onPress={
+              allLoading ? () => {} : () => markNotificationAsRead(null, "all")
+            }
+          >
+            <Text className="text-primaryColorTheme text-sm">
+              {allLoading ? "..." : "   Mark All As Read"}
+            </Text>
+          </TouchableOpacity>
+        ),
+    });
+  }, [isDarkMode]);
 
   async function markNotificationAsRead(notifId: string | null, type: string) {
     try {
@@ -167,7 +168,7 @@ function AuthenticatedNotifications({ user }: { user: User }) {
                   !notification.isRead && isDarkMode
                     ? "bg-darkCard"
                     : !notification.isRead && !isDarkMode
-                    ? "bg-zinc-300"
+                    ? "bg-zinc-100"
                     : "bg-white dark:bg-darkNeutral"
                 }`}
               >
