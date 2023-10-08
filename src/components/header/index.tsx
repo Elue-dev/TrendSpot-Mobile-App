@@ -22,17 +22,25 @@ export default function Header() {
   };
 
   async function getUserDataWithNewToken() {
-    const dbResponse = await httpRequest.get(
-      `/users/user-with-token/${user?.id}`
-    );
-    const modifiedUser = { token: user?.token, ...dbResponse.data.user };
-    setActiveUser(modifiedUser);
+    console.log("geting...");
+    try {
+      const dbResponse = await httpRequest.get(
+        `/users/user-with-token/${user?.id}`
+      );
+      const modifiedUser = { token: user?.token, ...dbResponse.data.user };
+      setActiveUser(modifiedUser);
+      console.log("SUCCESSS");
+    } catch (error: any) {
+      console.log("UPDATED USER ERROR", error.response.data.message);
+    }
   }
 
   const { isDarkMode } = useSheet();
 
   useEffect(() => {
     async function updateUserPushToken() {
+      console.log("hereee");
+
       try {
         await httpRequest.put(
           `/users/${user?.id}`,
@@ -41,6 +49,7 @@ export default function Header() {
           },
           authHeaders
         );
+        console.log("SUCCESS UPDATING TOKEN");
       } catch (error: any) {
         console.log("Push token update error", error.response.data);
         if (error.response.data.message.includes("Session expired")) {

@@ -25,6 +25,7 @@ import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import AccessPrompt from "./src/components/access";
 import { PushTokenProvider } from "./src/context/push_token/PushTokenContext";
+import * as Linking from "expo-linking";
 
 LogBox.ignoreAllLogs();
 
@@ -72,7 +73,7 @@ export default function App() {
 
     if (Platform.OS === "android") {
       Notifications.setNotificationChannelAsync("default", {
-        name: "notification.wav",
+        name: "default",
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
         lightColor: "#FF231F7C",
@@ -165,6 +166,62 @@ export default function App() {
 
   const queryClient = new QueryClient();
 
+  const linking = {
+    prefixes: ["trendspot://"],
+    config: {
+      screens: {
+        Main: "/",
+        AccountScreen: "AccountInfo",
+        NewsScreen: "news/:slug/:newsId",
+      },
+    },
+    async getInitialURL() {
+      // First, you may want to do the default deep link handling
+      // Check if app was opened from a deep link
+      const url = await Linking.getInitialURL();
+      console.log("🚀 ~ file: App.tsx:277 ~ getInitialURL ~ url:", url);
+
+      if (url != null) return url;
+
+      // Handle URL from expo push notifications
+      const response = await Notifications.getLastNotificationResponseAsync();
+      console.log(
+        "🚀 ~ file: App.tsx:285 ~ getInitialURL ~ response:",
+        response?.notification.request.content.data
+      );
+
+      return response?.notification.request.content.data.url;
+    },
+    subscribe(listener: any) {
+      const onReceiveURL = ({ url }: { url: string }) => listener(url);
+
+      // Listen to incoming links from deep linking
+      const eventListenerSubscription = Linking.addEventListener(
+        "url",
+        onReceiveURL
+      );
+
+      // Listen to expo push notifications
+      const subscription =
+        Notifications.addNotificationResponseReceivedListener((response) => {
+          const url = response.notification.request.content.data.url;
+
+          // Any custom logic to see whether the URL needs to be handled
+          //...
+
+          // Let React Navigation handle the URL
+          listener(url);
+        });
+
+      return () => {
+        // Clean up the event listeners
+
+        eventListenerSubscription.remove();
+        subscription.remove();
+      };
+    },
+  };
+
   return (
     <PushTokenProvider>
       {isAuthenticated ? (
@@ -175,7 +232,7 @@ export default function App() {
                 <BottomSheetProvider>
                   <ModalProvider>
                     <AlertProvider>
-                      <NavigationContainer>
+                      <NavigationContainer linking={linking}>
                         <RouteNavigator />
                         <CustomStatusBar
                           token={
