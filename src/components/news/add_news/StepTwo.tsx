@@ -150,7 +150,6 @@ export default function StepTwo({
         };
 
         const response = await mutation.mutateAsync(newsData);
-        console.log(response.data);
 
         if (response) {
           showAlertAndContent({

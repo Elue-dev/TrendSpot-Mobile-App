@@ -94,9 +94,7 @@ export default function App() {
       });
 
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
+      Notifications.addNotificationResponseReceivedListener((response) => {});
 
     return () => {
       Notifications.removeNotificationSubscription(
@@ -171,19 +169,17 @@ export default function App() {
     config: {
       screens: {
         Main: "/",
-        AccountScreen: "AccountInfo",
-        NewsScreen: "news/:slug/:newsId",
+        AccountInfo: "AccountInfo",
+        CustomNewsDetails: "/news/:slug/:newsId",
+        AuthSequence: "AuthSequence",
       },
     },
     async getInitialURL() {
-      // First, you may want to do the default deep link handling
-      // Check if app was opened from a deep link
       const url = await Linking.getInitialURL();
       console.log("🚀 ~ file: App.tsx:277 ~ getInitialURL ~ url:", url);
 
       if (url != null) return url;
 
-      // Handle URL from expo push notifications
       const response = await Notifications.getLastNotificationResponseAsync();
       console.log(
         "🚀 ~ file: App.tsx:285 ~ getInitialURL ~ response:",
@@ -193,29 +189,22 @@ export default function App() {
       return response?.notification.request.content.data.url;
     },
     subscribe(listener: any) {
-      const onReceiveURL = ({ url }: { url: string }) => listener(url);
-
-      // Listen to incoming links from deep linking
+      const onReceiveURL = ({ url }: { url: string }) => {
+        console.log("Received URL:", url);
+        listener(url);
+      };
       const eventListenerSubscription = Linking.addEventListener(
         "url",
         onReceiveURL
       );
 
-      // Listen to expo push notifications
       const subscription =
         Notifications.addNotificationResponseReceivedListener((response) => {
           const url = response.notification.request.content.data.url;
-
-          // Any custom logic to see whether the URL needs to be handled
-          //...
-
-          // Let React Navigation handle the URL
           listener(url);
         });
 
       return () => {
-        // Clean up the event listeners
-
         eventListenerSubscription.remove();
         subscription.remove();
       };

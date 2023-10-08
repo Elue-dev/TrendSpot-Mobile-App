@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import {
   View,
   Text,
@@ -56,6 +56,10 @@ export default function AccountInfo() {
         isDarkMode && Platform.OS === "ios" ? <CustomLeftHeader /> : null,
     });
   }, [isDarkMode]);
+
+  useEffect(() => {
+    if (!user) navigation.navigate("AuthSequence", { state: "Sign In" });
+  }, []);
 
   async function changeUserPassword() {
     if (!changeUserPassword || !newPassword || !passwordConfirm)
