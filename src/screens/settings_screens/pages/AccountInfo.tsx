@@ -81,6 +81,14 @@ export default function AccountInfo() {
         authHeaders
       );
       if (response) {
+        await httpRequest.put(
+          `/users/${user?.id}`,
+          {
+            updatingToken: true,
+            pushToken: "none",
+          },
+          authHeaders
+        );
         removeActiveUser();
         navigation.navigate("AuthSequence", { state: "Sign In" });
         showAlertAndContent({

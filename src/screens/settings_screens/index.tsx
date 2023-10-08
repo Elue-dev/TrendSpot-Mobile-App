@@ -91,6 +91,14 @@ export default function SettingsScreen() {
             color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
           />
         );
+      case "Activities":
+        return (
+          <Feather
+            name="activity"
+            size={28}
+            color={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+          />
+        );
       case "Become Author":
         return (
           <FontAwesome
@@ -117,6 +125,8 @@ export default function SettingsScreen() {
         break;
       case "Likes":
         navigation.navigate("UserLikes");
+      case "Activities":
+        navigation.navigate("Activities");
         break;
       default:
         return null;

@@ -9,6 +9,7 @@ export interface ModalArgs {
   message: string;
   actionBtnText: string;
   action: string;
+  param?: string;
 }
 
 export interface ModalState {
@@ -18,6 +19,8 @@ export interface ModalState {
   actionBtnText: string;
   action: string;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  param?: string | null;
+  setParam: Dispatch<SetStateAction<string | null>>;
   showModalAndContent: ({ title, message, actionBtnText }: ModalArgs) => void;
   closeModal: () => void;
 }

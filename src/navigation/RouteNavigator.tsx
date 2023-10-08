@@ -28,6 +28,7 @@ import OnboardingScreen from "../screens/onboarding";
 import UserProfile from "../screens/user_profile";
 import UserLikes from "../screens/user_likes";
 import AdminView from "../screens/admin_web_view";
+import Notifications from "../screens/notifications";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -284,6 +285,18 @@ export default function RouteNavigator() {
       <RootStack.Screen
         name="Activities"
         component={Activities}
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+          headerTintColor: isDarkMode ? "#C7C7CC" : "#270809",
+          headerStyle: {
+            backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
+          },
+        }}
+      />
+      <RootStack.Screen
+        name="Notifications"
+        component={Notifications}
         options={{
           headerShown: true,
           headerTitleAlign: "center",

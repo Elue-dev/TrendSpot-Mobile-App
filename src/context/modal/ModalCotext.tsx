@@ -11,6 +11,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
+  const [param, setParam] = useState<string | null>(null);
   const [actionBtnText, setActionBtnText] = useState("");
   const [action, setAction] = useState("");
 
@@ -19,12 +20,14 @@ export function ModalProvider({ children }: ModalProviderProps) {
     message,
     actionBtnText,
     action,
+    param,
   }: ModalArgs) {
     setShowModal(true);
     setTitle(title);
     setMessage(message);
     setActionBtnText(actionBtnText);
     setAction(action);
+    setParam(param || null);
   }
 
   function closeModal() {
@@ -40,6 +43,8 @@ export function ModalProvider({ children }: ModalProviderProps) {
     setShowModal,
     showModalAndContent,
     closeModal,
+    param,
+    setParam,
   };
 
   return (

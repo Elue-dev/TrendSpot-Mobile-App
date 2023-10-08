@@ -46,6 +46,7 @@ export type RootStackParamList = {
     news: News;
   };
   Activities: undefined;
+  Notifications: undefined;
   UserProfile: {
     user: User;
   };

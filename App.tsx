@@ -172,6 +172,7 @@ export default function App() {
         AccountInfo: "AccountInfo",
         CustomNewsDetails: "/news/:slug/:newsId",
         AuthSequence: "AuthSequence",
+        Notifications: "Notifications",
       },
     },
     async getInitialURL() {

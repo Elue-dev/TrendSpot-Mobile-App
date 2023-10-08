@@ -19,4 +19,9 @@ export const profileData = [
     description: "View news you have liked",
     isProtected: true,
   },
+  {
+    title: "Activities",
+    description: "View your activities on the app",
+    isProtected: true,
+  },
 ];

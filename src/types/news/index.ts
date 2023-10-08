@@ -173,6 +173,7 @@ export interface News {
   authorId: string;
   actionTaken?: boolean;
   isAccepted?: boolean;
+  status?: string;
   author: Author;
   likes: any[];
   bookmarks: any[];

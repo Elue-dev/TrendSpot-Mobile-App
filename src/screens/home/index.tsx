@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, SafeAreaView, ScrollView } from "react-native";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { COLORS } from "../../common/colors";
@@ -25,6 +25,10 @@ export default function HomeScreen() {
     setActiveUser(modifiedUser);
   }
 
+  useEffect(() => {
+    queryClient.invalidateQueries(["notifications"]);
+  }, []);
+
   function handleRefresh() {
     setRefresh(true);
     queryClient.invalidateQueries(["customNews"]);
@@ -33,6 +37,7 @@ export default function HomeScreen() {
     queryClient.invalidateQueries(["bookmarks"]);
     queryClient.invalidateQueries(["activities"]);
     queryClient.invalidateQueries(["userLikes"]);
+    queryClient.invalidateQueries(["notifications"]);
     getUserData();
 
     setTimeout(() => setRefresh(false), 3000);

@@ -13,6 +13,7 @@ import { useAuth } from "../../context/auth/AuthContext";
 import { styles } from "./styles";
 import { httpRequest } from "../../services";
 import { usePushTokenContext } from "../../context/push_token/PushTokenContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Modal() {
   const { width } = Dimensions.get("window");
@@ -21,12 +22,21 @@ export default function Modal() {
     state: { user },
     setActiveUser,
   } = useAuth();
-  const { showModal, closeModal, title, message, actionBtnText, action } =
-    useModal();
+  const {
+    showModal,
+    closeModal,
+    title,
+    message,
+    actionBtnText,
+    action,
+    param,
+    setParam,
+  } = useModal();
   const { showAlertAndContent } = useAlert();
   const [loading, setLoading] = useState(false);
   const authHeaders = { headers: { authorization: `Bearer ${user?.token}` } };
   const { expoPushToken } = usePushTokenContext();
+  const queryClient = useQueryClient();
 
   function handleModalAction() {
     switch (action) {
@@ -37,6 +47,9 @@ export default function Modal() {
         reactivateAccount();
       case "BecomeAuthor":
         requestToBecomeAuthor();
+        break;
+      case "DeleteNotif":
+        deleteNotification();
         break;
       default:
         return null;
@@ -139,6 +152,39 @@ export default function Modal() {
     }
   }
 
+  async function deleteNotification() {
+    setLoading(true);
+    console.log({ param });
+
+    try {
+      const response = await httpRequest.delete(
+        `/notifications/${param}`,
+        authHeaders
+      );
+
+      if (response) {
+        setLoading(false);
+        closeModal();
+        setParam(null);
+        queryClient.invalidateQueries(["notifications"]);
+        showAlertAndContent({
+          type: "success",
+          message: response.data.message,
+        });
+      }
+    } catch (error: any) {
+      console.log(error);
+      setLoading(false);
+      closeModal();
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again",
+      });
+    }
+  }
+
   return (
     <>
       {showModal ? (
@@ -146,7 +192,14 @@ export default function Modal() {
           <TouchableOpacity
             style={styles.overlay}
             activeOpacity={1}
-            onPress={loading ? () => {} : closeModal}
+            onPress={
+              loading
+                ? () => {}
+                : () => {
+                    setParam(null);
+                    closeModal;
+                  }
+            }
           />
           <View
             style={[styles.alertBox, { maxWidth: width - 50 }]}

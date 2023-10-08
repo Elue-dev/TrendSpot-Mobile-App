@@ -9,5 +9,16 @@ export interface Activity {
   activityDate: Date;
   user: User;
   userId: string;
-  news: News[];
+  news?: News[];
+}
+
+export interface Notifications {
+  id: string;
+  description: string;
+  category: string;
+  notificationDate: Date;
+  user: User;
+  userId: string;
+  isRead: boolean;
+  news?: News[];
 }
