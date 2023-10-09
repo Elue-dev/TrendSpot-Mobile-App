@@ -10,7 +10,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { Platform } from "react-native";
-import { Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { httpRequest } from "../../services";
 import { Notifications as NotificationsI } from "../../types/activities";
@@ -68,19 +68,6 @@ function AuthenticatedNotifications({ user }: { user: User }) {
             />
           </TouchableOpacity>
         ) : null,
-
-      headerRight: () =>
-        unRead?.length === 0 ? null : (
-          <TouchableOpacity
-            onPress={
-              allLoading ? () => {} : () => markNotificationAsRead(null, "all")
-            }
-          >
-            <Text className="text-primaryColorTheme text-sm">
-              {allLoading ? "..." : "Mark All As Read"}
-            </Text>
-          </TouchableOpacity>
-        ),
     });
   }, [isDarkMode]);
 
@@ -108,11 +95,15 @@ function AuthenticatedNotifications({ user }: { user: User }) {
   if (isLoading) return <Loader />;
   if (error) return <ServerError refetch={refetch} />;
 
-  const unRead = notifications?.filter(
-    (notification) => notification.isRead === false
+  const unReadNotifications = notifications?.filter(
+    (notif) => notif.isRead === false
   );
 
+  console.log({ unReadNotifications: unReadNotifications?.length });
+
   async function markNotificationAsRead(notifId: string | null, type: string) {
+    console.log({ type });
+
     try {
       type === "all" ? setAllLoading(true) : setLoading(true);
       const dbResponse = await httpRequest.patch(
@@ -127,6 +118,7 @@ function AuthenticatedNotifications({ user }: { user: User }) {
           message: dbResponse.data.message,
         });
         queryClient.invalidateQueries(["notifications"]);
+        refetch();
       }
     } catch (error: any) {
       type === "all" ? setAllLoading(false) : setLoading(false);
@@ -174,102 +166,124 @@ function AuthenticatedNotifications({ user }: { user: User }) {
             </Text>
           </View>
         ) : (
-          <FlatList
-            keyExtractor={(notifications) => notifications.id}
-            scrollEnabled={false}
-            data={notifications}
-            renderItem={({ item: notification }) => (
-              <View
-                className={` border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-1 rounded-lg ${
-                  !notification.isRead && isDarkMode
-                    ? "bg-darkCard"
-                    : !notification.isRead && !isDarkMode
-                    ? "bg-zinc-100"
-                    : "bg-white dark:bg-darkNeutral"
-                }`}
+          <View>
+            {unReadNotifications!.length > 1 ? (
+              <TouchableOpacity
+                onPress={
+                  allLoading
+                    ? () => {}
+                    : () => markNotificationAsRead(null, "all")
+                }
+                className="flex-row items-center justify-end gap-1 mb-2"
               >
-                <View className="flex-row items-center mb-2">
-                  <Text
-                    style={{ fontFamily: "rubikREG" }}
-                    className="text-darkNeutral dark:text-lightText text-[16px] leading-6"
-                  >
-                    {notification.description}
-                  </Text>
-                </View>
-                <View className="flex-row justify-between items-center">
+                <FontAwesome5
+                  name="check-double"
+                  size={15}
+                  color={COLORS.primaryColorTheme}
+                />
+                <Text className="text-primaryColorTheme text-base font-bold">
+                  {allLoading ? "..." : "Mark All As Read"}
+                </Text>
+              </TouchableOpacity>
+            ) : null}
+
+            <FlatList
+              keyExtractor={(notifications) => notifications.id}
+              scrollEnabled={false}
+              data={notifications}
+              renderItem={({ item: notification }) => (
+                <View
+                  className={` border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-1 rounded-lg ${
+                    !notification.isRead && isDarkMode
+                      ? "bg-darkCard"
+                      : !notification.isRead && !isDarkMode
+                      ? "bg-zinc-100"
+                      : "bg-white dark:bg-darkNeutral"
+                  }`}
+                >
+                  <View className="flex-row items-center mb-2">
+                    <Text
+                      style={{ fontFamily: "rubikREG" }}
+                      className="text-darkNeutral dark:text-lightText text-[16px] leading-6"
+                    >
+                      {notification.description}
+                    </Text>
+                  </View>
                   <View className="flex-row justify-between items-center">
-                    <View className="flex-row items-center gap-1">
-                      <MaterialIcons
-                        name="date-range"
-                        size={20}
-                        color={COLORS.primaryColorTheme}
-                      />
-                      <Text
-                        style={{ fontFamily: "rubikL" }}
-                        className="text-darkNeutral dark:text-lightText ml-[6px] text-[15px]"
-                      >
-                        {formatTimeAgo(notification.notificationDate)}
-                      </Text>
+                    <View className="flex-row justify-between items-center">
+                      <View className="flex-row items-center gap-1">
+                        <MaterialIcons
+                          name="date-range"
+                          size={20}
+                          color={COLORS.primaryColorTheme}
+                        />
+                        <Text
+                          style={{ fontFamily: "rubikL" }}
+                          className="text-darkNeutral dark:text-lightText ml-[6px] text-[15px]"
+                        >
+                          {formatTimeAgo(notification.notificationDate)}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
 
-                <View className="flex-row items-end justify-end gap-2 pt-2">
-                  {!notification.isRead && (
-                    <TouchableOpacity
-                      onPress={
-                        loading
-                          ? () => {}
-                          : () =>
-                              markNotificationAsRead(
-                                notification.id,
-                                "specific"
-                              )
-                      }
-                    >
-                      <Text className="text-primaryColorTheme underline">
-                        {loading ? "..." : "Mark as Read"}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
+                  <View className="flex-row items-end justify-end gap-2 pt-2">
+                    {!notification.isRead && (
+                      <TouchableOpacity
+                        onPress={
+                          loading
+                            ? () => {}
+                            : () =>
+                                markNotificationAsRead(
+                                  notification.id,
+                                  "specific"
+                                )
+                        }
+                      >
+                        <Text className="text-primaryColorTheme underline">
+                          {loading ? "..." : "Mark as Read"}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
 
-                  {notification.category === "news" && (
+                    {notification.category === "news" && (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("CustomNewsDetails", {
+                            newsId: notification.news?.id,
+                            slug: notification.news?.slug,
+                          })
+                        }
+                      >
+                        <Text
+                          style={{ fontFamily: "rubikREG" }}
+                          className="text-primaryColorTheme underline"
+                        >
+                          See News
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+
                     <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("CustomNewsDetails", {
-                          newsId: notification.news?.id,
-                          slug: notification.news?.slug,
-                        })
-                      }
+                      onPress={() => handleDeleteNotification(notification.id)}
                     >
                       <Text
                         style={{ fontFamily: "rubikREG" }}
                         className="text-primaryColorTheme underline"
                       >
-                        See News
+                        Delete
                       </Text>
+                      {/* <AntDesign
+                        name="delete"
+                        size={17}
+                        color={COLORS.primaryColorTheme}
+                      /> */}
                     </TouchableOpacity>
-                  )}
-
-                  <TouchableOpacity
-                    onPress={() => handleDeleteNotification(notification.id)}
-                  >
-                    <Text
-                      style={{ fontFamily: "rubikREG" }}
-                      className="text-primaryColorTheme underline"
-                    >
-                      Delete
-                    </Text>
-                    {/* <AntDesign
-                      name="delete"
-                      size={17}
-                      color={COLORS.primaryColorTheme}
-                    /> */}
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            )}
-          />
+              )}
+            />
+          </View>
         )}
       </View>
     </ScrollView>
