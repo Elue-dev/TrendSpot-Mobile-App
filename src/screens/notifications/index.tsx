@@ -213,7 +213,7 @@ function AuthenticatedNotifications({ user }: { user: User }) {
                 ) : null}
               </View>
 
-              {unReadNotifications!.length > 1 ? (
+              {notifications!.length > 1 ? (
                 <TouchableOpacity
                   onPress={handleClearNotifications}
                   className="flex-row items-center"
