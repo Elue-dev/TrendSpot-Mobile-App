@@ -20,5 +20,6 @@ export interface Notifications {
   user: User;
   userId: string;
   isRead: boolean;
+  newsId?: string;
   news?: News;
 }

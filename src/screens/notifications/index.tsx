@@ -249,7 +249,7 @@ function AuthenticatedNotifications({ user }: { user: User }) {
                   </TouchableOpacity>
                 )}
 
-                {notification.category === "news" && (
+                {notification.category === "news" && notification.newsId && (
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("CustomNewsDetails", {

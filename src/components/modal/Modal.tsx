@@ -45,6 +45,7 @@ export default function Modal() {
         break;
       case "Reactivate":
         reactivateAccount();
+        break;
       case "BecomeAuthor":
         requestToBecomeAuthor();
         break;

@@ -177,13 +177,13 @@ export default function App() {
     },
     async getInitialURL() {
       const url = await Linking.getInitialURL();
-      console.log("🚀 ~ file: App.tsx:277 ~ getInitialURL ~ url:", url);
+      console.log("🚀 ~ file: App.tsx:180 ~ getInitialURL ~ url:", url);
 
       // if (url != null) return url;
 
       const response = await Notifications.getLastNotificationResponseAsync();
       console.log(
-        "🚀 ~ file: App.tsx:285 ~ getInitialURL ~ response:",
+        "🚀 ~ file: App.tsx:186 ~ getInitialURL ~ response:",
         response?.notification.request.content.data
       );
 

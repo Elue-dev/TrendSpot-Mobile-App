@@ -5,7 +5,7 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
@@ -14,20 +14,30 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { httpRequest } from "../../services";
 import { Activity } from "../../types/activities";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "../../components/loader";
 import ServerError from "../../components/custom_news/server_error";
 import { formatTimeAgo } from "../../helpers";
 import RafikiSVG from "../../assets/rafiki.svg";
 import UnionSVG from "../../assets/union.svg";
 import { User } from "../../types/auth";
+import { RefreshControl } from "react-native-gesture-handler";
 
 function AuthenticatedActivities({ user }: { user: User }) {
+  const [refresh, setRefresh] = useState(false);
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
   const authHeaders = {
     headers: { authorization: `Bearer ${user?.token}` },
   };
+  const queryClient = useQueryClient();
+
+  function handleRefresh() {
+    setRefresh(true);
+    queryClient.invalidateQueries(["notifications"]);
+
+    setTimeout(() => setRefresh(false), 3000);
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -84,6 +94,14 @@ function AuthenticatedActivities({ user }: { user: User }) {
       showsVerticalScrollIndicator={false}
       className="flex-1 bg-shadowWhite dark:bg-darkNeutral"
     >
+      <RefreshControl
+        refreshing={refresh}
+        onRefresh={handleRefresh}
+        progressBackgroundColor={
+          isDarkMode ? COLORS.primaryColor : COLORS.primaryColorTheme
+        }
+        tintColor={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+      />
       <View className="mx-2 mt-3 mb-12">
         {activities?.length === 0 ? (
           <View className="mt-4">
