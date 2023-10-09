@@ -133,12 +133,7 @@ export default function Header() {
       </View>
       <View className="flex-row gap-3">
         <TouchableOpacity
-          onPress={
-            () =>
-              // user
-              navigation.navigate("Notifications")
-            // : navigation.navigate("AuthSequence", { state: "Sign In" })
-          }
+          onPress={() => navigation.navigate("Notifications")}
           className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center relative"
         >
           <Ionicons
@@ -146,9 +141,9 @@ export default function Header() {
             size={26}
             color={isDarkMode ? "#f7f7f7" : COLORS.dark}
           />
-          <View className="absolute bottom-[23px] right-[4px] bg-primaryColorLighter rounded-full h-4 w-4 flex-row items-center justify-center">
+          {/* <View className="absolute bottom-[23px] right-[4px] bg-primaryColorLighter rounded-full h-4 w-4 flex-row items-center justify-center">
             <Text className="text-white">{unreadNotifications?.length}</Text>
-          </View>
+          </View> */}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
