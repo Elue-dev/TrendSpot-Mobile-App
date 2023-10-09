@@ -125,6 +125,7 @@ export default function SettingsScreen() {
         break;
       case "Likes":
         navigation.navigate("UserLikes");
+        break;
       case "Activities":
         navigation.navigate("Activities");
         break;

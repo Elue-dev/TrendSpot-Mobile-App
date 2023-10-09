@@ -133,10 +133,11 @@ export default function Header() {
       </View>
       <View className="flex-row gap-3">
         <TouchableOpacity
-          onPress={() =>
-            user
-              ? navigation.navigate("Notifications")
-              : navigation.navigate("AuthSequence", { state: "Sign In" })
+          onPress={
+            () =>
+              // user
+              navigation.navigate("Notifications")
+            // : navigation.navigate("AuthSequence", { state: "Sign In" })
           }
           className="bg-white dark:bg-darkCard h-10 dark:h-9 w-10 dark:w-9 rounded-full flex-col justify-center items-center relative"
         >

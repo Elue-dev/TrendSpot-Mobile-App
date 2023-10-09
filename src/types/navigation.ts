@@ -20,7 +20,8 @@ export type RootStackParamList = {
     news: string;
   };
   CustomNewsDetails: {
-    news: string;
+    newsId: string;
+    slug: string;
   };
   AccountInfo: undefined;
   Terms: {

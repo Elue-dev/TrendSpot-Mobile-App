@@ -184,7 +184,10 @@ export default function Search() {
                 renderItem={({ item: news }) => (
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("CustomNewsDetails", { news });
+                      navigation.navigate("CustomNewsDetails", {
+                        newsId: news.id,
+                        slug: news.slug,
+                      });
                       pushSearchToUserSearchHistory();
                       setSearchQuery("");
                       getUserSearchHistory();

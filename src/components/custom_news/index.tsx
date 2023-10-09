@@ -80,7 +80,10 @@ export default function CustomNews() {
 
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("CustomNewsDetails", { news })
+                      navigation.navigate("CustomNewsDetails", {
+                        newsId: news.id,
+                        slug: news.slug,
+                      })
                     }
                     className="flex-row items-center"
                   >

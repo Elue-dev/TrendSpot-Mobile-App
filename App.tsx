@@ -170,7 +170,7 @@ export default function App() {
       screens: {
         Main: "/",
         AccountInfo: "AccountInfo",
-        CustomNewsDetails: "/news/:slug/:newsId",
+        CustomNewsDetails: "news/:slug/:newsId",
         AuthSequence: "AuthSequence",
         Notifications: "Notifications",
       },
@@ -179,7 +179,7 @@ export default function App() {
       const url = await Linking.getInitialURL();
       console.log("🚀 ~ file: App.tsx:277 ~ getInitialURL ~ url:", url);
 
-      if (url != null) return url;
+      // if (url != null) return url;
 
       const response = await Notifications.getLastNotificationResponseAsync();
       console.log(

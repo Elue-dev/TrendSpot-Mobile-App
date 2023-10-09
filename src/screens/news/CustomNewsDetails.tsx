@@ -44,11 +44,12 @@ import ServerError from "../../components/custom_news/server_error";
 import { DEFAULT_AVATAR } from "../../utils";
 
 interface NewsParams {
-  news: News;
+  newsId: string;
+  slug: string;
 }
 
 export default function CustomNewsDetails() {
-  const { news: newsFromParams } = useRoute().params as NewsParams;
+  const { newsId, slug } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -95,11 +96,9 @@ export default function CustomNewsDetails() {
   }
 
   const queryFn = async (): Promise<News> => {
-    return httpRequest
-      .get(`/news/${newsFromParams.slug}/${newsFromParams.id}`)
-      .then((res) => {
-        return res.data.news;
-      });
+    return httpRequest.get(`/news/${slug}/${newsId}`).then((res) => {
+      return res.data.news;
+    });
   };
 
   const {
@@ -107,9 +106,9 @@ export default function CustomNewsDetails() {
     isLoading,
     error,
     refetch,
-  } = useQuery<News>([`news-${newsFromParams?.id}`], queryFn, {
-    staleTime: 60000,
-    refetchOnWindowFocus: false,
+  } = useQuery<News>([`news-${newsId}`], queryFn, {
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
 
   const bookmarksMutation = useMutation(
@@ -122,7 +121,7 @@ export default function CustomNewsDetails() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([`news-${newsFromParams.id}`]);
+        queryClient.invalidateQueries([`news-${newsId}`]);
         queryClient.invalidateQueries(["bookmarks"]);
         queryClient.invalidateQueries(["activities"]);
       },
@@ -139,7 +138,7 @@ export default function CustomNewsDetails() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([`news-${newsFromParams.id}`]);
+        queryClient.invalidateQueries([`news-${newsId}`]);
         queryClient.invalidateQueries(["bookmarks"]);
         queryClient.invalidateQueries(["likes"]);
         queryClient.invalidateQueries(["activities"]);
@@ -153,7 +152,7 @@ export default function CustomNewsDetails() {
     if (!user) return navigation.navigate("AuthSequence", { state: "Sign In" });
     setLikeLoading(true);
     try {
-      const response = await likeMutation.mutateAsync(newsFromParams.id);
+      const response = await likeMutation.mutateAsync(newsId);
       if (response && response.data.message === "News liked") {
         setLikeLoading(false);
         showAlertAndContent({

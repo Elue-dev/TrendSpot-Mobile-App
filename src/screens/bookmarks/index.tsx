@@ -165,7 +165,8 @@ export default function Bookmarks() {
                       <TouchableOpacity
                         onPress={() =>
                           navigation.navigate("CustomNewsDetails", {
-                            news: bookmark.news,
+                            newsId: bookmark.newsId,
+                            slug: bookmark.news.slug,
                           })
                         }
                       >

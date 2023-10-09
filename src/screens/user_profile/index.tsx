@@ -189,7 +189,7 @@ export default function UserProfile() {
               style={{ fontFamily: "rubikSB" }}
               className="text-darkNeutral dark:text-gray-500 text-base font-bold "
             >
-              POSTS ADDED BY {UserFromParams.firstName.toUpperCase()}
+              NEWS ADDED BY {UserFromParams.firstName.toUpperCase()}
             </Text>
           </View>
 

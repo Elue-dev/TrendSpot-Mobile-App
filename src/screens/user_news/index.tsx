@@ -44,103 +44,115 @@ export default function NewsByUser({ userId }: { userId: string }) {
 
   return (
     <ScrollView className="flex-1 bg-white dark:bg-darkNeutral">
-      <FlatList
-        keyExtractor={(userNews) => userNews.id}
-        data={userNews}
-        scrollEnabled={false}
-        renderItem={({ item: news }) => (
-          <View className="bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[5px] rounded-lg relative">
-            <View className="flex-row gap-4">
-              <View className="w-[70%] flex-col justify-around">
-                <View className="flex-row justify-between items-center mb-2">
-                  <View
-                    className="rounded-lg"
-                    style={{ backgroundColor: "rrgba(185, 48, 55, 0.524)" }}
-                  >
-                    <Text
-                      style={{ fontFamily: "rubikREG" }}
-                      className="text-white py-[3px] px-[5px] font-semibold text-sm"
+      {userNews?.length === 0 ? (
+        <Text
+          style={{ fontFamily: "rubikSB" }}
+          className="text-[18px] font-semibold leading-5 text-darkNeutral dark:text-lightText"
+        >
+          No news added yet.
+        </Text>
+      ) : (
+        <FlatList
+          keyExtractor={(userNews) => userNews.id}
+          data={userNews}
+          scrollEnabled={false}
+          renderItem={({ item: news }) => (
+            <View className="bg-shadowWhite dark:bg-transparent border border-gray-200 dark:border-lightBorder shadow-lg px-2 py-4 mt-[5px] rounded-lg relative">
+              <View className="flex-row gap-4">
+                <View className="w-[70%] flex-col justify-around">
+                  <View className="flex-row justify-between items-center mb-2">
+                    <View
+                      className="rounded-lg"
+                      style={{ backgroundColor: "rrgba(185, 48, 55, 0.524)" }}
                     >
-                      {news.category}
-                    </Text>
-                  </View>
-
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("CustomNewsDetails", { news });
-                    }}
-                  >
-                    <View className="flex-row items-center">
                       <Text
-                        style={{ fontFamily: "rubikSB" }}
-                        className="text-primaryColor dark:text-primaryColorLighter mr-1"
+                        style={{ fontFamily: "rubikREG" }}
+                        className="text-white py-[3px] px-[5px] font-semibold text-sm"
                       >
-                        Read More
+                        {news.category}
                       </Text>
-                      <Ionicons
-                        name="arrow-redo-outline"
-                        size={18}
-                        color={COLORS.primaryColorTheme}
-                      />
                     </View>
-                  </TouchableOpacity>
-                </View>
-                <Text
-                  style={{ fontFamily: "rubikSB" }}
-                  className="text-[18px] font-semibold leading-5 text-darkNeutral dark:text-lightText"
-                >
-                  {news.title}
-                </Text>
-                <View className="flex-row items-center justify-between gap-1 pt-2">
-                  <View className="flex-row items-center">
-                    <MaterialCommunityIcons
-                      name="bookmark-plus-outline"
-                      size={20}
-                      color={
-                        isDarkMode
-                          ? COLORS.primaryColorTheme
-                          : COLORS.primaryColor
-                      }
-                    />
 
-                    <Text
-                      style={{ fontFamily: "rubikL" }}
-                      className="text-darkNeutral dark:text-lightText ml-1"
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("CustomNewsDetails", {
+                          newsId: news.id,
+                          slug: news.slug,
+                        });
+                      }}
                     >
-                      {formatTimeAgo(news?.createdAt)}
-                    </Text>
+                      <View className="flex-row items-center">
+                        <Text
+                          style={{ fontFamily: "rubikSB" }}
+                          className="text-primaryColor dark:text-primaryColorLighter mr-1"
+                        >
+                          Read More
+                        </Text>
+                        <Ionicons
+                          name="arrow-redo-outline"
+                          size={18}
+                          color={COLORS.primaryColorTheme}
+                        />
+                      </View>
+                    </TouchableOpacity>
                   </View>
+                  <Text
+                    style={{ fontFamily: "rubikSB" }}
+                    className="text-[18px] font-semibold leading-5 text-darkNeutral dark:text-lightText"
+                  >
+                    {news.title}
+                  </Text>
+                  <View className="flex-row items-center justify-between gap-1 pt-2">
+                    <View className="flex-row items-center">
+                      <MaterialCommunityIcons
+                        name="bookmark-plus-outline"
+                        size={20}
+                        color={
+                          isDarkMode
+                            ? COLORS.primaryColorTheme
+                            : COLORS.primaryColor
+                        }
+                      />
 
-                  <View className="flex-row items-center">
-                    <Ionicons
-                      name="ios-time-outline"
-                      size={16}
-                      color={
-                        isDarkMode
-                          ? COLORS.primaryColorTheme
-                          : COLORS.primaryColor
-                      }
-                    />
-                    <Text
-                      style={{ fontFamily: "rubikL" }}
-                      className="text-darkNeutral dark:text-lightText ml-1"
-                    >
-                      {news.readTime} mins read
-                    </Text>
+                      <Text
+                        style={{ fontFamily: "rubikL" }}
+                        className="text-darkNeutral dark:text-lightText ml-1"
+                      >
+                        {formatTimeAgo(news?.createdAt)}
+                      </Text>
+                    </View>
+
+                    <View className="flex-row items-center">
+                      <Ionicons
+                        name="ios-time-outline"
+                        size={16}
+                        color={
+                          isDarkMode
+                            ? COLORS.primaryColorTheme
+                            : COLORS.primaryColor
+                        }
+                      />
+                      <Text
+                        style={{ fontFamily: "rubikL" }}
+                        className="text-darkNeutral dark:text-lightText ml-1"
+                      >
+                        {news.readTime} mins read
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-              <View className="w-[25%]">
-                <Image
-                  source={{ uri: news.image }}
-                  className="h-32 w-20 rounded-lg bg-primaryColorDisabled"
-                  resizeMode="cover"
-                />
+                <View className="w-[25%]">
+                  <Image
+                    source={{ uri: news.image }}
+                    className="h-32 w-20 rounded-lg bg-primaryColorDisabled"
+                    resizeMode="cover"
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        )}
-      />
+          )}
+        />
+      )}
     </ScrollView>
   );
 }

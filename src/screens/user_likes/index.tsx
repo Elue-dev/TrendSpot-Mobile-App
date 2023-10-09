@@ -100,7 +100,8 @@ export default function UserLikes() {
                     <TouchableOpacity
                       onPress={() =>
                         navigation.navigate("CustomNewsDetails", {
-                          news: like.news,
+                          newsId: like.newsId,
+                          slug: like.news.slug,
                         })
                       }
                     >

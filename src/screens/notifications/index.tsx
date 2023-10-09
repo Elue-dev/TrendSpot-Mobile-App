@@ -23,10 +23,11 @@ import UnionSVG from "../../assets/union.svg";
 import { User } from "../../types/auth";
 import { useAlert } from "../../context/alert/AlertContext";
 import { useModal } from "../../context/modal/ModalCotext";
+import { RefreshControl } from "react-native-gesture-handler";
 
 function AuthenticatedNotifications({ user }: { user: User }) {
   const [loading, setLoading] = useState(false);
-
+  const [refresh, setRefresh] = useState(false);
   const [allLoading, setAllLoading] = useState(false);
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
@@ -34,36 +35,15 @@ function AuthenticatedNotifications({ user }: { user: User }) {
     headers: { authorization: `Bearer ${user?.token}` },
   };
   const { showAlertAndContent } = useAlert();
-  const { showModalAndContent, setParam } = useModal();
+  const { showModalAndContent } = useModal();
   const queryClient = useQueryClient();
 
-  const queryFn = async function (): Promise<NotificationsI[]> {
-    return httpRequest
-      .get(`/notifications?userId=${user?.id}`, authHeaders)
-      .then((res) => {
-        return res.data.notifications;
-      });
-  };
+  function handleRefresh() {
+    setRefresh(true);
+    queryClient.invalidateQueries(["notifications"]);
 
-  const {
-    data: notifications,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery<NotificationsI[]>(["notifications"], queryFn, {
-    staleTime: 60000,
-    refetchOnWindowFocus: true,
-    onError(error) {
-      console.log(error);
-    },
-  });
-
-  if (isLoading) return <Loader />;
-  if (error) return <ServerError refetch={refetch} />;
-
-  const unRead = notifications?.filter(
-    (notification) => notification.isRead === false
-  );
+    setTimeout(() => setRefresh(false), 3000);
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -97,12 +77,40 @@ function AuthenticatedNotifications({ user }: { user: User }) {
             }
           >
             <Text className="text-primaryColorTheme text-sm">
-              {allLoading ? "..." : "   Mark All As Read"}
+              {allLoading ? "..." : "Mark All As Read"}
             </Text>
           </TouchableOpacity>
         ),
     });
   }, [isDarkMode]);
+
+  const queryFn = async function (): Promise<NotificationsI[]> {
+    return httpRequest
+      .get(`/notifications?userId=${user?.id}`, authHeaders)
+      .then((res) => {
+        return res.data.notifications;
+      });
+  };
+
+  const {
+    data: notifications,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery<NotificationsI[]>(["notifications"], queryFn, {
+    staleTime: 60000,
+    refetchOnWindowFocus: true,
+    onError(error) {
+      console.log(error);
+    },
+  });
+
+  if (isLoading) return <Loader />;
+  if (error) return <ServerError refetch={refetch} />;
+
+  const unRead = notifications?.filter(
+    (notification) => notification.isRead === false
+  );
 
   async function markNotificationAsRead(notifId: string | null, type: string) {
     try {
@@ -146,6 +154,14 @@ function AuthenticatedNotifications({ user }: { user: User }) {
       showsVerticalScrollIndicator={false}
       className="flex-1 bg-shadowWhite dark:bg-darkNeutral"
     >
+      <RefreshControl
+        refreshing={refresh}
+        onRefresh={handleRefresh}
+        progressBackgroundColor={
+          isDarkMode ? COLORS.primaryColor : COLORS.primaryColorTheme
+        }
+        tintColor={isDarkMode ? COLORS.primaryColorTheme : COLORS.primaryColor}
+      />
       <View className="mx-2 mt-3 mb-12">
         {notifications?.length === 0 ? (
           <View className="mt-4">
@@ -182,7 +198,7 @@ function AuthenticatedNotifications({ user }: { user: User }) {
                 </View>
                 <View className="flex-row justify-between items-center">
                   <View className="flex-row justify-between items-center">
-                    <View className="flex-row items-center gap-1 mr-28">
+                    <View className="flex-row items-center gap-1">
                       <MaterialIcons
                         name="date-range"
                         size={20}
@@ -195,54 +211,61 @@ function AuthenticatedNotifications({ user }: { user: User }) {
                         {formatTimeAgo(notification.notificationDate)}
                       </Text>
                     </View>
-                    <View className="flex-row items-center gap-2">
-                      {!notification.isRead && (
-                        <TouchableOpacity
-                          onPress={
-                            loading
-                              ? () => {}
-                              : () =>
-                                  markNotificationAsRead(
-                                    notification.id,
-                                    "specific"
-                                  )
-                          }
-                        >
-                          <Text className="text-primaryColorTheme underline text-[16px]">
-                            {loading ? "..." : "Mark as Read"}
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                      <TouchableOpacity
-                        onPress={() =>
-                          handleDeleteNotification(notification.id)
-                        }
-                      >
-                        <AntDesign
-                          name="delete"
-                          size={17}
-                          color={COLORS.primaryColorTheme}
-                        />
-                      </TouchableOpacity>
-                    </View>
                   </View>
+                </View>
+
+                <View className="flex-row items-end justify-end gap-2 pt-2">
+                  {!notification.isRead && (
+                    <TouchableOpacity
+                      onPress={
+                        loading
+                          ? () => {}
+                          : () =>
+                              markNotificationAsRead(
+                                notification.id,
+                                "specific"
+                              )
+                      }
+                    >
+                      <Text className="text-primaryColorTheme underline">
+                        {loading ? "..." : "Mark as Read"}
+                      </Text>
+                    </TouchableOpacity>
+                  )}
 
                   {notification.category === "news" && (
                     <TouchableOpacity
                       onPress={() =>
                         navigation.navigate("CustomNewsDetails", {
-                          news: notification.news,
+                          newsId: notification.news?.id,
+                          slug: notification.news?.slug,
                         })
                       }
                     >
                       <Text
                         style={{ fontFamily: "rubikREG" }}
-                        className="text-primaryColorTheme ml-auto underline"
+                        className="text-primaryColorTheme underline"
                       >
                         See News
                       </Text>
                     </TouchableOpacity>
                   )}
+
+                  <TouchableOpacity
+                    onPress={() => handleDeleteNotification(notification.id)}
+                  >
+                    <Text
+                      style={{ fontFamily: "rubikREG" }}
+                      className="text-primaryColorTheme underline"
+                    >
+                      Delete
+                    </Text>
+                    {/* <AntDesign
+                      name="delete"
+                      size={17}
+                      color={COLORS.primaryColorTheme}
+                    /> */}
+                  </TouchableOpacity>
                 </View>
               </View>
             )}

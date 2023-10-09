@@ -130,22 +130,26 @@ function AuthenticatedActivities({ user }: { user: User }) {
                     </Text>
                   </View>
 
-                  {activity.category === "news" && (
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("CustomNewsDetails", {
-                          news: activity.news,
-                        })
-                      }
-                    >
-                      <Text
-                        style={{ fontFamily: "rubikREG" }}
-                        className="text-primaryColorTheme"
+                  {activity.category === "news" &&
+                    activity.news?.status !== "draft" && (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("CustomNewsDetails", {
+                            newId: activity.news?.id,
+                            slug: activity.news?.slug,
+                          })
+                        }
                       >
-                        See News
-                      </Text>
-                    </TouchableOpacity>
-                  )}
+                        <Text
+                          style={{ fontFamily: "rubikREG" }}
+                          className="text-primaryColorTheme"
+                        >
+                          {activity.news?.status === "draft"
+                            ? "News removed"
+                            : "  See News"}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
                 </View>
               </View>
             )}

@@ -184,7 +184,10 @@ export default function ExploreCustomNews() {
                         <TouchableOpacity
                           onPress={() => {
                             navigation.goBack();
-                            navigation.navigate("CustomNewsDetails", { news });
+                            navigation.navigate("CustomNewsDetails", {
+                              newsId: news.id,
+                              slug: news.slug,
+                            });
                           }}
                         >
                           <SimpleLineIcons
