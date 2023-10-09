@@ -52,6 +52,9 @@ export default function Modal() {
       case "DeleteNotif":
         deleteNotification();
         break;
+      case "ClearNotifs":
+        clearNotifications();
+        break;
       default:
         return null;
     }
@@ -162,6 +165,34 @@ export default function Modal() {
         authHeaders
       );
 
+      if (response) {
+        setLoading(false);
+        closeModal();
+        setParam(null);
+        queryClient.invalidateQueries(["notifications"]);
+        showAlertAndContent({
+          type: "success",
+          message: response.data.message,
+        });
+      }
+    } catch (error: any) {
+      console.log(error);
+      setLoading(false);
+      closeModal();
+      showAlertAndContent({
+        type: "error",
+        message:
+          error.response.data.message ||
+          "Something went wrong. Please try again",
+      });
+    }
+  }
+
+  async function clearNotifications() {
+    setLoading(true);
+
+    try {
+      const response = await httpRequest.delete(`/notifications`, authHeaders);
       if (response) {
         setLoading(false);
         closeModal();

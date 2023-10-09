@@ -10,7 +10,12 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../context/auth/AuthContext";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
 import { Platform } from "react-native";
-import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialIcons,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { httpRequest } from "../../services";
 import { Notifications as NotificationsI } from "../../types/activities";
@@ -137,6 +142,16 @@ function AuthenticatedNotifications({ user }: { user: User }) {
     });
   }
 
+  async function handleClearNotifications() {
+    showModalAndContent({
+      title: "Clear Notifications",
+      message:
+        "Are you sure you want to clear all your notifications? This action cannot be reversed",
+      actionBtnText: "YES, CLEAR",
+      action: "ClearNotifs",
+    });
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -162,31 +177,57 @@ function AuthenticatedNotifications({ user }: { user: User }) {
             </Text>
           </View>
         ) : (
-          <View className="pb-5 flex-row items-center justify-between">
+          <View className="pb-5">
+            {/* flex-row items-center justify-between */}
             <Text
               style={{ fontFamily: "rubikB" }}
-              className="text-primaryColorTheme text-[15px] font-bold"
+              className="text-darkNeutral dark:text-lightText text-[18px] font-bold text-center"
             >
-              {notifications!.length} notifications (
+              {notifications!.length}{" "}
+              {notifications!.length === 1 ? "notification" : "notifications"} (
               {unReadNotifications!.length} unread)
             </Text>
-            <View>
+            <View className="flex-row justify-center items-center gap-3 pt-3">
+              <View>
+                {unReadNotifications!.length > 1 ? (
+                  <TouchableOpacity
+                    onPress={
+                      allLoading
+                        ? () => {}
+                        : () => markNotificationAsRead(null, "all")
+                    }
+                    className="flex-row items-center gap-1"
+                  >
+                    <FontAwesome5
+                      name="check-double"
+                      size={13}
+                      color={COLORS.primaryColorTheme}
+                    />
+                    <Text
+                      style={{ fontFamily: "rubikB" }}
+                      className="text-primaryColorTheme  font-bold"
+                    >
+                      {allLoading ? "..." : "Mark All As Read"}
+                    </Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+
               {unReadNotifications!.length > 1 ? (
                 <TouchableOpacity
-                  onPress={
-                    allLoading
-                      ? () => {}
-                      : () => markNotificationAsRead(null, "all")
-                  }
-                  className="flex-row items-center gap-1"
+                  onPress={handleClearNotifications}
+                  className="flex-row items-center"
                 >
-                  <FontAwesome5
-                    name="check-double"
-                    size={13}
+                  <MaterialCommunityIcons
+                    name="delete-forever-outline"
+                    size={15}
                     color={COLORS.primaryColorTheme}
                   />
-                  <Text className="text-primaryColorTheme  font-bold">
-                    {allLoading ? "..." : "Mark All As Read"}
+                  <Text
+                    style={{ fontFamily: "rubikB" }}
+                    className="text-primaryColorTheme font-bold"
+                  >
+                    Clear All Notifications
                   </Text>
                 </TouchableOpacity>
               ) : null}

@@ -167,6 +167,10 @@ export default function SettingsScreen() {
   async function logOutUser() {
     setLoading(true);
     try {
+      setLoading(false);
+      removeActiveUser();
+      navigation.navigate("TabStack", { screen: "Home" });
+      setCurrRoute("Home");
       await httpRequest.put(
         `/users/${user?.id}`,
         {
@@ -175,10 +179,6 @@ export default function SettingsScreen() {
         },
         authHeaders
       );
-      setLoading(false);
-      removeActiveUser();
-      navigation.navigate("TabStack", { screen: "Home" });
-      setCurrRoute("Home");
     } catch (error: any) {
       console.log(error.response.data.message);
       setLoading(false);
