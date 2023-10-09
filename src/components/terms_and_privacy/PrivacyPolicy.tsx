@@ -23,23 +23,7 @@ export default function PrivacyPolicy() {
             content, and improve the overall performance of the app.
           </Text>
         </View>
-        <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
-          <Text
-            style={{ fontFamily: "rubikMD" }}
-            className="text-primaryColor dark:text-primaryColorTheme font-bold text-[18px] pb-1"
-          >
-            News Verification
-          </Text>
-          <Text
-            style={{ fontFamily: "rubikREG" }}
-            className="leading-4 text-base text-darkNeutral dark:text-lightText"
-          >
-            If the app uses user-generated content for news articles, the
-            privacy policy should explain that the submitted content may be
-            subject to verification and may be visible to other users during the
-            moderation process.
-          </Text>
-        </View>
+
         <View className="bg-white dark:bg-darkCard border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-3 rounded-lg mb-1">
           <Text
             style={{ fontFamily: "rubikMD" }}

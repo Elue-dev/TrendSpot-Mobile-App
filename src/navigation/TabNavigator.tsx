@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "ios" ? 2 : 3,
   },
   label: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "600",
     fontFamily: "rubikSB",
   },
