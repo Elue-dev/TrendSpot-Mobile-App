@@ -240,12 +240,12 @@ function AuthenticatedNotifications({ user }: { user: User }) {
           data={notifications}
           renderItem={({ item: notification }) => (
             <View
-              className={` border border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-1 rounded-lg ${
+              className={`border-gray-200 dark:border-lightBorder shadow-sm px-2 py-4 mt-1 rounded-lg ${
                 !notification.isRead && isDarkMode
-                  ? "bg-darkCard"
+                  ? "bg-darkCard border"
                   : !notification.isRead && !isDarkMode
-                  ? "bg-zinc-100"
-                  : "bg-white dark:bg-darkNeutral"
+                  ? "bg-white border"
+                  : "bg-zinc-100 border-2 dark:bg-darkNeutral"
               }`}
             >
               <View className="flex-row items-center mb-2">
@@ -274,7 +274,7 @@ function AuthenticatedNotifications({ user }: { user: User }) {
                 </View>
               </View>
 
-              <View className="flex-row items-end justify-end gap-2 pt-2">
+              <View className="flex-row items-center justify-end gap-2 pt-2 mr-3">
                 {!notification.isRead && (
                   <TouchableOpacity
                     onPress={

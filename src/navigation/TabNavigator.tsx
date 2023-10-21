@@ -180,14 +180,14 @@ export default function TabsNavigator() {
 
 const styles = StyleSheet.create({
   tabBarIcon: {
-    fontSize: Platform.OS === "ios" ? 22 : 25,
+    fontSize: 20,
     paddingTop: Platform.OS === "ios" ? 5 : 0,
   },
   tabBarIconSec: {
     paddingTop: Platform.OS === "ios" ? 2 : 3,
   },
   label: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
     fontFamily: "rubikSB",
   },

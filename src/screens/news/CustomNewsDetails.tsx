@@ -46,10 +46,11 @@ import { DEFAULT_AVATAR } from "../../utils";
 interface NewsParams {
   newsId: string;
   slug: string;
+  fromParams: string;
 }
 
 export default function CustomNewsDetails() {
-  const { newsId, slug } = useRoute().params as NewsParams;
+  const { newsId, slug, fromParams } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -198,13 +199,9 @@ export default function CustomNewsDetails() {
   }
 
   async function shareNews() {
-    const url = await Linking.getInitialURL();
-
-    console.log({ url });
-
     try {
       await Share.share({
-        url: `${url}`,
+        url: `trendspot://news/${slug}/${newsId}`,
       });
     } catch (error: any) {
       showAlertAndContent({
@@ -246,7 +243,11 @@ export default function CustomNewsDetails() {
           <View className="absolute bottom-0 left-0 right-0 h-96 bg-black opacity-50" />
           {/* top icons */}
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={
+              fromParams
+                ? () => navigation.goBack()
+                : () => navigation.navigate("TabStack")
+            }
             className="absolute left-0 top-14 ml-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center"
           >
             <MaterialIcons

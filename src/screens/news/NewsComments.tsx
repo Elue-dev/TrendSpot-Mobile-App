@@ -142,9 +142,9 @@ export default function NewsComments() {
         newsId,
         authorEmail: isReplying ? commentAuthor : newsAuthorEmail,
         authorId: newsAuthorId,
-        path: "exp://172.20.10.10:19000",
+        path: "path",
         parentId: isReplying ? commentId : null,
-        replyerName: user?.firstName!,
+        replyerName: `${user?.firstName!} ${user?.lastName!}`,
       });
       if (response) {
         setComment("");
@@ -154,7 +154,7 @@ export default function NewsComments() {
         inputRef.current.blur();
       }
     } catch (error: any) {
-      console.log(error.response.data.message);
+      console.log("ERROR FROM COMMENT", error.response.data.message);
       setLoading(false);
       if (error.response.data.message.includes("expired")) {
       } else {

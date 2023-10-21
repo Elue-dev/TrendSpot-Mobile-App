@@ -123,15 +123,15 @@ export default function App() {
     }
   }
 
-  useEffect(() => {
-    (async function authenticateUser() {
-      const auth = await LocalAuthetication.authenticateAsync({
-        promptMessage: "Authenticate to continue to TrendSpot",
-        fallbackLabel: "Use Pin/Passcode",
-      });
-      setIsAuthenticated(auth.success);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async function authenticateUser() {
+  //     const auth = await LocalAuthetication.authenticateAsync({
+  //       promptMessage: "Authenticate to continue to TrendSpot",
+  //       fallbackLabel: "Use Pin/Passcode",
+  //     });
+  //     setIsAuthenticated(auth.success);
+  //   })();
+  // }, []);
 
   function authenticateUser() {
     const auth = LocalAuthetication.authenticateAsync({
@@ -180,13 +180,13 @@ export default function App() {
       const url = await Linking.getInitialURL();
       console.log("🚀 ~ file: App.tsx:180 ~ getInitialURL ~ url:", url);
 
-      // if (url != null) return url;
-
       const response = await Notifications.getLastNotificationResponseAsync();
       console.log(
         "🚀 ~ file: App.tsx:186 ~ getInitialURL ~ response:",
         response?.notification.request.content.data
       );
+
+      if (url != null) return url;
 
       return response?.notification.request.content.data.url;
     },
@@ -215,46 +215,44 @@ export default function App() {
 
   return (
     <PushTokenProvider>
-      {isAuthenticated ? (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          {fontLoaded ? (
-            <QueryClientProvider client={queryClient}>
-              <AuthProvider>
-                <BottomSheetProvider>
-                  <ModalProvider>
-                    <AlertProvider>
-                      <NavigationContainer linking={linking}>
-                        <RouteNavigator />
-                        <CustomStatusBar
-                          token={
-                            expoPushToken?.data ? expoPushToken?.data : null
-                          }
-                        />
-                        <Modal />
-                        <Alert />
-                      </NavigationContainer>
-                    </AlertProvider>
-                  </ModalProvider>
-                </BottomSheetProvider>
-              </AuthProvider>
-            </QueryClientProvider>
-          ) : (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <ActivityIndicator color="#000" size="large" />
-            </View>
-          )}
-        </GestureHandlerRootView>
-      ) : (
+      {/* {isAuthenticated ? ( */}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        {fontLoaded ? (
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <BottomSheetProvider>
+                <ModalProvider>
+                  <AlertProvider>
+                    <NavigationContainer linking={linking}>
+                      <RouteNavigator />
+                      <CustomStatusBar
+                        token={expoPushToken?.data ? expoPushToken?.data : null}
+                      />
+                      <Modal />
+                      <Alert />
+                    </NavigationContainer>
+                  </AlertProvider>
+                </ModalProvider>
+              </BottomSheetProvider>
+            </AuthProvider>
+          </QueryClientProvider>
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator color="#000" size="large" />
+          </View>
+        )}
+      </GestureHandlerRootView>
+      {/* ) : (
         <>
           <AccessPrompt authenticateUser={authenticateUser} />
         </>
-      )}
+      )} */}
     </PushTokenProvider>
   );
 }
