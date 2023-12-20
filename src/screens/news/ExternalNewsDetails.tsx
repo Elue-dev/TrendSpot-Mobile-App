@@ -8,6 +8,7 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  Button,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { ExternalNewsI } from "../../types/news";
@@ -25,6 +26,7 @@ import {
 } from "@expo/vector-icons";
 import { COLORS } from "../../common/colors";
 import { useSheet } from "../../context/bottom_sheet/BottomSheetContext";
+import * as WebBrowser from "expo-web-browser";
 
 interface NewsParams {
   news: ExternalNewsI;
@@ -34,6 +36,18 @@ export default function ExternalNewsDetails() {
   const { news } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useSheet();
+
+  async function openWebBrowser(url: string) {
+    await WebBrowser.openBrowserAsync(url, {
+      toolbarColor: "#74171C",
+      controlsColor: "#FFFFFF",
+      showTitle: false,
+      enableDefaultShareMenuItem: false,
+      enableBarCollapsing: true,
+      readerMode: false,
+      dismissButtonStyle: "close",
+    });
+  }
 
   return (
     <View className="bg-shadowWhite dark:bg-darkNeutral flex-1">
@@ -121,7 +135,7 @@ export default function ExternalNewsDetails() {
             </Text>
 
             <TouchableOpacity
-              onPress={() => Linking.openURL(news.url)}
+              onPress={() => openWebBrowser(news.url)}
               className=" py-2 px-6 mt-8 rounded-md border-2 border-primaryColor dark:border-primaryColorTheme"
             >
               <Text

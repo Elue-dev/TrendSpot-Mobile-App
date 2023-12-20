@@ -9,10 +9,8 @@ import {
   Animated,
   ActivityIndicator,
   Platform,
-  Share,
-  Linking,
 } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { News } from "../../types/news";
 import {
   NavigationProp,
@@ -46,11 +44,10 @@ import { DEFAULT_AVATAR } from "../../utils";
 interface NewsParams {
   newsId: string;
   slug: string;
-  fromParams: string;
 }
 
 export default function CustomNewsDetails() {
-  const { newsId, slug, fromParams } = useRoute().params as NewsParams;
+  const { newsId, slug } = useRoute().params as NewsParams;
   const navigation = useNavigation<NavigationProp<any>>();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -198,19 +195,6 @@ export default function CustomNewsDetails() {
     return news?.likes?.some((like) => like?.userId === user?.id);
   }
 
-  async function shareNews() {
-    try {
-      await Share.share({
-        url: `trendspot://news/${slug}/${newsId}`,
-      });
-    } catch (error: any) {
-      showAlertAndContent({
-        type: "info",
-        message: "Something went wrong. Please try again later.",
-      });
-    }
-  }
-
   return (
     <View className="bg-shadowWhite dark:bg-darkNeutral flex-1">
       {scrollPage && (
@@ -243,11 +227,7 @@ export default function CustomNewsDetails() {
           <View className="absolute bottom-0 left-0 right-0 h-96 bg-black opacity-50" />
           {/* top icons */}
           <TouchableOpacity
-            onPress={
-              fromParams
-                ? () => navigation.goBack()
-                : () => navigation.navigate("TabStack")
-            }
+            onPress={() => navigation.goBack()}
             className="absolute left-0 top-14 ml-3 bg-shadowWhite rounded-full h-7 w-7 flex-col justify-center items-center"
           >
             <MaterialIcons
@@ -394,13 +374,13 @@ export default function CustomNewsDetails() {
                       />
                     </TouchableOpacity>
                   )}
-                  <TouchableOpacity onPress={shareNews}>
+                  {/* <TouchableOpacity onPress={shareNews}>
                     <AntDesign
                       name="sharealt"
                       size={24}
                       color={COLORS.primaryColorTheme}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               </View>
             </View>

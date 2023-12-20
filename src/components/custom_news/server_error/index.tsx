@@ -31,6 +31,10 @@ export default function ServerError({ refetch }: { refetch: () => void }) {
           Something Went Wrong ☹️
         </Text>
 
+        <Text className="font-bold text-xl text-authDark dark:text-lightText text-center">
+          Your session may have expired. Try to sign in again.
+        </Text>
+
         <TouchableOpacity onPress={retryAndGetNewUserToken}>
           <Text className="text-primaryColor dark:text-primaryColorTheme text-xl text-center">
             Retry

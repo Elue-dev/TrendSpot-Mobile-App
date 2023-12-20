@@ -165,7 +165,7 @@ export default function App() {
   const queryClient = new QueryClient();
 
   const linking = {
-    prefixes: ["trendspot://"],
+    prefixes: ["impressionapp://"],
     config: {
       screens: {
         Main: "/",
